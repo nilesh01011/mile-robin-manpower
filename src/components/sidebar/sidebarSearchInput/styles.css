@@ -1,0 +1,64 @@
+.SearchInput {
+  width: 100%;
+  height: 35px;
+  border-radius: 5px;
+  border: 1px solid #b5b5b6;
+  padding: 8px 12px;
+  transition: none;
+}
+.SearchInput:focus {
+  border-color: #ff3e5b !important;
+  outline: none;
+}
+.SearchInput input {
+  height: 32px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  background-color: transparent !important;
+}
+.SearchInput input:focus {
+  border-color: #ff3e5b;
+  box-shadow: none;
+}
+.SearchInput button {
+  background-color: transparent;
+  box-shadow: none;
+  color: #ff3e5b;
+  padding: 5px 12px !important;
+}
+.SearchInput button:hover {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+.SearchInput button:active {
+  box-shadow: none !important;
+}
+.SearchInput + svg {
+  margin-left: -50px;
+  margin-top: -4px;
+  visibility: visible;
+  cursor: pointer;
+}
+.SearchInput:-moz-placeholder-shown + svg {
+  visibility: hidden;
+}
+.SearchInput:placeholder-shown + svg {
+  visibility: hidden;
+}
+.SearchInput::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+.SearchInput.DarkSearchInput {
+  border: 1px solid #342c2c;
+}
+.SearchInput.DarkSearchInput input {
+  color: #fff !important;
+}
+.SearchInput.DarkSearchInput input::-moz-placeholder {
+  color: #8e8585;
+}
+.SearchInput.DarkSearchInput input::placeholder {
+  color: #8e8585;
+}/*# sourceMappingURL=styles.css.map */

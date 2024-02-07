@@ -1,0 +1,25 @@
+.inputText {
+  border-radius: 4px;
+  width: 100%;
+  border: 1px solid;
+  position: relative;
+}
+.inputText input {
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 5px 12px;
+  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  font-size: 14px !important;
+}
+
+@media screen and (max-width: 992px) {
+  .inputText {
+    margin-top: 6px;
+  }
+}/*# sourceMappingURL=styles.css.map */

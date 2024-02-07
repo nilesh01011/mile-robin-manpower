@@ -1,0 +1,113 @@
+.notificationItems {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 16px;
+    position: relative;
+    cursor: pointer;
+  
+    // &.lightTheme:hover {
+    //   background-color: #E6E6E6;
+    // }
+    
+    // &.darkTheme:hover {
+    //   background-color: #1C1C1C;
+    // }
+  
+    & .status {
+      position: absolute;
+      left: 16px;
+      // left: 18px;
+      top: 16px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #ff3e5b;
+    }
+  
+    & .content {
+      padding-left: 18px;
+      position: relative;
+  
+      & h4 {
+        font-size: 16px;
+        font-weight: 400;
+        position: relative;
+      }
+  
+      & p {
+        font-size: 14px;
+        color: #858585;
+        margin: 4px 0;
+      }
+  
+      & .master_TimeData {
+        display: flex;
+        align-items: center;
+  
+        & span {
+          font-size: 12px;
+        }
+  
+        & .divider {
+          width: 1px;
+          height: 10px;
+          margin: 0 6px;
+          display: block;
+          background: #858585;
+        }
+  
+        & .dateTime {
+          display: flex;
+          align-items: center;
+          color: #858585;
+  
+          & .dots {
+            width: 2px;
+            height: 2px;
+            border-radius: 50%;
+            background: #858585;
+            margin: 0 4px;
+            display: inline-block;
+          }
+        }
+      }
+    }
+  
+    // edits
+    & .edits {
+      cursor: pointer;
+    }
+  
+    & .editMails {
+      position: absolute;
+      right: 18px;
+      top: 40px;
+      border: 1px solid;
+      border-radius: 4px;
+      padding: 10px;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+  
+      & span {
+        padding: 5px 10px;
+        cursor: pointer;
+        font-size: 14px;
+  
+        &.light:hover {
+          background: #F2F2F2;
+          color: #ff3e5b;
+        }
+  
+        &.dark:hover {
+          background: #232324;
+          color: #ff3e5b;
+        }
+      }
+    }
+  }
+  

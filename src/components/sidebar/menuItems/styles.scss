@@ -1,0 +1,136 @@
+.menuListContainer {
+    // margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 5;
+    // overflow: scroll;
+    // max-height: 630px;
+  
+    // &::-webkit-scrollbar {
+    //   // opacity: 0;
+    //   // width: 8px;
+    //   display: none;
+    // }
+  
+    // &.activeScrollbar::-webkit-scrollbar {
+    //   opacity: 1;
+    // }
+  
+    // &.activeScrollbar.lightTheme::-webkit-scrollbar-track {
+    //   background: #f0efef;
+    // }
+  
+    // &.activeScrollbar.darkTheme::-webkit-scrollbar-track {
+    //   background: #1c1c1c;
+    // }
+  
+    // &.activeScrollbar::-webkit-scrollbar-thumb {
+    //   border-radius: 10px;
+    // }
+  
+    // &.activeScrollbar.lightTheme::-webkit-scrollbar-thumb {
+    //   background: #8a8a8a;
+    // }
+  
+    // &.activeScrollbar.darkTheme::-webkit-scrollbar-thumb {
+    //   background: #545454;
+    // }
+  }
+  
+  .menuLists {
+    margin-top: 2px;
+    position: relative;
+  
+    & ul {
+      margin: 0 !important;
+  
+      & .items {
+        font-size: 14px !important;
+      }
+    }
+  
+    & .menuItemsHead {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+  
+    & .items {
+      width: 100%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      height: 32px;
+      gap: 10px;
+      white-space: nowrap;
+
+      & .itemName {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        width: 200px;
+        white-space: nowrap;
+      }
+  
+      &:hover,
+      &:hover .menuText {
+        color: #ff3e5b !important;
+      }
+    }
+  
+    & .tooltip {
+      position: absolute;
+      top: 50%;
+      left: 140%;
+      transform: translateY(-50%);
+      width: max-content;
+      display: block;
+      padding: 6px 14px;
+      border-radius: 5px;
+      height: max-content;
+      z-index: 10;
+      font-size: 14px;
+      display: block;
+  
+      & .tooltipHead {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        cursor: pointer;
+      }
+  
+      &::before {
+        content: "";
+        position: absolute;
+        border: 6px solid transparent;
+        left: -12px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+  
+      &.lightTheme::before {
+        border-right-color: #ffffff;
+      }
+  
+      &.darkTheme::before {
+        border-right-color: #545454;
+      }
+    }
+  }
+  
+  // media queries
+  @media screen and (max-width: 992px) {
+    .menuListContainer {
+      display: none;
+    }
+  
+    // .mobileView {
+    //   display: flex;
+    //   flex-direction: column;
+    //   gap: 10px;
+    // }
+  }
+  

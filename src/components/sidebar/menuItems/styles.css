@@ -1,0 +1,85 @@
+.menuListContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 5;
+}
+
+.menuLists {
+  margin-top: 2px;
+  position: relative;
+}
+.menuLists ul {
+  margin: 0 !important;
+}
+.menuLists ul .items {
+  font-size: 14px !important;
+}
+.menuLists .menuItemsHead {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+.menuLists .items {
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  height: 32px;
+  gap: 10px;
+  white-space: nowrap;
+}
+.menuLists .items .itemName {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 200px;
+  white-space: nowrap;
+}
+.menuLists .items:hover, .menuLists .items:hover .menuText {
+  color: #ff3e5b !important;
+}
+.menuLists .tooltip {
+  position: absolute;
+  top: 50%;
+  left: 140%;
+  transform: translateY(-50%);
+  width: -moz-max-content;
+  width: max-content;
+  display: block;
+  padding: 6px 14px;
+  border-radius: 5px;
+  height: -moz-max-content;
+  height: max-content;
+  z-index: 10;
+  font-size: 14px;
+  display: block;
+}
+.menuLists .tooltip .tooltipHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  cursor: pointer;
+}
+.menuLists .tooltip::before {
+  content: "";
+  position: absolute;
+  border: 6px solid transparent;
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.menuLists .tooltip.lightTheme::before {
+  border-right-color: #ffffff;
+}
+.menuLists .tooltip.darkTheme::before {
+  border-right-color: #545454;
+}
+
+@media screen and (max-width: 992px) {
+  .menuListContainer {
+    display: none;
+  }
+}/*# sourceMappingURL=styles.css.map */

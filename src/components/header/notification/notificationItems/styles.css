@@ -1,0 +1,88 @@
+.notificationItems {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 16px;
+  position: relative;
+  cursor: pointer;
+}
+.notificationItems .status {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ff3e5b;
+}
+.notificationItems .content {
+  padding-left: 18px;
+  position: relative;
+}
+.notificationItems .content h4 {
+  font-size: 16px;
+  font-weight: 400;
+  position: relative;
+}
+.notificationItems .content p {
+  font-size: 14px;
+  color: #858585;
+  margin: 4px 0;
+}
+.notificationItems .content .master_TimeData {
+  display: flex;
+  align-items: center;
+}
+.notificationItems .content .master_TimeData span {
+  font-size: 12px;
+}
+.notificationItems .content .master_TimeData .divider {
+  width: 1px;
+  height: 10px;
+  margin: 0 6px;
+  display: block;
+  background: #858585;
+}
+.notificationItems .content .master_TimeData .dateTime {
+  display: flex;
+  align-items: center;
+  color: #858585;
+}
+.notificationItems .content .master_TimeData .dateTime .dots {
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #858585;
+  margin: 0 4px;
+  display: inline-block;
+}
+.notificationItems .edits {
+  cursor: pointer;
+}
+.notificationItems .editMails {
+  position: absolute;
+  right: 18px;
+  top: 40px;
+  border: 1px solid;
+  border-radius: 4px;
+  padding: 10px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.notificationItems .editMails span {
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.notificationItems .editMails span.light:hover {
+  background: #F2F2F2;
+  color: #ff3e5b;
+}
+.notificationItems .editMails span.dark:hover {
+  background: #232324;
+  color: #ff3e5b;
+}/*# sourceMappingURL=styles.css.map */

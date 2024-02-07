@@ -1,0 +1,42 @@
+.mobileViewMenuListContainer {
+    width: 100%;
+    height: 100%;
+    display: none;
+    padding-left: 14px;
+    padding-right: 10px;
+  }
+  
+  // media queries
+  @media screen and (max-width: 992px) {
+    .mobileViewMenuListContainer {
+      display: block;
+      // overflow-y: scroll;
+      // overflow-x: hidden;
+      // padding-bottom: 68px;
+  
+      // &::-webkit-scrollbar {
+      //   width: 5px;
+      // }
+  
+      // &::-webkit-scrollbar-thumb {
+      //   border-radius: 4px;
+      // }
+  
+      // &.lightScrollbar::-webkit-scrollbar-track {
+      //   background: #f0efef;
+      // }
+  
+      // &.darkScrollbar::-webkit-scrollbar-track {
+      //   background: #1c1c1c;
+      // }
+  
+      // &.lightScrollbar::-webkit-scrollbar-thumb {
+      //   background: #b5b5b6;
+      // }
+  
+      // &.darkScrollbar::-webkit-scrollbar-thumb {
+      //   background: #545454;
+      // }
+    }
+  }
+  

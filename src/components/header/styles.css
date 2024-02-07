@@ -1,0 +1,353 @@
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  padding-left: 40px;
+  padding-right: 40px;
+  box-sizing: border-box;
+}
+.header .headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.header .headerLeft .mobileViewBtn {
+  display: none;
+}
+.header .headerLeft .userAvatar {
+  height: 48px;
+}
+.header .headerLeft .userAvatar .userAvatarInside {
+  font-size: 1.6rem;
+}
+.header .headerLeft .userAvatar span {
+  width: 45px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header .headerLeft .userText {
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+}
+.header .headerLeft .userText span {
+  font-size: 12px;
+}
+.header .headerLeft .userText p {
+  margin: 0;
+}
+.header .headerLeft .userText .dealerName {
+  font-size: 16px;
+  padding-bottom: 2px;
+  font-weight: 600;
+}
+.header .headerLeft .userText .dropdownLocationFinalYear {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.header .headerLeft .userText .dropdownLocationFinalYear .dropdown-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.header .headerLeft .userText .dropdownLocationFinalYear .dropdown-container .finalYearDropdown, .header .headerLeft .userText .dropdownLocationFinalYear .dropdown-container .locationDropdownList {
+  position: absolute;
+  top: 150%;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: -moz-max-content;
+  height: max-content;
+  border-radius: 4px;
+  padding: 8px;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.15);
+  z-index: 12;
+  border: 1px solid;
+}
+.header .headerLeft .userText .dropdownLocationFinalYear .dropdown-container .finalYearDropdown .lists, .header .headerLeft .userText .dropdownLocationFinalYear .dropdown-container .locationDropdownList .lists {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.header .headerLeft .userText .dropdownLocationFinalYear .dropdown-container .finalYearDropdown .lists:hover .iconsColor svg path:first-child, .header .headerLeft .userText .dropdownLocationFinalYear .dropdown-container .locationDropdownList .lists:hover .iconsColor svg path:first-child {
+  fill: #ff3e5b !important;
+}
+.header .headerLeft .userText .dropdownLocationFinalYear .dropdown-container .finalYearDropdown .lists.lightTheme:hover, .header .headerLeft .userText .dropdownLocationFinalYear .dropdown-container .locationDropdownList .lists.lightTheme:hover {
+  background: #f2f2f2;
+}
+.header .headerLeft .userText .dropdownLocationFinalYear .dropdown-container .finalYearDropdown .lists.darkTheme:hover, .header .headerLeft .userText .dropdownLocationFinalYear .dropdown-container .locationDropdownList .lists.darkTheme:hover {
+  background: #232324;
+}
+.header .headerLeft .userText .dropdownLocationFinalYear .dropdown-container .finalYearDropdown .lists p, .header .headerLeft .userText .dropdownLocationFinalYear .dropdown-container .locationDropdownList .lists p {
+  text-transform: capitalize;
+  border-radius: 4px;
+  padding: 5px 10px;
+}
+.header .headerLeft .userText .dropdownLocationFinalYear .dropdown-container .finalYearDropdown .lists:not(:last-child), .header .headerLeft .userText .dropdownLocationFinalYear .dropdown-container .locationDropdownList .lists:not(:last-child) {
+  margin-bottom: 2px;
+}
+.header .headerLeft .userText .dropdownLocationFinalYear .dropdown-container .finalYearDropdown {
+  min-width: 138px;
+}
+.header .headerLeft .userText .dropdownLocationFinalYear .dropdown-container .locationDropdownList {
+  min-width: -moz-max-content;
+  min-width: max-content;
+}
+.header .headerLeft .userText .userServiceArea {
+  color: #6c757d;
+  font-size: 14px;
+  font-weight: 500;
+}
+.header .headerRight {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  position: relative;
+}
+.header .headerRight .helpDesk {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header .headerRight .helpDesk .helpDeskText {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  font-size: 12px;
+  font-weight: 500;
+}
+.header .headerRight .helpDesk .helpDeskText:hover {
+  color: #ea3434;
+}
+.header .headerRight .userProfileContainer {
+  position: relative;
+}
+.header .headerRight .userProfileContainer .userProfile {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.header .headerRight .userProfileContainer .userProfile .username {
+  font-weight: 700;
+}
+.header .headerRight .userProfileContainer .userProfile .username {
+  font-size: 16px;
+}
+.header .headerRight .userProfileContainer .userProfile .userAvatar {
+  font-size: 16px;
+  font-weight: 600;
+}
+.header .headerRight .userProfileContainer .userProfile .userAvatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid #e6e6e6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+}
+.header .headerRight .userProfileContainer .userProfile .userDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.header .headerRight .userProfileContainer .userProfile .userDetails p {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+.header .headerRight .userProfileContainer .userProfile .userDetails p .userNumber {
+  width: 68px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+}
+.header .headerRight .userProfileContainer .userProfile .userDetails p .userNumber svg {
+  font-size: 14px;
+}
+.header .headerRight .userProfileContainer .dropdownUserDetails {
+  position: absolute;
+  top: 120%;
+  right: 0;
+  width: 120%;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  height: -moz-max-content;
+  height: max-content;
+  border-radius: 4px;
+  padding: 12px 10px;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.15);
+  border: 1px solid;
+  z-index: 12;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.header .headerRight .userProfileContainer .dropdownUserDetails .lists {
+  width: 100%;
+  white-space: nowrap;
+  font-size: 12px;
+  cursor: pointer;
+}
+.header .headerRight .userProfileContainer .dropdownUserDetails .lists .dropdown-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 23px;
+  padding: 5px 8px;
+  border-radius: 4px;
+}
+.header .headerRight .userProfileContainer .dropdownUserDetails .lists .dropdown-header.lightTheme:hover {
+  background-color: #f2f2f2;
+}
+.header .headerRight .userProfileContainer .dropdownUserDetails .lists .dropdown-header.darkTheme:hover {
+  background-color: #232324;
+}
+.header .headerRight .userProfileContainer .dropdownUserDetails .lists .dropdown-header:hover {
+  color: #ff3e5b;
+}
+.header .headerRight .userProfileContainer .dropdownUserDetails .lists .dropdown-header p {
+  text-transform: capitalize;
+  font-size: 14px;
+}
+.header .headerRight .userProfileContainer .dropdownUserDetails .lists .dropdown-header:not(:last-child) {
+  margin-bottom: 10px;
+}
+.header .headerRight .userProfileContainer .dropdownUserDetails .lists .dropdown-header .leftSideDropdownTextIcons {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.header .headerRight .userProfileContainer .dropdownUserDetails .lists .dropdown-header .leftSideDropdownTextIcons span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header .headerRight .userProfileContainer .dropdownUserDetails .lists .dropdown {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 4px;
+}
+.header .headerRight .userProfileContainer .dropdownUserDetails .lists .dropdown .dropdown-items {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 8px;
+  border-radius: 4px;
+}
+.header .headerRight .userProfileContainer .dropdownUserDetails .lists .dropdown .dropdown-items.lightTheme:hover {
+  background-color: #f2f2f2;
+}
+.header .headerRight .userProfileContainer .dropdownUserDetails .lists .dropdown .dropdown-items.darkTheme:hover {
+  background-color: #232324;
+}
+.header .headerRight .userProfileContainer .dropdownUserDetails .lists .dropdown .dropdown-items p {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.header .headerRight .userProfileContainer .dropdownUserDetails .lists .dropdown .dropdownItemsList {
+  padding-left: 28px;
+  padding-bottom: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.header .headerRight .userProfileContainer .dropdownUserDetails .lists .dropdown .dropdownItemsList p {
+  min-height: 23px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+}
+.header .headerRight .userProfileContainer .dropdownUserDetails .lists .dropdown .dropdownItemsList p:hover {
+  color: #ff3e5b;
+}
+
+#overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: none;
+  z-index: 99997;
+  cursor: pointer;
+}
+
+#overlay_2 {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  display: none;
+  z-index: 99997;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1366px) {
+  .header {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+@media screen and (max-width: 1038px) {
+  .header {
+    padding-left: 26px;
+    padding-right: 26px;
+  }
+}
+@media screen and (max-width: 992px) {
+  .header {
+    padding-top: 10px;
+  }
+  .header .headerLeft .mobileViewBtn {
+    display: flex;
+    align-items: center;
+    height: 25px;
+    line-height: 6px;
+    cursor: pointer;
+  }
+  .header .headerLeft .mobileViewBtn img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: contain;
+       object-fit: contain;
+  }
+  .header .headerRight .helpDesk, .header .headerRight .userProfileContainer {
+    display: none;
+  }
+}
+@media screen and (max-width: 880px) {
+  .header {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}/*# sourceMappingURL=styles.css.map */
