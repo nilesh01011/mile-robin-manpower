@@ -102,6 +102,25 @@
         //   }
         // }
       }
+
+      & .employeeManagementHeaderRight {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        & .viewBusinessPlan {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          cursor: pointer;
+
+          & .textLabel {
+            color: #ff3e5b;
+            font-weight: 700;
+            font-size: 14px;
+          }
+        }
+      }
     }
 
     & .tableContainer {

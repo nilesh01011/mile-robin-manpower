@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./styles.scss";
 import { useSelector } from "react-redux";
-import Overlay from "../../../../components/overlay/Overlay";
-import Dropdown from "../../../../components/dropdown/Dropdown";
+import Overlay from "../../../../../components/overlay/Overlay";
+import Dropdown from "../../../../../components/dropdown/Dropdown";
+import CalendarInput from "../../../../../components/calendarInput";
 
 function AdvanceFilterDrawer({ advanceFilterSearch, setAdvancedFilterSearch }) {
   const theme = useSelector((state) => state.theme);
@@ -56,7 +57,7 @@ function AdvanceFilterDrawer({ advanceFilterSearch, setAdvancedFilterSearch }) {
           {/* text */}
           <span className="title">Advance Filters</span>
           {/* icons */}
-          <span>
+          <span style={{ cursor: "pointer" }} onClick={() => setAdvancedFilterSearch(!advanceFilterSearch)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -76,9 +77,51 @@ function AdvanceFilterDrawer({ advanceFilterSearch, setAdvancedFilterSearch }) {
         {/* drawer contents */}
         <div className="advanceFilterContentsGrid">
           <div className="gridItems">
-            <label>Business Type</label>
+            <label style={{ color: "#545454" }}>Business Type</label>
             <Dropdown items={businessTypeDropdown} />
           </div>
+
+          <div className="gridItems">
+            <label style={{ color: "#545454" }}>Dealer Code/Location</label>
+            <Dropdown items={businessTypeDropdown} />
+          </div>
+
+          <div className="gridItems">
+            <label style={{ color: "#545454" }}>Employee Status</label>
+            <Dropdown items={businessTypeDropdown} />
+          </div>
+
+          <div className="gridItems">
+            <label style={{ color: "#545454" }}>Approval Status</label>
+            <Dropdown items={businessTypeDropdown} />
+          </div>
+          {/* date */}
+          <div className="gridItems">
+            <label style={{ color: "#545454" }}>From Date</label>
+            <CalendarInput />
+          </div>
+
+          <div className="gridItems">
+            <label style={{ color: "#545454" }}>To Date</label>
+            <CalendarInput />
+          </div>
+        </div>
+        {/* footer */}
+        <div
+          className="advanceFilterFooter"
+          style={{
+            boxShadow:
+              theme === "light"
+                ? "0px -2px 4px 0px rgba(0, 0, 0, 0.15)"
+                : "rgb(255 255 255 / 15%) 0px -1px 1px 0px",
+          }}
+        >
+          <button className="outlineBtn btns" type="button">
+            Reset
+          </button>
+          <button className="primaryBtn btns" type="button">
+            Apply
+          </button>
         </div>
       </div>
     </>

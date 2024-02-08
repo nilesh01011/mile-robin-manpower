@@ -1,0 +1,47 @@
+.advanceFilterContainer {
+  width: 100%;
+  height: 100%;
+  // position: relative;
+
+  & .advanceFilterHeader {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  // advanceFilterContentsGrid
+  & .advanceFilterContentsGrid {
+    width: 100%;
+    max-height: max-content;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 20px;
+    padding: 30px;
+
+    & .gridItems {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      height: max-content;
+
+      & label {
+        font-size: 14px;
+      }
+    }
+  }
+
+  // footer
+  & .advanceFilterFooter {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 10px;
+  }
+}

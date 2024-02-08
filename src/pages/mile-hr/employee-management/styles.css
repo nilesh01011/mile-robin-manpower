@@ -86,6 +86,22 @@
   border: none;
   cursor: pointer;
 }
+.employeeManagement .employeeManagementContainer .employeeManagementHeader .employeeManagementHeaderRight {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.employeeManagement .employeeManagementContainer .employeeManagementHeader .employeeManagementHeaderRight .viewBusinessPlan {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+.employeeManagement .employeeManagementContainer .employeeManagementHeader .employeeManagementHeaderRight .viewBusinessPlan .textLabel {
+  color: #ff3e5b;
+  font-weight: 700;
+  font-size: 14px;
+}
 .employeeManagement .employeeManagementContainer .tableContainer {
   max-height: 160px;
   overflow-x: hidden;

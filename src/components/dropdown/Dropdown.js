@@ -77,12 +77,13 @@ function Dropdown({items,width,disabled,position}) {
       >
         <p
           style={{
+            userSelect:"none",
             color: disabled
               ? theme === "light"
                 ? "#858585"
                 : "#545454"
               : theme === "light"
-              ? "#0B0B0C"
+              ? "#545454"
               : "#ffffff",
           }}
           className="selectedItems"

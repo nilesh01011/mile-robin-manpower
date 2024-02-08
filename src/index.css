@@ -176,6 +176,42 @@ body.dark::-webkit-scrollbar-thumb {
   justify-content: center;
 }
 
+.btns {
+  padding: 6px 16px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: -moz-max-content;
+  width: max-content;
+  white-space: nowrap;
+  text-transform: capitalize;
+}
+.btns span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.outlineBtn {
+  border: 1px solid #ff3e5b;
+  color: #ff3e5b;
+}
+.outlineBtn:hover {
+  background-color: #ff3e5b;
+  color: white;
+}
+
+.primaryBtn {
+  color: white;
+  background-color: #ff3e5b;
+}
+.primaryBtn:hover {
+  opacity: 0.8;
+}
+
 @media screen and (max-width: 1366px) {
   .container-fluid {
     padding: 0 30px;
