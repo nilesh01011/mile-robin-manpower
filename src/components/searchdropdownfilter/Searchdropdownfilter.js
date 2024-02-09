@@ -32,6 +32,8 @@ function SearchDropdownFilter({
   inputFields,
   setSelectedDropdownFilterText,
   selectDropdownFilterText,
+  setResultsItems,
+  resultsItems,
 }) {
   const theme = useSelector((state) => state.theme);
   const [selected, setSelected] = useState("");
@@ -51,12 +53,27 @@ function SearchDropdownFilter({
     }
   }, [selected, setSelected]);
 
+  // search data from table
   const handleSubmitFilter = (e) => {
     e.preventDefault();
     setError(false);
     if (!selected) {
       setError(true);
     }
+
+    if (inputFields.trim() === "") {
+      setResultsItems([]);
+      return;
+    }
+
+    // fetch(`https://dummyjson.com/users/search?q=${inputFields}`)
+    //   .then((res) => res.json())
+    //   .then((data) => setResultsItems(data))
+    //   .catch((err) => console.log(err));
+
+    setResultsItems([...resultsItems, { name: inputFields }]);
+
+    setInputFields("");
   };
 
   // dropdown
@@ -71,7 +88,7 @@ function SearchDropdownFilter({
 
   let domNode = useClickOutSide(() => {
     setIsDropdownOpen(false);
-    setIsClicked(false)
+    setIsClicked(false);
   });
 
   return (
@@ -95,8 +112,14 @@ function SearchDropdownFilter({
             : "isDropdowncloseDarkTheme"
         } `}
         onClick={() => setIsClicked(!isClicked)}
-
-        style={{borderColor:isClicked === true ? theme === "light" ? "#0b0b0c" : "#ffffff" : ""}}
+        style={{
+          borderColor:
+            isClicked === true
+              ? theme === "light"
+                ? "#0b0b0c"
+                : "#ffffff"
+              : "",
+        }}
       >
         {/* dropdown list */}
         <div className="dropdownContainers">

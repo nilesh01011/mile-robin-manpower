@@ -4,6 +4,7 @@
   position: relative;
   max-height: max-content;
   box-sizing: border-box;
+  margin-bottom: 38px;
 
   & .paginations {
     position: sticky;
@@ -67,57 +68,108 @@
       height: 100%;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      flex-direction: column;
       border-radius: 4px;
       padding: 8px 20px;
       margin-top: 30px;
       margin-bottom: 20px;
 
-      & .employeeManagementHeaderLeft {
+      & .topHeaderSide {
+        width: 100%;
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        gap: 16px;
 
-        & .tabs {
+        & .employeeManagementHeaderLeft {
           display: flex;
           align-items: center;
-          gap: 5px;
-          padding: 6px;
-          border-radius: 4px;
-          height: max-content;
+          gap: 16px;
 
-          & button {
-            font-size: 14px;
-            padding: 2px 6px;
-            border-radius: 2px;
-            outline: none;
-            border: none;
-            cursor: pointer;
+          & .tabs {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px;
+            border-radius: 4px;
+            height: max-content;
+
+            & button {
+              font-size: 14px;
+              padding: 2px 6px;
+              border-radius: 2px;
+              outline: none;
+              border: none;
+              cursor: pointer;
+            }
           }
         }
 
-        // & .searchFilterContainer {
-        //   & .searchFilterDropdown {
-        //     position: relative;
-        //   }
-        // }
-      }
-
-      & .employeeManagementHeaderRight {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-
-        & .viewBusinessPlan {
+        & .employeeManagementHeaderRight {
           display: flex;
           align-items: center;
-          gap: 6px;
-          cursor: pointer;
+          gap: 16px;
 
-          & .textLabel {
-            color: #ff3e5b;
-            font-weight: 700;
+          & .viewBusinessPlan {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+
+            & .textLabel {
+              color: #ff3e5b;
+              font-weight: 700;
+              font-size: 14px;
+            }
+          }
+        }
+      }
+
+      & .divided {
+        width: 100%;
+        height: 1px;
+        margin: 8px 0;
+        display: block;
+      }
+
+      & .searchResults {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        & .searchResultsLeftSide {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          & p {
             font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+          }
+
+          & .searchResultsList {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+
+            & .text {
+              border: 1px solid;
+              font-size: 12px;
+              display: flex;
+              align-items: center;
+              gap: 6px;
+              padding: 1px 8px;
+              border-radius: 2px;
+            }
+
+            & span {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
           }
         }
       }
@@ -125,7 +177,7 @@
 
     & .tableContainer {
       // border: 1px solid red !important;
-      max-height: 160px;
+      // max-height: 160px;
       overflow-x: hidden;
       // overflow-x: scroll;
       // max-height: calc(100vh - 50%);
