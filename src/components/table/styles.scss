@@ -2,14 +2,22 @@ table {
   width: 100%;
   border-spacing: 0;
   position: relative;
+  // overflow-x: auto;
+  // box-sizing: border-box;
 
   & tr {
+
     & td,
     & th {
       font-size: 14px;
-      padding: 13px 20px;
+      padding: 13px 18px;
       text-align: left;
+      text-overflow: ellipsis;
       white-space: nowrap;
+
+      &:nth-child(2) {
+        padding-left: 10px;
+      }
     }
   }
 
@@ -21,24 +29,25 @@ table {
   & .tableHeads {
     position: sticky;
     top: 0;
-    overflow: hidden;
     z-index: 4;
 
     & .table {
       & th {
         border-bottom: 1px solid;
+
         & span {
           position: relative;
 
           & svg {
             position: absolute;
-            right: -25px;
+            right: -20px;
             top: 1px;
           }
         }
 
         &:first-child {
           border-top-left-radius: 4px;
+          padding-right: 0;
         }
 
         &:last-child {
@@ -52,82 +61,6 @@ table {
     & tr {
       & td {
         border-bottom: 1px solid;
-
-        // & .status {
-        //   padding: 2px 6px;
-        //   border-radius: 4px;
-        //   border: 1px solid;
-        //   font-size: 12px;
-
-        //   &.Alloted.lightTheme,
-        //   &.Delivered.lightTheme,
-        //   &.Booked.lightTheme {
-        //     border-color: #56AC18;
-        //     background: #E2F9D2;
-        //     color: #56AC18;
-        //   }
-
-        //   // dark theme
-        //   &.Alloted.darkTheme,
-        //   &.Delivered.darkTheme,
-        //   &.Booked.darkTheme {
-        //     border-color: #56AC18;
-        //     background: #162D06;
-        //     color: #56AC18;
-        //   }
-
-        //   &.Cancelled.lightTheme {
-        //     border-color: #ED302D;
-        //     background: #FBD1D0;
-        //     color: #ED302D;
-        //   }
-
-        //   // dark theme
-        //   &.Cancelled.darkTheme {
-        //     border-color: #ED302D;
-        //     background: #2F0504;
-        //     color: #ED302D;
-        //   }
-
-        //   &.Cancellation.lightTheme {
-        //     border-color: #f99c22;
-        //     background: #fef3d2;
-        //     color: #f99c22;
-        //   }
-
-        //   // dark theme
-        //   &.Cancellation.darkTheme {
-        //     border-color: #f99c22;
-        //     background: #2b2521;
-        //     color: #f99c22;
-        //   }
-
-        //   &.Transferred.lightTheme {
-        //     border-color: #2782f9;
-        //     background: #d3edfe;
-        //     color: #2782f9;
-        //   }
-
-        //   // dark theme
-        //   &.Transferred.darkTheme {
-        //     border-color: #2782f9;
-        //     background: #20232c;
-        //     color: #2782f9;
-        //   }
-
-        //   &.Invoiced.lightTheme {
-        //     border-color: #9747ff;
-        //     background: #f3eaff;
-        //     color: #9747ff;
-        //   }
-
-        //   // dark theme
-        //   &.Invoiced.darkTheme {
-        //     border-color: #9747ff;
-        //     background: #20232c;
-        //     color: #9747ff;
-        //   }
-        // }
 
         & .status {
           padding: 2px 6px;
@@ -159,14 +92,31 @@ table {
             color: #ed302d;
           }
         }
+
+        // last td
+        &.stickyTableData {
+          position: sticky;
+          right: -1px;
+          top: 0;
+
+          &.lightHover {
+            background: #ffff;
+          }
+
+          &.darkHover {
+            background: #0b0b0c;
+          }
+        }
       }
 
+      &.lightHover:hover td.stickyTableData.lightHover,
       &.lightHover:hover {
-        background: #f2f2f2;
+        background: #f2f2f2 !important;
       }
 
+      &.darkHover:hover td.stickyTableData.darkHover,
       &.darkHover:hover {
-        background: #1c1c1c;
+        background: #1c1c1c !important;
       }
     }
   }
@@ -174,27 +124,30 @@ table {
 
 @media screen and (max-width: 1366px) {
   table {
+
     & tr td:not(:last-child, :first-child),
     & th:not(:last-child, :first-child) {
-      padding-right: 10px;
-      padding-left: 10px;
+      margin-right: 10px;
+      margin-left: 10px;
     }
+
     & tr td:first-child {
       padding-right: 0;
     }
 
-    & tr td:last-child {
-      padding-left: 0;
-    }
+    // & tr td:last-child {
+    //   padding-left: 0;
+    // }
   }
 }
 
 @media screen and (max-width: 1058px) {
   table {
     & tr {
+
       & td,
       & th {
-        padding: 13px 18px;
+        margin: 13px 18px;
       }
     }
   }
@@ -203,9 +156,10 @@ table {
 @media screen and (max-width: 1038px) {
   table {
     & tr {
+
       & td,
       & th {
-        padding: 13px 16px;
+        margin: 13px 16px;
       }
     }
   }

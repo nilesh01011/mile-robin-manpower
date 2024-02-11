@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
-import "./styles.scss";
-import { useSelector } from "react-redux";
-import InputField from "./inputField/index";
+import React, { useEffect, useRef, useState } from 'react';
+import './styles.scss';
+import { useSelector } from 'react-redux';
+import InputField from './inputField';
 
 let useClickOutSide = (handler) => {
   let domNode = useRef();
@@ -16,109 +16,74 @@ let useClickOutSide = (handler) => {
       }
     };
 
-    document.addEventListener("mousedown", handlerEvent);
+    document.addEventListener('mousedown', handlerEvent);
 
     return () => {
-      document.removeEventListener("mousedown", handlerEvent);
+      document.removeEventListener('mousedown', handlerEvent);
     };
   }, [handler]);
 
   return domNode;
 };
 
-function SearchDropdownFilter({
-  customersList,
-  setInputFields,
-  inputFields,
+function SearchDropdownWithInput({
+  dropdownList,
+  // dropdown list select text
   setSelectedDropdownFilterText,
   selectDropdownFilterText,
-  setResultsItems,
-  resultsItems,
+  // search input
+  inputFields,
+  setInputFields,
+  // error message
+  setError,
+  error,
+  // form submit
+  handleSearch,
 }) {
   const theme = useSelector((state) => state.theme);
-  const [selected, setSelected] = useState("");
-  const [error, setError] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
-
-  useEffect(() => {
-    if (!selected) {
-      return setSelected(customersList[0].name);
-    } else {
-      setSelected(selected);
-    }
-
-    if (selectDropdownFilterText === "") {
-      setSelectedDropdownFilterText(customersList[0].search);
-    }
-  }, [selected, setSelected]);
-
-  // search data from table
-  const handleSubmitFilter = (e) => {
-    e.preventDefault();
-    setError(false);
-    if (!selected) {
-      setError(true);
-    }
-
-    if (inputFields.trim() === "") {
-      setResultsItems([]);
-      return;
-    }
-
-    // fetch(`https://dummyjson.com/users/search?q=${inputFields}`)
-    //   .then((res) => res.json())
-    //   .then((data) => setResultsItems(data))
-    //   .catch((err) => console.log(err));
-
-    setResultsItems([...resultsItems, { name: inputFields }]);
-
-    setInputFields("");
-  };
-
-  // dropdown
-  const selectBoxText = (ele) => {
-    setSelected(ele.name);
-    setIsDropdownOpen(!isDropdownOpen);
-    setError(false);
-
-    // dropdown text number
-    setSelectedDropdownFilterText(ele.search);
-  };
-
+  // dropdown closed when clicking outside of the div
   let domNode = useClickOutSide(() => {
     setIsDropdownOpen(false);
     setIsClicked(false);
   });
 
+  useEffect(() => {
+    if (!selectDropdownFilterText) {
+      setSelectedDropdownFilterText(dropdownList[0].name);
+    } else {
+      setSelectedDropdownFilterText(selectDropdownFilterText);
+    }
+  }, [dropdownList, selectDropdownFilterText, setSelectedDropdownFilterText]);
+
   return (
-    <form
-      action="POST"
-      onSubmit={handleSubmitFilter}
+    <div
       className="selectDropdownFilter"
-      style={{ marginBottom: error && "10px" }}
       ref={domNode}
     >
       <div
         className={`selectDropdownFilterContainer ${
-          theme === "light" ? "lightTheme" : "darkTheme"
+          theme === 'light' ? 'lightTheme' : 'darkTheme'
         } ${
           isDropdownOpen === true
-            ? theme === "light"
-              ? "isDropdownOpenLightTheme"
-              : "isDropdownopenDarkTheme"
-            : theme === "light"
-            ? "isDropdowncloseLightTheme"
-            : "isDropdowncloseDarkTheme"
+            ? theme === 'light'
+              ? 'isDropdownOpenLightTheme'
+              : 'isDropdownOpenDarkTheme'
+            : theme === 'light'
+            ? 'isDropdownCloseLightTheme'
+            : 'isDropdownCloseDarkTheme'
         } `}
         onClick={() => setIsClicked(!isClicked)}
         style={{
           borderColor:
-            isClicked === true
-              ? theme === "light"
-                ? "#0b0b0c"
-                : "#ffffff"
-              : "",
+            error === true
+              ? '#FF3E5B'
+              : isClicked === true
+              ? theme === 'light'
+                ? '#0b0b0c'
+                : '#ffffff'
+              : '',
         }}
       >
         {/* dropdown list */}
@@ -126,7 +91,7 @@ function SearchDropdownFilter({
           <div className="selectOption">
             <div
               className={`selectOptionContainer ${
-                theme === "light" ? "lightTheme" : "darkTheme"
+                theme === 'light' ? 'lightTheme' : 'darkTheme'
               }`}
             >
               {/* select fields */}
@@ -135,23 +100,25 @@ function SearchDropdownFilter({
                 className="selectOptionFields"
               >
                 <p
-                  style={{ color: theme === "light" ? "black" : "#A3A3A3" }}
+                  style={{ color: theme === 'light' ? 'black' : '#A3A3A3' }}
                   className="selectFields desktopView"
                 >
-                  {!selected ? customersList[0].name : selected}
+                  {selectDropdownFilterText === ''
+                    ? dropdownList[0].name
+                    : selectDropdownFilterText}
                 </p>
 
                 <p
-                  style={{ color: theme === "light" ? "black" : "#A3A3A3" }}
+                  style={{ color: theme === 'light' ? 'black' : '#A3A3A3' }}
                   className="selectFields mobileView"
                 >
-                  {selected}
+                  {selectDropdownFilterText}
                 </p>
 
                 {/* icons */}
                 <div
                   style={{
-                    transform: isDropdownOpen && "rotate(180deg)",
+                    transform: isDropdownOpen && 'rotate(180deg)',
                   }}
                   className="icons"
                 >
@@ -178,7 +145,7 @@ function SearchDropdownFilter({
         {/* inputs */}
         <div
           className={`inputFieldsContainer ${
-            theme === "light" ? "lightTheme" : "darkTheme"
+            theme === 'light' ? 'lightTheme' : 'darkTheme'
           }`}
         >
           <InputField
@@ -188,11 +155,13 @@ function SearchDropdownFilter({
             paddingRight="25px"
             setInputFields={setInputFields}
             inputFields={inputFields}
+            setError={setError}
+            error={error}
           />
         </div>
 
         {/* search buttons */}
-        <button type="submit" className="btn">
+        <button type="submit" className="btn" onClick={handleSearch}>
           <svg
             width="20"
             height="20"
@@ -209,32 +178,61 @@ function SearchDropdownFilter({
           </svg>
         </button>
       </div>
-      {error && <span className="error">This field is required</span>}
+      {error && (
+        <div
+          className="errorContainer"
+          style={{
+            borderColor: theme === 'light' ? '#FF3E5B' : '#ed302d',
+            backgroundColor: theme === 'light' ? '#FFCCD4' : '#2f0504',
+          }}
+        >
+          {/* icons */}
+          <span className="icons">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="8"
+              viewBox="0 0 16 8"
+              fill="none"
+            >
+              <path
+                d="M0 8L16 8L9.41421 1.41421C8.63317 0.633164 7.36684 0.633164 6.58579 1.41421L0 8Z"
+                fill="#FF3E5B"
+              />
+            </svg>
+          </span>
+          {/* error text */}
+          <span className="error">This field is required</span>
+        </div>
+      )}
 
       {/* dropdown menu items */}
       {/* all lists items */}
       {isDropdownOpen && (
         <ul
           className={`allListItems ${
-            theme === "light" ? "lightTheme" : "darkTheme"
+            theme === 'light' ? 'lightTheme' : 'darkTheme'
           }`}
         >
-          {customersList.map((ele, id) => {
+          {dropdownList.map((ele, id) => {
             return (
               <li
                 key={id}
-                onClick={() => selectBoxText(ele)}
+                onClick={() => {
+                  setSelectedDropdownFilterText(ele.name);
+                  setIsDropdownOpen(!isDropdownOpen);
+                }}
                 className={`allListItemsChild ${
-                  theme === "light" ? "lightHover" : "darkHover"
+                  theme === 'light' ? 'lightHover' : 'darkHover'
                 }`}
                 style={{
-                  color: selected === ele.name && "#FF3E5B",
+                  color: selectDropdownFilterText === ele.name && '#FF3E5B',
                   backgroundColor:
-                    selected === ele.name
-                      ? theme === "light"
-                        ? "#F2F2F2"
-                        : "#232324"
-                      : "",
+                    selectDropdownFilterText === ele.name
+                      ? theme === 'light'
+                        ? '#F2F2F2'
+                        : '#232324'
+                      : '',
                 }}
               >
                 {ele.name}
@@ -243,8 +241,8 @@ function SearchDropdownFilter({
           })}
         </ul>
       )}
-    </form>
+    </div>
   );
 }
 
-export default SearchDropdownFilter;
+export default SearchDropdownWithInput;

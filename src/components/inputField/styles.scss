@@ -2,6 +2,8 @@
   border-radius: 4px;
   // max-width: 239px;
   width: 100%;
+  min-height: 27px;
+  max-height: 27px;
   border: 1px solid;
   position: relative;
 
@@ -15,6 +17,12 @@
     height: 100%;
     appearance: none;
     font-size: 14px !important;
+  }
+
+  // errors
+  & .errors {
+    font-size: 12px;
+    color: #ed302d;
   }
 }
 

@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Lato";
+  font-family: 'Lato';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 400;
@@ -22,7 +22,8 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  overflow: hidden;
+  // overflow: hidden;
+  overflow-x: auto;
 }
 
 .drawerContainer {
@@ -125,7 +126,8 @@ body.dark::-webkit-scrollbar-thumb {
   width: 100%;
   height: 100%;
 
-  min-height: calc(100vh - 270px);
+  // min-height: calc(100vh - 280px);
+  // max-height: calc(100vh - 280px);
   height: 100%;
   overflow: scroll;
   border-radius: 4px;
@@ -133,6 +135,60 @@ body.dark::-webkit-scrollbar-thumb {
 
   &::-webkit-scrollbar {
     display: none;
+  }
+}
+
+.paginationContainer {
+  position: sticky;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 40px;
+  padding-bottom: 0;
+  z-index: 5;
+
+  & .leftSide {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    & .dropdownContainer {
+      min-width: 84px;
+      height: 100%;
+      position: relative;
+    }
+  }
+
+  & .rightSide {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    & .btn {
+      width: 28px;
+      height: 28px;
+      padding: 3px 7px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #858585;
+      border: 1px solid;
+
+      &:hover {
+        color: #ff3e5b;
+        border-color: #ff3e5b !important;
+      }
+
+      &.disabledBtn {
+        opacity: 0.7;
+        pointer-events: none;
+      }
+    }
   }
 }
 
@@ -157,19 +213,30 @@ body.dark::-webkit-scrollbar-thumb {
   left: 0;
   right: 0;
   bottom: 0;
-  top: 0;
+  top: 43px;
   width: 100%;
   max-width: 350px;
   margin: 0 auto;
   height: 100%;
-  min-height: 465px;
+  min-height: 260px;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  flex-direction: column;
 
-  & .addbutton {
+  & tr {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+
+    & td {
+      padding: 0;
+    }
+
+  }
+
+  & .addButton {
     padding: 8px 1rem;
     background-color: #ff3e5b;
     color: white;
@@ -224,7 +291,7 @@ body.dark::-webkit-scrollbar-thumb {
   color: white;
   background-color: #ff3e5b;
 
-  &:hover{
+  &:hover {
     opacity: 0.8;
   }
 }
@@ -234,23 +301,26 @@ body.dark::-webkit-scrollbar-thumb {
   .container-fluid {
     padding: 0 30px;
   }
+
   .footer {
     padding: 8px 30px;
   }
 }
 
-@media screen and (max-width: 1280px) {
-  .tableContainer {
-    overflow-x: hidden;
-  }
-}
+// @media screen and (max-width: 1280px) {
+//   .tableContainer {
+//     overflow-x: hidden;
+//   }
+// }
 
 @media screen and (max-width: 1038px) {
+
   .footer,
   .container-fluid {
     padding-left: 26px;
     padding-right: 26px;
   }
+
   .tableContainer {
     & table .tableHeads tr {
       & th {
@@ -274,6 +344,7 @@ body.dark::-webkit-scrollbar-thumb {
 }
 
 @media screen and (max-width: 880px) {
+
   .footer,
   .container-fluid {
     padding-left: 20px;

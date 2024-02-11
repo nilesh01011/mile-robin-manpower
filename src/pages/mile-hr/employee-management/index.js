@@ -1,74 +1,79 @@
-import React, { useState } from "react";
-import "./styles.scss";
-import { useSelector } from "react-redux";
-import Title from "../../../components/title";
-import SearchDropdownFilter from "../../../components/searchdropdownfilter/Searchdropdownfilter";
-import AdvanceFilterDrawer from "./drawer/advanceFilterDrawer/AdvanceFilterDrawer";
-import ViewBusinessPlan from "./drawer/viewBusinessPlan/ViewBusinessPlan";
-import ActionEmployeeDrawer from "./drawer/actionEmployeeDrawer/ActionEmployeeDrawer";
-import TableData from "../../../components/table";
-import { mileTableData, mileTableHead } from "../../../data";
+import React, { useEffect, useState } from 'react';
+import './styles.scss';
+import { useSelector } from 'react-redux';
+import Title from '../../../components/title';
+import AdvanceFilterDrawer from './drawer/advanceFilterDrawer/AdvanceFilterDrawer';
+import ViewBusinessPlan from './drawer/viewBusinessPlan/ViewBusinessPlan';
+import AddEmployeeDrawer from './drawer/addEmployeeDrawer/AddEmployeeDrawer';
+import TableData from '../../../components/table';
+import { mileTableHead } from '../../../data';
+import axios from 'axios';
+import PaginationDropdown from '../../../components/paginationDropdown/PaginationDropdown';
+import SearchDropdownWithInput from '../../../components/searchDropdownWithInput/SearchDropdownWithInput';
 
 function EmployeeManagementPage() {
   const theme = useSelector((state) => state.theme);
   // tabs
-  const [isActiveTabs, setIsActiveTabs] = useState("sales");
+  const [isActiveTabs, setIsActiveTabs] = useState('sales');
   // Search Filter inputs
-  const [inputFields, setInputFields] = useState("");
-  // results items
-  const [resultsItems, setResultsItems] = useState([]);
+  const [inputFields, setInputFields] = useState('');
+  // Search results items
+  const [searchResultsItems, setSearchResultsItems] = useState([]);
+  // errors
+  const [error, setError] = useState(false);
 
   const handleResultsItemsCanceled = (items) => {
     console.log(items);
 
-    const deleteSearchResultItems = resultsItems.filter(
+    const deleteSearchResultItems = searchResultsItems.filter(
       (item) => item !== items
     );
 
-    setResultsItems(deleteSearchResultItems);
+    setSearchResultsItems(deleteSearchResultItems);
   };
 
   // table drawer select which one is open
-  const [tableData, setTableData] = useState([]);
+  // const [tableDataDrawer, setTableDataDrawer] = useState([]);
+
   // search dropdown text
   const [selectDropdownFilterText, setSelectedDropdownFilterText] =
-    useState("");
+    useState('');
 
   const tabs = [
     {
       id: 1,
-      name: "sales",
+      name: 'sales',
     },
     {
       id: 2,
-      name: "services",
+      name: 'services',
     },
     {
       id: 3,
-      name: "common",
+      name: 'common',
     },
   ];
 
   const employeeManagementSearchList = [
     {
       id: 1,
-      name: "Mile ID",
-      search: "",
+      name: 'Mile ID',
+      search: '',
     },
     {
       id: 2,
-      name: "Employee Name",
-      search: "",
+      name: 'Employee Name',
+      search: '',
+    },
+    {
+      id: 3,
+      name: 'Location Name',
+      search: '',
     },
     {
       id: 4,
-      name: "Location Name",
-      search: "",
-    },
-    {
-      id: 5,
-      name: "Mobile Number",
-      search: "",
+      name: 'Mobile Number',
+      search: '',
     },
   ];
 
@@ -79,17 +84,251 @@ function EmployeeManagementPage() {
   // Action Employee Drawer
   const [actionEmployeeDrawer, setActionEmployeeDrawer] = useState(false);
 
+  // table pagination
+  const [tableData, setTableData] = useState([]);
+
+  // active page
+  const [currentPage, setCurrentPage] = useState(1);
+  // table data fetch
+  useEffect(() => {
+    const fetchDataTable = async () => {
+      const result = await axios
+        .get('/data.json')
+        .then((res) => setTableData(res.data))
+        .catch((error) => console.log(error));
+
+      return result;
+    };
+
+    fetchDataTable();
+  }, []);
+
+  // pages number
+  const [tableDataPerPage, setTableDataPerPage] = useState(10);
+
+  // 200 / 10 = 20
+  const numOfTotalPages = Math.ceil(tableData.length / tableDataPerPage);
+
+  const pages = [...Array(numOfTotalPages + 1).keys()].slice(1); // starting from 1 not to 0
+
+  const indexOfLastTodo = currentPage * tableDataPerPage; // 1 * 10 = 10
+  const indexOfFirstTodo = indexOfLastTodo - tableDataPerPage; // 10 - 10 = 0
+
+  const visibleTableData = tableData.slice(indexOfFirstTodo, indexOfLastTodo); // 200 slices 10, 0 = 190
+
+  // prev page
+  const prevPageHandler = () => {
+    if (currentPage !== 1) setCurrentPage(currentPage - 1);
+  };
+
+  // next page
+  const nextPageHandler = () => {
+    if (currentPage !== numOfTotalPages) setCurrentPage(currentPage + 1);
+  };
+
+  // // debounced
+  const myDebounce = (cb, d) => {
+    let timer;
+    return function (...args) {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => {
+        cb(...args);
+      }, d);
+    };
+  };
+
+  // const [filteredData, setFilteredData] = useState([]);
+
+  // useEffect(() => {
+  //   if (filteredData.length === 0) {
+  //     setFilteredData(visibleTableData);
+  //   } else {
+  //     setFilteredData(filteredData);
+  //   }
+  // }, [filteredData, visibleTableData]);
+
+  // console.log(filteredData);
+
+  // searching
+  const handleSearch = myDebounce(() => {
+    setError(false);
+    // Fetch data based on selected option and search term
+    console.log(
+      `Searching for "${inputFields}" with option "${selectDropdownFilterText}"`
+    );
+
+    // empty search term
+    // setSelectedDropdownFilterText('');
+    // setInputFields('');
+
+    if (inputFields === '') {
+      setError(true);
+      setCurrentPage(1);
+      return;
+    } else {
+      setSearchResultsItems([...searchResultsItems, { name: inputFields }]);
+
+      // filteredEmployees(inputFields);
+    }
+  }, 500);
+
+  // filter data fetching
+  const filteredEmployees = (values) => {
+    console.log(values);
+    // data fetch with json files
+    const filteredEmployees = visibleTableData.filter((employee) => {
+      const searchTerm = values.toLowerCase();
+      const filterOption = selectDropdownFilterText.toLowerCase();
+
+      if (filterOption === 'mile id') {
+        return employee.employeeCode.toLowerCase().includes(searchTerm);
+      } else if (filterOption === 'employee name') {
+        return employee.employeeName.toLowerCase().includes(searchTerm);
+      } else if (filterOption === 'location name') {
+        return employee.employeeBusinessName.toLowerCase().includes(searchTerm);
+      } else if (filterOption === 'mobile number') {
+        return employee.employeeDesignation.toLowerCase().includes(searchTerm);
+      } else if (searchTerm) {
+        return employee.employeeStatus
+          .toString()
+          .toLowerCase()
+          .includes(searchTerm);
+      }
+
+      // else if (filterOption === 'employee approval status') {
+      //   return employee.employeeApprovalStatus
+      //     .toLowerCase()
+      //     .includes(searchTerm);
+      // } else if (filterOption === 'employee location') {
+      //   return employee.employeeLocation.toLowerCase().includes(searchTerm);
+      // } else if (filterOption === 'employee status') {
+      //   return employee.employeeStatus
+      //     .toString()
+      //     .toLowerCase()
+      //     .includes(searchTerm);
+      // }
+
+      return false;
+    });
+
+    console.log(filteredEmployees);
+
+    // filter data fetching
+    // return filteredEmployees;
+    // setFilteredEmployeesTableData(filteredEmployees);
+    // setTableData(filteredEmployees);
+  };
+
+  // pagination items
+  const paginationItems = [
+    {
+      name: 10,
+    },
+    {
+      name: 20,
+    },
+    {
+      name: 30,
+    },
+    {
+      name: 40,
+    },
+  ];
+
+  // empty table data
+  const emptyTableData = () => (
+    <tbody className="emptyDataTable" style={{ color: '#545454' }}>
+      <tr>
+        <td>
+          {/* icons */}
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="80"
+              height="80"
+              viewBox="0 0 80 80"
+              fill="none"
+            >
+              <path
+                d="M73.3337 39.9999H53.3337L46.667 49.9999H33.3337L26.667 39.9999H6.66699"
+                stroke="#B5B5B6"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M18.167 17.0333L6.66699 40V60C6.66699 61.7681 7.36937 63.4638 8.61961 64.714C9.86986 65.9643 11.5655 66.6666 13.3337 66.6666H66.667C68.4351 66.6666 70.1308 65.9643 71.381 64.714C72.6313 63.4638 73.3337 61.7681 73.3337 60V40L61.8337 17.0333C61.2817 15.9226 60.4309 14.9879 59.3768 14.3342C58.3228 13.6806 57.1073 13.334 55.867 13.3333H24.1337C22.8934 13.334 21.6779 13.6806 20.6238 14.3342C19.5697 14.9879 18.7189 15.9226 18.167 17.0333V17.0333Z"
+                stroke="#B5B5B6"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </span>
+        </td>
+        <td style={{ marginBottom: 4 }}>
+          {/* text */}
+          <span>No employee record available.</span>
+        </td>
+        <td>
+          {/* description */}
+          <span>
+            Please{' '}
+            <span style={{ color: theme === 'light' ? 'black' : 'white' }}>
+              "Add New Employee"
+            </span>{' '}
+            using below button.
+          </span>
+        </td>
+
+        {/* button */}
+        <td>
+          <button
+            type="button"
+            // className="addButton"
+            className="btns primaryBtn"
+            style={{ marginTop: 20 }}
+            onClick={() => setActionEmployeeDrawer(!actionEmployeeDrawer)}
+          >
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+                fill="none"
+              >
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M7 1.75C7.18122 1.75 7.32813 1.89691 7.32813 2.07812V6.67188H11.9219C12.1031 6.67188 12.25 6.81878 12.25 7C12.25 7.18122 12.1031 7.32813 11.9219 7.32813H7.32813V11.9219C7.32813 12.1031 7.18122 12.25 7 12.25C6.81878 12.25 6.67188 12.1031 6.67188 11.9219L6.67188 7.32813H2.07812C1.89691 7.32813 1.75 7.18122 1.75 7C1.75 6.81878 1.89691 6.67188 2.07812 6.67188H6.67188L6.67188 2.07812C6.67188 1.89691 6.81878 1.75 7 1.75Z"
+                  fill="white"
+                />
+              </svg>
+            </span>
+            Add Employee
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  );
+
+  // previous search results
+  const handlePreviousDataFetching = (data) => {
+    // filteredEmployees(data);
+  };
+
   return (
     <>
       <div className="employeeManagement">
         {/* ============ title ============ */}
         <div
           style={{
-            background: theme === "light" ? "white" : "#1C1C1C",
+            background: theme === 'light' ? 'white' : '#1C1C1C',
             boxShadow:
-              theme === "light"
-                ? "0px 1px 1px 0px rgba(0, 0, 0, 0.15)"
-                : "0px 1px 1px 0px rgba(255, 255, 255, 0.15)",
+              theme === 'light'
+                ? '0px 1px 1px 0px rgba(0, 0, 0, 0.15)'
+                : '0px 1px 1px 0px rgba(255, 255, 255, 0.15)',
           }}
           className="container-fluid titleContainer"
         >
@@ -100,8 +339,8 @@ function EmployeeManagementPage() {
           {/* header */}
           <div
             style={{
-              border: `1px solid ${theme === "light" ? "#E6E6E6" : "#232324"}`,
-              backgroundColor: theme === "light" ? "#f2f2f2" : "#1C1C1C",
+              border: `1px solid ${theme === 'light' ? '#E6E6E6' : '#232324'}`,
+              backgroundColor: theme === 'light' ? '#f2f2f2' : '#1C1C1C',
             }}
             className="employeeManagementHeader"
           >
@@ -113,7 +352,7 @@ function EmployeeManagementPage() {
                   className="tabs"
                   style={{
                     border: `1px solid ${
-                      theme === "light" ? "#B5B5B6" : "#232324"
+                      theme === 'light' ? '#B5B5B6' : '#232324'
                     }`,
                   }}
                 >
@@ -123,13 +362,13 @@ function EmployeeManagementPage() {
                       type="button"
                       onClick={() => setIsActiveTabs(tab.name)}
                       style={{
-                        textTransform: "capitalize",
+                        textTransform: 'capitalize',
                         background:
-                          isActiveTabs === tab.name ? "#FF3E5B" : "transparent",
+                          isActiveTabs === tab.name ? '#FF3E5B' : 'transparent',
                         color:
                           isActiveTabs === tab.name
-                            ? "#fff"
-                            : `${theme === "light" ? "black" : "white"}`,
+                            ? '#fff'
+                            : `${theme === 'light' ? 'black' : 'white'}`,
                       }}
                     >
                       {tab.name}
@@ -140,28 +379,34 @@ function EmployeeManagementPage() {
                 <div className="searchFilterContainer">
                   {/* search filter dropdown */}
                   <div className="searchFilterDropdown">
-                    <SearchDropdownFilter
-                      customersList={employeeManagementSearchList}
-                      padding="6px 0"
-                      setInputFields={setInputFields}
-                      inputFields={inputFields}
+                    <SearchDropdownWithInput
+                      dropdownList={employeeManagementSearchList}
+                      // dropdown text select
                       setSelectedDropdownFilterText={
                         setSelectedDropdownFilterText
                       }
                       selectDropdownFilterText={selectDropdownFilterText}
-                      setResultsItems={setResultsItems}
-                      resultsItems={resultsItems}
+                      // search input text
+                      setInputFields={setInputFields}
+                      inputFields={inputFields}
+                      // error message
+                      setError={setError}
+                      error={error}
+                      // form submit
+                      handleSearch={handleSearch}
                     />
                   </div>
-                  {/* Advanced filters drawer btns */}
-                  <div
-                    className="advanceFilter"
-                    style={{
-                      cursor: "pointer",
-                      whiteSpace: "nowrap",
-                      display: "flex",
-                      alignItems: "center",
-                    }}
+                  {/* Advanced filters drawer btn */}
+                  <button
+                    type="button"
+                    // className="advanceFilter"
+                    className="btns primary"
+                    // style={{
+                    //   cursor: 'pointer',
+                    //   whiteSpace: 'nowrap',
+                    //   display: 'flex',
+                    //   alignItems: 'center',
+                    // }}
                     onClick={() =>
                       setAdvancedFilterSearch(!advanceFilterSearch)
                     }
@@ -169,9 +414,9 @@ function EmployeeManagementPage() {
                     {/* icons */}
                     <span
                       style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
                       }}
                     >
                       <svg
@@ -241,26 +486,26 @@ function EmployeeManagementPage() {
                     <span
                       style={{
                         fontSize: 14,
-                        color: "#FF3E5B",
+                        color: '#FF3E5B',
                         fontWeight: 700,
                         marginLeft: 7,
                       }}
                     >
                       Advanced Filters
                     </span>
-                  </div>
+                  </button>
                 </div>
               </div>
               {/* right side */}
               <div className="employeeManagementHeaderRight">
                 {/* view business plan */}
-                <div
+                {/* <div
                   className="viewBusinessPlan"
                   onClick={() =>
                     setViewBusinessPlanDrawer(!viewBusinessPlanDrawer)
                   }
                 >
-                  {/* icons */}
+                  icons
                   <span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -277,9 +522,9 @@ function EmployeeManagementPage() {
                       />
                     </svg>
                   </span>
-                  {/* text */}
+                  text
                   <span className="textLabel">View Business Plan</span>
-                </div>
+                </div> */}
                 {/* add employee */}
                 <button
                   className="btns primaryBtn"
@@ -309,13 +554,13 @@ function EmployeeManagementPage() {
             </div>
 
             {/* search results */}
-            {resultsItems.length !== 0 && (
+            {searchResultsItems.length !== 0 && (
               <>
                 {/* divided */}
                 <div
                   className="divided"
                   style={{
-                    backgroundColor: theme === "light" ? "#E6E6E6" : "#232324",
+                    backgroundColor: theme === 'light' ? '#E6E6E6' : '#232324',
                   }}
                 />
                 <div className="searchResults">
@@ -323,20 +568,22 @@ function EmployeeManagementPage() {
                     <p>Search Result :</p>
 
                     <div className="searchResultsList">
-                      {resultsItems?.map((ele, index) => (
+                      {searchResultsItems?.map((ele, index) => (
                         <span
                           className="text"
                           key={index}
                           style={{
                             borderColor:
-                              theme === "light" ? "#B5B5B6" : "#545454",
-                            color: theme === "light" ? "#545454" : "#a3a3a3",
+                              theme === 'light' ? '#B5B5B6' : '#545454',
+                            color: theme === 'light' ? '#545454' : '#a3a3a3',
+                            cursor: 'pointer',
                           }}
+                          onClick={() => handlePreviousDataFetching(ele.name)}
                         >
                           {ele.name}
                           {/* icons */}
                           <span
-                            style={{ cursor: "pointer" }}
+                            style={{ cursor: 'pointer' }}
                             onClick={() => handleResultsItemsCanceled(ele)}
                           >
                             <svg
@@ -366,16 +613,239 @@ function EmployeeManagementPage() {
           {/* desktop table contents */}
           <div
             className="tableContainer"
-            style={{ borderColor: theme === "light" ? "#e6e6e6" : "#232324" }}
+            style={{
+              borderColor: theme === 'light' ? '#e6e6e6' : '#232324',
+              // minHeight: inputFields === ""
+              //   ? 'calc(100vh - 320px)'
+              //   : 'calc(100vh - 280px)',
+              // maxHeight: inputFields === ""
+              //   ? 'calc(100vh - 320px)'
+              //   : 'calc(100vh - 280px)',
+              minHeight:
+                searchResultsItems.length === 0
+                  ? 'calc(100vh - 280px)'
+                  : 'calc(100vh - 320px)',
+              maxHeight:
+                searchResultsItems.length === 0
+                  ? 'calc(100vh - 280px)'
+                  : 'calc(100vh - 320px)',
+            }}
           >
-            <TableData tableBody={mileTableData} tableHead={mileTableHead} />
+            <TableData
+              // tableBody={filteredEmployeesTableData}
+              // tableBody={
+              //   inputFields === ''
+              //     ? visibleTableData
+              //     : filteredEmployeesTableData
+              // }
+              tableBody={visibleTableData}
+              // inputFields={inputFields}
+              // selectDropdownFilterText={selectDropdownFilterText}
+              // tableBody={filteredData}
+              // filteredEmployees={filteredEmployees}
+              tableHead={mileTableHead}
+              emptyTableData={emptyTableData}
+            />
+          </div>
+        </div>
+        {/* pagination */}
+        <div
+          className={`paginationContainer ${
+            theme === 'light' ? 'light' : 'dark'
+          }`}
+          style={{
+            backgroundColor: theme === 'light' ? '#ffffff' : '#0B0B0C',
+          }}
+        >
+          {/* left side */}
+          <div className="leftSide">
+            {/* total length of table data */}
+            <p style={{ color: '#858585', fontSize: 14, whiteSpace: 'nowrap' }}>
+              Total{' '}
+              <span style={{ color: theme === 'light' ? 'black' : 'white' }}>
+                {tableData.length}
+              </span>{' '}
+              items
+            </p>
+            {/* table data dropdown pagination limits */}
+            <div className="dropdownContainer">
+              <PaginationDropdown
+                items={paginationItems}
+                dropdownDirection="top"
+                padding="4px 12px"
+                selected={tableDataPerPage}
+                setSelected={setTableDataPerPage}
+                width={84}
+              />
+            </div>
+          </div>
+          {/* right side */}
+          <div className="rightSide">
+            {/* left pagination btn */}
+            <button
+              type="button"
+              className={`btn ${currentPage === 1 && 'disabledBtn'}`}
+              style={{
+                border: `1px solid ${
+                  theme === 'light' ? '#b5b5b6' : '#232324'
+                }`,
+              }}
+              onClick={prevPageHandler}
+              disabled={currentPage === 1}
+            >
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                >
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M10.0552 1.51062C9.92303 1.3696 9.70154 1.36246 9.56052 1.49466L3.96052 6.74466C3.88995 6.81083 3.8499 6.90326 3.8499 7C3.8499 7.09675 3.88995 7.18917 3.96052 7.25534L9.56052 12.5053C9.70154 12.6375 9.92303 12.6304 10.0552 12.4894C10.1874 12.3484 10.1803 12.1269 10.0393 11.9947L4.71164 7L10.0393 2.00534C10.1803 1.87314 10.1874 1.65164 10.0552 1.51062Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </span>
+            </button>
+            {/* table data first items */}
+            {/* <button
+              type="button"
+              className="btn"
+              style={{
+                backgroundColor: theme === 'light' ? '#E6E6E6' : '#1C1C1C',
+                border: `1px solid ${
+                  theme === 'light' ? '#b5b5b6' : '#232324'
+                }`,
+              }}
+            >
+              1
+            </button> */}
+            {/* left Dots */}
+            {/* <button type="button" className="btn">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="19"
+                height="4"
+                viewBox="0 0 19 4"
+                fill="none"
+              >
+                <path
+                  d="M0.882812 2.0918C0.882812 1.61328 1.05143 1.2054 1.38867 0.868164C1.73047 0.530924 2.13835 0.362305 2.6123 0.362305C3.09082 0.362305 3.4987 0.530924 3.83594 0.868164C4.17773 1.2054 4.34863 1.61328 4.34863 2.0918C4.34863 2.57031 4.17773 2.98047 3.83594 3.32227C3.4987 3.65951 3.09082 3.82812 2.6123 3.82812C2.13835 3.82812 1.73047 3.65951 1.38867 3.32227C1.05143 2.98047 0.882812 2.57031 0.882812 2.0918ZM7.79102 2.0918C7.79102 1.61328 7.95964 1.2054 8.29688 0.868164C8.63867 0.530924 9.04655 0.362305 9.52051 0.362305C9.99902 0.362305 10.4069 0.530924 10.7441 0.868164C11.0859 1.2054 11.2568 1.61328 11.2568 2.0918C11.2568 2.57031 11.0859 2.98047 10.7441 3.32227C10.4069 3.65951 9.99902 3.82812 9.52051 3.82812C9.04655 3.82812 8.63867 3.65951 8.29688 3.32227C7.95964 2.98047 7.79102 2.57031 7.79102 2.0918ZM14.6992 2.0918C14.6992 1.61328 14.8678 1.2054 15.2051 0.868164C15.5469 0.530924 15.9548 0.362305 16.4287 0.362305C16.9072 0.362305 17.3151 0.530924 17.6523 0.868164C17.9941 1.2054 18.165 1.61328 18.165 2.0918C18.165 2.57031 17.9941 2.98047 17.6523 3.32227C17.3151 3.65951 16.9072 3.82812 16.4287 3.82812C15.9548 3.82812 15.5469 3.65951 15.2051 3.32227C14.8678 2.98047 14.6992 2.57031 14.6992 2.0918Z"
+                  fill="#858585"
+                />
+              </svg>
+            </button> */}
+            {/* Middel table data */}
+            {/* {middleButton.map((ele, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  className="btn"
+                  style={{
+                    backgroundColor: theme === 'light' ? '#E6E6E6' : '#1C1C1C',
+                    border: `1px solid ${
+                      ele === 6
+                        ? '#FF3E5B'
+                        : theme === 'light'
+                        ? '#b5b5b6'
+                        : '#232324'
+                    }`,
+                    color: ele === 6 && '#FF3E5B',
+                  }}
+                >
+                  {ele}
+                </button>
+              ))} */}
+            {/* Middel table data end */}
+            {pages.map((ele, index) => (
+              <button
+                key={index}
+                className="btn paginationBtn"
+                onClick={() => setCurrentPage(ele)}
+                style={{
+                  borderColor:
+                    currentPage === ele
+                      ? '#FF3E5B'
+                      : theme === 'light'
+                      ? '#b5b5b6'
+                      : '#232324',
+                  color: currentPage === ele && '#FF3E5B',
+                  // backgroundColor:
+                  // 	currentPage === ele && '#d7d7d7'
+                }}
+              >
+                {ele}
+              </button>
+            ))}
+            {/* right Dots */}
+            {/* <button type="button" className="btn">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="19"
+                height="4"
+                viewBox="0 0 19 4"
+                fill="none"
+              >
+                <path
+                  d="M0.882812 2.0918C0.882812 1.61328 1.05143 1.2054 1.38867 0.868164C1.73047 0.530924 2.13835 0.362305 2.6123 0.362305C3.09082 0.362305 3.4987 0.530924 3.83594 0.868164C4.17773 1.2054 4.34863 1.61328 4.34863 2.0918C4.34863 2.57031 4.17773 2.98047 3.83594 3.32227C3.4987 3.65951 3.09082 3.82812 2.6123 3.82812C2.13835 3.82812 1.73047 3.65951 1.38867 3.32227C1.05143 2.98047 0.882812 2.57031 0.882812 2.0918ZM7.79102 2.0918C7.79102 1.61328 7.95964 1.2054 8.29688 0.868164C8.63867 0.530924 9.04655 0.362305 9.52051 0.362305C9.99902 0.362305 10.4069 0.530924 10.7441 0.868164C11.0859 1.2054 11.2568 1.61328 11.2568 2.0918C11.2568 2.57031 11.0859 2.98047 10.7441 3.32227C10.4069 3.65951 9.99902 3.82812 9.52051 3.82812C9.04655 3.82812 8.63867 3.65951 8.29688 3.32227C7.95964 2.98047 7.79102 2.57031 7.79102 2.0918ZM14.6992 2.0918C14.6992 1.61328 14.8678 1.2054 15.2051 0.868164C15.5469 0.530924 15.9548 0.362305 16.4287 0.362305C16.9072 0.362305 17.3151 0.530924 17.6523 0.868164C17.9941 1.2054 18.165 1.61328 18.165 2.0918C18.165 2.57031 17.9941 2.98047 17.6523 3.32227C17.3151 3.65951 16.9072 3.82812 16.4287 3.82812C15.9548 3.82812 15.5469 3.65951 15.2051 3.32227C14.8678 2.98047 14.6992 2.57031 14.6992 2.0918Z"
+                  fill="#858585"
+                />
+              </svg>
+            </button> */}
+            {/* table data last items */}
+            {/* <button
+              type="button"
+              className="btn"
+              style={{
+                backgroundColor: theme === 'light' ? '#E6E6E6' : '#1C1C1C',
+                border: `1px solid ${
+                  theme === 'light' ? '#b5b5b6' : '#232324'
+                }`,
+              }}
+            >
+              {todos.length}
+            </button> */}
+            {/* right btn */}
+            <button
+              type="button"
+              className={`btn ${
+                numOfTotalPages === currentPage && 'disabledBtn'
+              }`}
+              style={{
+                border: `1px solid ${
+                  theme === 'light' ? '#b5b5b6' : '#232324'
+                }`,
+              }}
+              onClick={nextPageHandler}
+              disabled={numOfTotalPages === currentPage}
+            >
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                >
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M3.94476 1.51062C4.07697 1.3696 4.29846 1.36246 4.43948 1.49466L10.0395 6.74466C10.1101 6.81083 10.1501 6.90326 10.1501 7C10.1501 7.09675 10.1101 7.18917 10.0395 7.25534L4.43948 12.5053C4.29846 12.6375 4.07697 12.6304 3.94476 12.4894C3.81256 12.3484 3.8197 12.1269 3.96072 11.9947L9.28836 7L3.96072 2.00534C3.8197 1.87314 3.81256 1.65164 3.94476 1.51062Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </span>
+            </button>
           </div>
         </div>
       </div>
       {/* footers */}
       <div
         className="footer"
-        style={{ backgroundColor: theme === "light" ? "#ffffff" : "#0B0B0C" }}
+        style={{ backgroundColor: theme === 'light' ? '#ffffff' : '#0B0B0C' }}
       >
         <span>Copyright © 2023 ROBIN.</span>
       </div>
@@ -391,7 +861,7 @@ function EmployeeManagementPage() {
       />
 
       {/* Action Employee Drawer */}
-      <ActionEmployeeDrawer
+      <AddEmployeeDrawer
         actionEmployeeDrawer={actionEmployeeDrawer}
         setActionEmployeeDrawer={setActionEmployeeDrawer}
       />
