@@ -404,7 +404,7 @@ function ActionEmployeeDrawer({
               </div>
             </>
           ) : addEmployeeDetailsShow ? (
-            <AddEmployeeDetails values={values} />
+            <AddEmployeeDetails values={values} handleDrawerClosed={handleDrawerClosed} />
           ) : (
             <FirstUserValidate
               values={values}
