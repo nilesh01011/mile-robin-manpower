@@ -1,0 +1,43 @@
+.toastNotification {
+  position: relative;
+
+  & .toastContainer {
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+    position: absolute;
+    // top: -42px;
+    top: -47px;
+    padding: 10px 16px;
+    border-radius: 4px;
+    max-width: 390px;
+    transition: right 1.3s ease-in-out;
+
+    & .leftSideToast {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+
+      & .toastContents {
+        display: flex;
+        flex-direction: column;
+
+        & p {
+          font-size: 14px;
+          font-weight: 500;
+          margin-bottom: 6px;
+          text-transform: capitalize;
+        }
+
+        & span {
+          font-size: 14px;
+          line-height: 23px;
+        }
+      }
+    }
+
+    & .rightSideToast span {
+      cursor: pointer;
+    }
+  }
+}

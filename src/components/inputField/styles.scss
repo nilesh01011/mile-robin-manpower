@@ -2,10 +2,14 @@
   border-radius: 4px;
   // max-width: 239px;
   width: 100%;
-  min-height: 27px;
-  max-height: 27px;
+  min-height: 36px;
+  // min-height: 27px;
+  // max-height: 27px;
   border: 1px solid;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   & input {
     background: transparent;

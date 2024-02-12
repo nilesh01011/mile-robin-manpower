@@ -11,11 +11,11 @@
   {
     "first_name": "Prem",
     "last_name": "Sathe",
-    "mother_name": "Mother",
-    "date_birth": "2/12/2001",
+    "mother_name": "Lata",
+    "date_birth": "2001-07-25",
     "gender": "Male",
     "businessName": "LMM",
-    "employeeStatus": true
+    "employeeStatus": false
   },
   {
     "first_name": "Aylmer",
