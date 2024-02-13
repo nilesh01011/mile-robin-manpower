@@ -5,16 +5,19 @@ import Overlay from "../../../../../components/overlay/Overlay";
 // import InputField from "../../../../../components/inputField/InputField";
 // import CalendarInput from "../../../../../components/calendarInput";
 // import Dropdown from "../../../../../components/dropdown/Dropdown";
-import { useFormik } from "formik";
-import { employeeExists } from "../../../../../formikSchema/addEmployee";
+// import { useFormik } from "formik";
+// import { employeeExists } from "../../../../../formikSchema/addEmployee";
 import LoadingCircle from "../../../../../components/loadingCircle/LoadingCircle";
-import axios from "axios";
-import moment from "moment";
-import UserNotExists from "./userNotExists/UserNotExists";
-import UserExistsWithActive from "./userExistsWithActive/UserExistsWithActive";
-import UserExistsButInactive from "./userExistsButInactive/UserExistsButInactive";
-import FirstUserValidate from "./firstUserValidate/FirstUserValidate";
-import AddEmployeeDetails from "./addEmployeeDetails/AddEmployeeDetails";
+// import axios from "axios";
+// import moment from "moment";
+// import UserNotExists from "./userNotExists/UserNotExists";
+// import UserExistsWithActive from "./userExistsWithActive/UserExistsWithActive";
+// import UserExistsButInactive from "./userExistsButInactive/UserExistsButInactive";
+// import AddEmployeeDetails from "./addEmployeeDetails/AddEmployeeDetails";
+import UserValidate from "./components/userValidate/UserValidate";
+import ResultDataShow from "./components/resultDataShow/ResultDataShow";
+import UserDetailsFieldShow from "./components/userDetailsFieldShow/UserDetailsFieldShow";
+import MileIDGenerate from "./components/mileIDGenerate/MileIDGenerate";
 
 function ActionEmployeeDrawer({
   actionEmployeeDrawer,
@@ -23,12 +26,14 @@ function ActionEmployeeDrawer({
   const theme = useSelector((state) => state.theme);
 
   const [isLoading, setIsLoading] = useState(false);
+  // validates show
+  const [userValidate, setUserValidate] = useState(true);
 
-  // user validates details
+  // user result validates details
   const [resultShow, setResultShow] = useState(false);
 
-  // add user details
-  const [addEmployeeDetailsShow, setAddEmployeeDetailsShow] = useState(true);
+  // user details form show
+  const [userDetailsFormShow, setUserDetailsFormShow] = useState(false);
 
   const [resultsValues, setResultValues] = useState([]);
 
@@ -39,111 +44,36 @@ function ActionEmployeeDrawer({
   // user exists with active
   const [userExistsWithActive, setUserExistsWithActive] = useState(false);
 
-  // formikSchema form initial values
-  const initialValues = {
-    first_name: "",
-    last_name: "",
-    mother_name: "",
-    date_birth: "",
-    gender: "",
-    businessName: "",
-  };
-
-  // useFormik
-  const { values, errors, touched, handleChange, handleSubmit } = useFormik({
-    validationSchema: employeeExists,
-    initialValues: initialValues,
-    onSubmit: async (values, action) => {
-      setIsLoading(true);
-
-      // fetching to this setTimeout function
-      try {
-        const response = await axios.get("/mile-user-exists.json");
-
-        const filterUserExists = response.data.filter((user) => {
-          let firstNameExists = user.first_name
-            .toLowerCase()
-            .includes(values.first_name.toLowerCase());
-
-          let lastNameExists = user.last_name
-            .toLowerCase()
-            .includes(values.last_name.toLowerCase());
-
-          let motherNameExists = user.mother_name
-            .toLowerCase()
-            .includes(values.mother_name.toLowerCase());
-
-          let date_birthExists = user.date_birth
-            .toLowerCase()
-            .includes(values.date_birth.toLowerCase());
-
-          let genderExists = user.gender
-            .toLowerCase()
-            .includes(values.gender.toLowerCase());
-
-          let businessNameExists = user.businessName
-            .toLowerCase()
-            .includes(values.businessName.toLowerCase());
-
-          return (
-            firstNameExists &&
-            lastNameExists &&
-            motherNameExists &&
-            date_birthExists &&
-            genderExists &&
-            businessNameExists
-          );
-        });
-
-        console.log("Filtered user exists:", filterUserExists);
-
-        setResultShow(true);
-
-        if (filterUserExists.length > 0) {
-          // user found check it's active or inactive
-          if (!filterUserExists[0].employeeStatus) {
-            // console.log("user found but is inactive:", filterUserExists);
-            setUserExistsButInActive(true);
-
-            setResultValues(filterUserExists);
-          }
-
-          // user exists with active
-          if (filterUserExists[0].employeeStatus) {
-            setUserExistsWithActive(true);
-
-            setResultValues(filterUserExists);
-          }
-        }
-
-        // user not exists
-        if (filterUserExists.length === 0) {
-          console.log("user not found:", values);
-          setUserNotExists(!userNotExists);
-
-          setResultValues([values]);
-          console.log("user not found:", values);
-        }
-
-        action.resetForm();
-      } catch (error) {
-        console.error("Error fetching ", error);
-      } finally {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 2000);
-      }
-    },
-  });
+  // handle Regignation Submit
+  // const handleRegignationSubmit = () => {};
+  // submitData
+  const [submitData, setSubmitData] = useState(false);
+  // mile id generated
+  const [mileIDGenerate, setMileIDGenerate] = useState(false);
 
   // handle drawer closed
   const handleDrawerClosed = () => {
     setActionEmployeeDrawer(!actionEmployeeDrawer);
+    // user add details result false
     setResultShow(false);
-  };
+    // submit data false
+    setSubmitData(false);
+    // mile id text changes false
+    setMileIDGenerate(false);
+    // user Details Form Show
+    setUserDetailsFormShow(false);
+    // user validate shwo first
+    setUserValidate(true);
 
-  // handle Regignation Submit
-  const handleRegignationSubmit = () => {};
+    // userNotExists
+    setUserNotExists(false)
+
+    // user exists active
+    setUserExistsWithActive(false)
+
+    // user with inactive
+    setUserExistsButInActive(false)
+  };
 
   return (
     <>
@@ -161,10 +91,7 @@ function ActionEmployeeDrawer({
         onClick={() => handleDrawerClosed()}
       /> */}
       {/* contents */}
-      <form
-        onSubmit={handleSubmit}
-        method="post"
-        autoComplete="off"
+      <div
         className="drawerContainer actionEmployeeDrawer"
         style={{
           backgroundColor: theme === "light" ? "#FFF" : "#0B0B0C",
@@ -172,6 +99,7 @@ function ActionEmployeeDrawer({
           right: actionEmployeeDrawer ? 0 : "-150%",
         }}
       >
+        {/* header */}
         {/* headers */}
         <div
           className="actionEmployeeDrawerHeader"
@@ -183,13 +111,19 @@ function ActionEmployeeDrawer({
           }}
         >
           {/* text */}
-          <span className="title">Add Employee</span>
+          <span className="title">
+            {/* {submitData
+              ? "Employee Added Successfully"
+              : mileIDGenerate
+              ? "Mile ID Generated Successfully"
+              : "Add Employee"} */}
+            Add Employee
+          </span>
           {/* icons */}
           <span
             style={{ cursor: "pointer" }}
             onClick={() => {
-              setActionEmployeeDrawer(!actionEmployeeDrawer);
-              setResultShow(false);
+              handleDrawerClosed();
             }}
           >
             <svg
@@ -208,8 +142,9 @@ function ActionEmployeeDrawer({
             </svg>
           </span>
         </div>
-
+        {/* content */}
         <div className="actionEmployeeContainer">
+          {/* user validates */}
           {isLoading ? (
             <div className="loadingContainer">
               {/* loading img */}
@@ -221,201 +156,183 @@ function ActionEmployeeDrawer({
                 Validating Employee Details...
               </span>
             </div>
-          ) : resultShow ? (
+          ) : (
             <>
-              <div className="resultDataShow">
-                {/* title */}
-                <h5 className="title">Employee Details</h5>
-                {/* data result */}
-                <div
-                  className="resultValues"
-                  style={{
-                    backgroundColor: theme === "light" ? "#F2F2F2" : "#1C1C1C",
-                    borderColor: theme === "light" ? "#E6E6E6" : "#232324",
-                  }}
-                >
-                  {/* first name */}
-                  <div className="resultValuesItems">
-                    <span
-                      style={{
-                        color: theme === "light" ? "#545454" : "#545454",
-                      }}
-                    >
-                      First Name:
-                    </span>
-                    <span>{resultsValues[0]?.first_name}</span>
-                  </div>
-                  {/* divided */}
-                  <div
-                    className="divider"
-                    style={{
-                      backgroundColor:
-                        theme === "light" ? "#E6E6E6" : "#232324",
-                    }}
-                  />
-                  {/* last name */}
-                  <div className="resultValuesItems">
-                    <span
-                      style={{
-                        color: theme === "light" ? "#545454" : "#545454",
-                      }}
-                    >
-                      Last Name:
-                    </span>
-                    <span>{resultsValues[0]?.last_name}</span>
-                  </div>
-                  {/* divided */}
-                  <div
-                    className="divider"
-                    style={{
-                      backgroundColor:
-                        theme === "light" ? "#E6E6E6" : "#232324",
-                    }}
-                  />
-                  {/* mother name */}
-                  <div className="resultValuesItems">
-                    <span
-                      style={{
-                        color: theme === "light" ? "#545454" : "#545454",
-                      }}
-                    >
-                      Mother's Name:
-                    </span>
-                    <span>{resultsValues[0]?.mother_name}</span>
-                  </div>
-                  {/* divided */}
-                  <div
-                    className="divider"
-                    style={{
-                      backgroundColor:
-                        theme === "light" ? "#E6E6E6" : "#232324",
-                    }}
-                  />
-                  {/* date of birth */}
-                  <div className="resultValuesItems">
-                    <span
-                      style={{
-                        color: theme === "light" ? "#545454" : "#545454",
-                      }}
-                    >
-                      date of birth:
-                    </span>
-                    <span>
-                      {moment(resultsValues[0]?.date_birth).format(
-                        "DD MMM YYYY"
-                      )}
-                    </span>
-                  </div>
-                  {/* divided */}
-                  <div
-                    className="divider"
-                    style={{
-                      backgroundColor:
-                        theme === "light" ? "#E6E6E6" : "#232324",
-                    }}
-                  />
-                  {/* gender */}
-                  <div className="resultValuesItems">
-                    <span
-                      style={{
-                        color: theme === "light" ? "#545454" : "#545454",
-                      }}
-                    >
-                      Gender:
-                    </span>
-                    <span>{resultsValues[0]?.gender}</span>
-                  </div>
-                  {/* divided */}
-                  <div
-                    className="divider"
-                    style={{
-                      backgroundColor:
-                        theme === "light" ? "#E6E6E6" : "#232324",
-                    }}
-                  />
-                  {/* business name */}
-                  <div className="resultValuesItems">
-                    <span
-                      style={{
-                        color: theme === "light" ? "#545454" : "#545454",
-                      }}
-                    >
-                      Business Name:
-                    </span>
-                    <span>{resultsValues[0]?.businessName}</span>
-                  </div>
-                </div>
-                {/* messages container */}
-                {userNotExists ? (
-                  <UserNotExists />
-                ) : userExistsWithActive ? (
-                  <UserExistsWithActive />
-                ) : (
-                  <UserExistsButInactive />
-                )}
-              </div>
+              {/* user validates */}
+              {userValidate && (
+                <UserValidate
+                  // loading
+                  isLoading={isLoading}
+                  setIsLoading={setIsLoading}
+                  // user validate content
+                  userValidate={userValidate}
+                  setUserValidate={setUserValidate}
+                  // result show
+                  setResultShow={setResultShow}
+                  // user typed data
+                  setResultValues={setResultValues}
+                  // user exists but in active
+                  setUserExistsButInActive={setUserExistsButInActive}
+                  // user exists with active
+                  setUserExistsWithActive={setUserExistsWithActive}
+                  // user not exists
+                  setUserNotExists={setUserNotExists}
+                  userNotExists={userNotExists}
+                  // drader closed event
+                  handleDrawerClosed={handleDrawerClosed}
+                />
+              )}
+              {/* result show */}
+              {resultShow && (
+                <ResultDataShow
+                  resultsValues={resultsValues}
+                  userExistsWithActive={userExistsWithActive}
+                  userNotExists={userNotExists}
+                  // drawer closed event
+                  handleDrawerClosed={handleDrawerClosed}
+                  // User Details Form Show
+                  setUserDetailsFormShow={setUserDetailsFormShow}
+                  userDetailsFormShow={userDetailsFormShow}
+                  // results show then next steps
+                  setResultShow={setResultShow}
+                  resultShow={resultShow}
 
-              {/* footer */}
-              <div
-                className="actionEmployeeFooter"
-                style={{
-                  boxShadow:
-                    theme === "light"
-                      ? "0px -2px 4px 0px rgba(0, 0, 0, 0.15)"
-                      : "rgb(255 255 255 / 15%) 0px -1px 1px 0px",
-                  backgroundColor: theme === "light" ? "#FFFFFF" : "#0B0B0C",
+                  // userExistsButInactive
+                  userExistsButInActive={userExistsButInActive}
+                />
+              )}
+              {/* user details show */}
+              {userDetailsFormShow && (
+                <UserDetailsFieldShow
+                  // for hidding and show submit
+                  userDetailsFormShow={userDetailsFormShow}
+                  setUserDetailsFormShow={setUserDetailsFormShow}
+                  // drawer closed event
+                  handleDrawerClosed={handleDrawerClosed}
+                  // user validate typed data
+                  values={resultsValues}
+                  // show submit animation
+                  setSubmitData={setSubmitData}
+                  submitData={submitData}
+                />
+              )}
+
+              {/* submit animation show */}
+              {submitData && (
+                <MileIDGenerate
+                  // user validate typed data
+                  values={resultsValues}
+                  // drawer closed event
+                  handleDrawerClosed={handleDrawerClosed}
+                  // mile ID
+                />
+              )}
+            </>
+          )}
+
+          {/* resultShow */}
+        </div>
+        {/* footer */}
+        {/* <div
+          className="actionEmployeeFooter"
+          style={{
+            boxShadow:
+              theme === "light"
+                ? "0px -2px 4px 0px rgba(0, 0, 0, 0.15)"
+                : "rgb(255 255 255 / 15%) 0px -1px 1px 0px",
+            backgroundColor: theme === "light" ? "#FFFFFF" : "#0B0B0C",
+          }}
+        >
+          user validates footer
+          left btns
+          <button
+            className="btns outlineBtn"
+            type="reset"
+            onClick={() => {
+              handleDrawerClosed();
+            }}
+          >
+            same Cancel btn
+          </button>
+          right btns
+          {userExistsWithActive ? (
+            <button
+              className="btns primaryBtn"
+              type="button"
+              aria-label="button"
+              onClick={() => handleRegignationSubmit()}
+            >
+              Send Notification
+            </button>
+          ) : resultShow ? (
+            <button
+              className="btns primaryBtn"
+              type="button"
+              aria-label="button"
+              onClick={() => {
+                setAddEmployeeDetailsShow(!addEmployeeDetailsShow);
+                setResultShow(!resultShow);
+              }}
+            >
+              Add Employee user not exists
+            </button>
+          ) : addEmployeeDetailsShow ? (
+            submitData === false && (
+              <button
+                className="btns primaryBtn"
+                type="button"
+                aria-label="button"
+                onClick={() => setSubmitData(!submitData)}
+              >
+                submit
+              </button>
+            )
+          ) : (
+            <button
+              className="btns primaryBtn"
+              type="submit"
+              aria-label="submit"
+            >
+              Validate
+            </button>
+          )}
+
+          {resultShow ? (
+            userNotExists ? (
+              <button
+                className="btns primaryBtn"
+                type="button"
+                aria-label="button"
+                onClick={() => {
+                  setAddEmployeeDetailsShow(!addEmployeeDetailsShow);
+                  setResultShow(!resultShow);
                 }}
               >
-                {/* left btns */}
-                <button
-                  className="btns outlineBtn"
-                  type="button"
-                  onClick={() => {
-                    handleDrawerClosed();
-                  }}
-                >
-                  Cancel
-                </button>
-                {/* right btns */}
-                {userNotExists || userExistsButInActive ? (
-                  <button
-                    className="btns primaryBtn"
-                    type="submit"
-                    aria-label="submit"
-                    onClick={() => {
-                      setAddEmployeeDetailsShow(!addEmployeeDetailsShow);
-                      setResultShow(!resultShow);
-                    }}
-                  >
-                    Add Employee
-                  </button>
-                ) : (
-                  userExistsWithActive && (
-                    <button
-                      className="btns primaryBtn"
-                      type="submit"
-                      aria-label="submit"
-                      onClick={() => handleRegignationSubmit()}
-                    >
-                      Send Notification
-                    </button>
-                  )
-                )}
-              </div>
-            </>
-          ) : addEmployeeDetailsShow ? (
-            <AddEmployeeDetails values={values} handleDrawerClosed={handleDrawerClosed} />
+                Add Employee
+              </button>
+            ) : (
+              "submit"
+            )
+          ) : userExistsWithActive ? (
+            <button
+              className="btns primaryBtn"
+              type="submit"
+              aria-label="submit"
+              onClick={() => handleRegignationSubmit()}
+            >
+              Send Notification
+            </button>
           ) : (
-            <FirstUserValidate
-              values={values}
-              errors={errors}
-              touched={touched}
-              handleChange={handleChange}
-              handleDrawerClosed={handleDrawerClosed}
-            />
+            <button
+              className="btns primaryBtn"
+              type="submit"
+              aria-label="submit"
+            >
+              Validate
+            </button>
           )}
-        </div>
-      </form>
+        </div> */}
+      </div>
     </>
   );
 }

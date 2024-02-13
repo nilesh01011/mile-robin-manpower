@@ -7,6 +7,7 @@ import DashboardPage from "./pages/dashboard";
 import EmployeeManagementPage from "./pages/mile-hr/employee-management";
 import Reports from "./pages/mile-hr/reports/reports-1";
 import Reports2 from "./pages/mile-hr/reports/reports-2";
+import ModelBox from "./components/header/modelBox";
 
 function App() {
   const theme = useSelector((state) => state.theme);
@@ -43,6 +44,23 @@ function App() {
       <div className="main-container">
         {/* Headers */}
         <Header setModelListDetails={setModelListDetails} />
+        {/* model */}
+        {modelListDetails && (
+          <ModelBox
+            text={modelListDetails}
+            setModelListDetails={setModelListDetails}
+          />
+        )}
+
+        <div
+          style={{
+            display: modelListDetails ? "block" : "none",
+            backgroundColor:
+              theme === "light" ? "rgba(0, 0, 0, 0.8)" : "rgba(84, 84, 84,0.7)",
+          }}
+          id="overlay_2"
+          onClick={handleClosed}
+        ></div>
 
         {/* main contents */}
         <Routes>

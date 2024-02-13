@@ -1,0 +1,62 @@
+@import "../styles.scss";
+
+.changePasswordContainer {
+    @include modelContainer;
+    width: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    & .heads {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    & .divider {
+        @include divider;
+        margin-bottom: 24px;
+    }
+
+    & .formContainer {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+
+        & .btns {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+    }
+
+    & button {
+        text-transform: capitalize;
+        padding: 8px 16px;
+        border-radius: 5px;
+        background-color: #FF3E5B;
+        color: white;
+        height: 40px;
+    }
+
+}
+
+// media queries
+@media screen and (max-width: 576px) {
+    .changePasswordContainer {
+        width: 380px;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .changePasswordContainer {
+        width: 100%;
+        margin: 0 auto;
+    }
+}

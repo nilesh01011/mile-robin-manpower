@@ -1,0 +1,22 @@
+.recentlyViewContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 10px;
+    cursor: pointer;
+
+    &:not(:last-child) {
+        border-bottom: 1px solid;
+    }
+
+    & p {
+        font-size: 14px;
+    }
+
+    &:hover {
+        & p {
+            color: #FF3E5B;
+        }
+    }
+}

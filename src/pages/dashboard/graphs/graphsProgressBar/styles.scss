@@ -1,0 +1,238 @@
+.graphsProgressBarContainer {
+    width: 100%;
+    height: max-content;
+    // max-height: 269px;
+    position: relative;
+    padding: 16px 0;
+    // padding: 16px 20px;
+    border-radius: 4px;
+    border: 1px solid;
+    // overflow: hidden;
+  
+    & .headerCollapse {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      // margin-bottom: 12px;
+      cursor: pointer;
+  
+      & h2 {
+        font-size: 16px;
+        font-weight: 500;
+        user-select: none;
+      }
+    }
+  
+  
+    // divider
+    & .divider {
+      width: calc(100% - 32px);
+      height: 1px;
+      display: block;
+      // margin: 12px 0;
+      margin: 0 auto;
+    }
+  
+    & .graphsDataWrapper {
+      margin-top: 12px;
+      width: 100%;
+      height: max-content;
+      display: grid;
+      // display: flex;
+      align-items: center;
+      // grid-template-columns: 0.4fr 0.7fr;
+      grid-template-columns: repeat(2, 1fr);
+      padding: 0 16px;
+      gap: 10px;
+      // gap: 30px;
+  
+      &.addScrollBar {
+        overflow: scroll;
+        overflow-x: hidden;
+        max-height: 195px;
+  
+        &::-webkit-scrollbar {
+          width: 5px;
+        }
+  
+        &.light::-webkit-scrollbar-track {
+          background: #f0efef;
+        }
+  
+        &.dark::-webkit-scrollbar-track {
+          background: #1c1c1c;
+        }
+  
+        &::-webkit-scrollbar-thumb {
+          border-radius: 10px;
+        }
+  
+        &.light::-webkit-scrollbar-thumb {
+          background: #b5b5b6;
+        }
+  
+        &.dark::-webkit-scrollbar-thumb {
+          background: #545454;
+        }
+      }
+  
+      & .graphsProgressBarData {
+        display: flex;
+        align-items: center;
+        min-height: 20px;
+        justify-content: space-between;
+      }
+  
+      & .graphsProgressBarLeftSide {
+        width: 100%;
+        min-height: 230px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        white-space: nowrap;
+  
+        & p {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
+  
+        & span {
+          font-size: 12px;
+          font-weight: 500;
+  
+          &.name {
+            text-transform: capitalize;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 80px;
+  
+            // &.middleScreen,
+            // &.smallScreen {
+            //   display: none;
+            // }
+          }
+        }
+      }
+  
+      & .graphsProgressBarRightSide {
+        width: 100%;
+        min-height: 230px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+  
+        & .progressBar {
+          border-radius: 4px;
+          height: 12px;
+          margin: 4px 0;
+          display: flex;
+          align-items: center;
+          position: relative;
+          cursor: pointer;
+  
+          //   tooltips
+          & .tooltips {
+            position: absolute;
+            top: -2px;
+            right: -70px;
+            display: block;
+            padding: 3px 10px;
+            border-radius: 4px;
+            box-shadow: 0px 0px 4px 0px rgb(255 255 255 / 15%);
+            white-space: nowrap;
+            // background: #000;
+  
+            & p {
+              display: flex;
+              align-items: center;
+              gap: 4px;
+              // color: #ffffff;
+  
+              &::before {
+                content: "";
+                position: absolute;
+                display: block;
+                border: 6px solid transparent;
+                border-right-color: #000000;
+                left: -10px;
+                top: 50%;
+                transform: translateY(-50%);
+              }
+  
+              &.lightTheme::before {
+                border-right-color: #ffffff;
+              }
+  
+              &.darkTheme::before {
+                border-right-color: #545454;
+              }
+            }
+  
+            & span {
+              font-size: 10px;
+              font-weight: 400;
+              text-transform: capitalize;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  // middle screen
+  // @media screen and (max-width: 1366px) {
+  //   .graphsProgressBarContainer {
+  //     & .graphsDataWrapper {
+  //       & .graphsProgressBarLeftSide {
+  //         & span {
+  //           &.name {
+  //             // &.middleScreen {
+  //             //   display: block;
+  //             // }
+  
+  //             // &.biggScreen {
+  //             //   display: none;
+  //             // }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+  
+  // small screen
+  @media screen and (max-width: 1280px) {
+    .graphsProgressBarContainer {
+      & .graphsDataWrapper {
+        gap: 10px;
+        // grid-template-columns: 0.3fr 0.7fr;
+        // grid-template-columns: 0.5fr 0.4fr;
+  
+        & .graphsProgressBarRightSide {
+          & .progressBar {
+            & .tooltips {
+              right: 0;
+            }
+          }
+        }
+  
+        // & .graphsProgressBarLeftSide {
+        //   & span {
+        //     &.name {
+        //       // &.smallScreen {
+        //       //   display: block;
+        //       // }
+  
+        //       // &.middleScreen {
+        //       //   display: none;
+        //       // }
+        //     }
+        //   }
+        // }
+      }
+    }
+  }
+  

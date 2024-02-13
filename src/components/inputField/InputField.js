@@ -61,9 +61,6 @@ function InputField({
         disabled={types === 'disabled' && true}
         name={name}
       />
-
-      {/* error */}
-      {touched && errors ? <p className="errors">{errors}</p> : null}
     </div>
   );
 }

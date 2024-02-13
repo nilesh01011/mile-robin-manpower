@@ -585,8 +585,8 @@ function Header({ handleClosed, setModelListDetails }) {
                       : "rgb(255 255 255 / 15%) 1px 0px 1px 0px",
                 }}
               >
-                {userDropdownDetails.map((ele) => (
-                  <div title={ele.text} key={ele.id} className="lists">
+                {userDropdownDetails.map((ele,index) => (
+                  <div title={ele.text} key={index} className="lists">
                     {ele.isFolder ? (
                       <div
                         onMouseOver={() => setListHover(ele.id)}
