@@ -1,0 +1,240 @@
+.loginPage {
+    width: 100%;
+    min-height: 100vh;
+    height: 100%;
+    overflow: hidden;
+    padding: 30px 20px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  
+    // logo
+    & .logoImg {
+      height: 40px;
+      width: 220px;
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  
+      & img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: right;
+      }
+    }
+  
+    & .loginForm {
+      max-width: 420px;
+      margin: 0 auto;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 20px;
+  
+      // logo
+      & .robinLogoContainer {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0.4rem;
+  
+        & img {
+          width: 100%;
+          height: 50px;
+          object-fit: contain;
+        }
+      }
+  
+      // formContainer
+      & .formContainer {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+  
+        & .title {
+          font-size: 24px;
+          font-weight: 500;
+          margin-bottom: 20px;
+        }
+  
+        // form
+        & form {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          border-radius: 10px;
+          padding: 30px 40px;
+          background: #232226;
+          box-shadow: 0px 2px 4px 0px rgba(255, 255, 255, 0.15);
+  
+          & .formTitle {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            margin-bottom: 30px;
+          }
+  
+          & .fields {
+            width: 100%;
+            padding-left: 30px;
+            position: relative;
+            border: 1px solid;
+            border-radius: 4px;
+            padding: 5px 12px;
+  
+            & .inputs {
+              padding-left: 28px;
+              position: relative;
+  
+              & .passwordIcons {
+                position: absolute;
+                right: -2px;
+                top: 1px;
+                cursor: pointer;
+              }
+            }
+  
+            & .icons {
+              position: absolute;
+              left: 12px;
+              bottom: 7px;
+              // bottom: 9.5px;
+            }
+          }
+  
+          & .errors {
+            color: #ed302d;
+            font-size: 12px;
+            width: 100%;
+            text-align: left;
+            margin-top: 4px;
+          }
+        }
+  
+        // forgetPassword
+        & .forgetPassword {
+          text-align: right;
+          font-weight: 700;
+          color: #ff3e5b;
+          margin-top: 5px;
+          margin-left: auto;
+        }
+  
+        // button
+        & .btn {
+          width: 100%;
+          height: 100%;
+          min-height: 45px;
+          padding: 8px 16px;
+          border-radius: 4px;
+          font-weight: 700;
+          background-color: #ff3e5b;
+          color: white;
+          letter-spacing: 0.6px;
+          cursor: pointer;
+          margin: 21px 0;
+        }
+  
+        //  m&m login
+        & .m_login {
+          color: #ff3e5b;
+          font-size: 14px;
+          font-weight: 700;
+        }
+      }
+    }
+  
+    // footer
+    & .loginPage_footer {
+      text-align: center;
+  
+      & span {
+        font-size: 10px;
+        color: #858585;
+        white-space: nowrap;
+      }
+    }
+  }
+  
+  // media queries
+  @media screen and (max-width: 1280px) {
+    .loginPage {
+      & .loginPage_footer {
+        margin-top: 14px;
+      }
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .loginPage {
+      & .logoImg {
+        margin: 0 auto;
+        width: 100%;
+  
+        & img {
+          object-position: center;
+        }
+      }
+  
+      & .loginForm {
+        // logo
+        & .robinLogoContainer {
+          & img {
+            height: 32px;
+          }
+        }
+  
+        & .formContainer {
+          & .title {
+            font-size: 22px;
+          }
+  
+          & form .formTitle {
+            & h1 {
+              font-size: 28px;
+            }
+  
+            & p {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  @media screen and (max-width: 576px) {
+    .loginPage {
+      & .loginForm .formContainer {
+        & .title {
+          font-size: 16px;
+        }
+  
+        & form {
+          padding: 20px 30px;
+  
+          & .formTitle {
+            & h1 {
+              font-size: 18px;
+              // font-size: 22px;
+            }
+          }
+        }
+      }
+    }
+  }
+  

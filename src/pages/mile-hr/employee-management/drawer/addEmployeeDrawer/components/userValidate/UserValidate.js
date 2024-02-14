@@ -149,9 +149,6 @@ function UserValidate({
     {
       name: "female",
     },
-    {
-      name: "other",
-    },
   ];
 
   const businessNameItems = [
@@ -181,7 +178,7 @@ function UserValidate({
         >
           {/* first name */}
           <div className="gridItems">
-            <label style={{ color: "#545454" }}>
+            <label style={{  color: theme === "light" ? "#545454" : "#B5B5B6"  }}>
               First Name<span style={{ color: "red" }}>*</span>
             </label>
             <InputField
@@ -202,7 +199,7 @@ function UserValidate({
 
           {/* last name */}
           <div className="gridItems">
-            <label style={{ color: "#545454" }}>
+            <label style={{  color: theme === "light" ? "#545454" : "#B5B5B6"  }}>
               Last Name<span style={{ color: "red" }}>*</span>
             </label>
             <InputField
@@ -223,7 +220,7 @@ function UserValidate({
 
           {/* mother name */}
           <div className="gridItems">
-            <label style={{ color: "#545454" }}>
+            <label style={{  color: theme === "light" ? "#545454" : "#B5B5B6"  }}>
               Mother's Name<span style={{ color: "red" }}>*</span>
             </label>
             <InputField
@@ -244,7 +241,7 @@ function UserValidate({
 
           {/* date */}
           <div className="gridItems">
-            <label style={{ color: "#545454" }}>
+            <label style={{  color: theme === "light" ? "#545454" : "#B5B5B6"  }}>
               Date of Birth<span style={{ color: "red" }}>*</span>
             </label>
             <CalendarInput
@@ -258,7 +255,7 @@ function UserValidate({
 
           {/* dropdown */}
           <div className="gridItems">
-            <label style={{ color: "#545454" }}>
+            <label style={{  color: theme === "light" ? "#545454" : "#B5B5B6"  }}>
               Gender<span style={{ color: "red" }}>*</span>
             </label>
             <Dropdown
@@ -272,7 +269,7 @@ function UserValidate({
           </div>
 
           <div className="gridItems">
-            <label style={{ color: "#545454" }}>
+            <label style={{  color: theme === "light" ? "#545454" : "#B5B5B6"  }}>
               Business Name<span style={{ color: "red" }}>*</span>
             </label>
             <Dropdown

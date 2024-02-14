@@ -191,7 +191,7 @@ function UserDetailsFieldShow({
       <div className="addEmployeeDetails">
         {/* Employee Details accordions */}
         <div
-          className="accordionContainer"
+          className="addEmployeeAccordionContainer"
           style={{
             backgroundColor: theme === "light" ? "#F2F2F2" : "#1C1C1C",
             borderColor: theme === "light" ? "#E6E6E6" : "#232324",
@@ -541,7 +541,7 @@ function UserDetailsFieldShow({
 
         {/* bank details accordions */}
         <div
-          className="accordionContainer"
+          className="addEmployeeAccordionContainer"
           style={{
             backgroundColor: theme === "light" ? "#F2F2F2" : "#1C1C1C",
             borderColor: theme === "light" ? "#E6E6E6" : "#232324",
@@ -719,7 +719,7 @@ function UserDetailsFieldShow({
 
         {/* role details */}
         <div
-          className="accordionContainer"
+          className="addEmployeeAccordionContainer"
           style={{
             backgroundColor: theme === "light" ? "#F2F2F2" : "#1C1C1C",
             borderColor: theme === "light" ? "#E6E6E6" : "#232324",
@@ -947,7 +947,7 @@ function UserDetailsFieldShow({
 
         {/* Work Experience details */}
         <div
-          className="accordionContainer"
+          className="addEmployeeAccordionContainer"
           style={{
             backgroundColor: theme === "light" ? "#F2F2F2" : "#1C1C1C",
             borderColor: theme === "light" ? "#E6E6E6" : "#232324",

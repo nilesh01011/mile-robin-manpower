@@ -6,7 +6,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
 import { persistor, store } from "./store";
 import { PersistGate } from "redux-persist/integration/react";
-import DashboardPage from "./pages/dashboard";
+import StartingPage from "./pages/startingPage";
+import LoginPage from "./pages/login"
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -17,9 +18,9 @@ root.render(
         <BrowserRouter>
           <Routes>
             {/* Starting Page */}
-            {/* <Route exact path="/" element={<StartingPage />}></Route> */}
+            <Route exact path="/" element={<StartingPage />}></Route>
             {/* Login Page */}
-            {/* <Route path="/login" element={<LoginPage />}></Route> */}
+            <Route path="/login" element={<LoginPage />}></Route>
             {/* Other Routes */}
             <Route path="/*" element={<App />} />
           </Routes>

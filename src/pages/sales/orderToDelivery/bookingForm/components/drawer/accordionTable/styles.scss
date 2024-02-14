@@ -1,0 +1,51 @@
+.accordionTable {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+  
+    & .accordionHeader {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      // padding: 20px 30px;
+      padding: 20px 16px;
+    }
+  
+    & .accordionContents {
+      padding: 0 30px;
+      user-select: none;
+  
+      & .table {
+        border: 1px solid;
+        border-radius: 3px;
+        & .tableHead {
+          // width: 100%;
+          // display: flex;
+          // align-items: center;
+          // justify-content: space-between;
+          & th {
+            padding: 13px 20px;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 500;
+          }
+        }
+  
+        & td {
+          font-size: 14px;
+          font-weight: 400;
+        }
+  
+        & tr:last-child td {
+          border-bottom: 0;
+        }
+  
+        & tr:last-child {
+          border-bottom-left-radius: 3px;
+          border-bottom-right-radius: 3px;
+        }
+      }
+    }
+  }
+  

@@ -8,6 +8,7 @@ import EmployeeManagementPage from "./pages/mile-hr/employee-management";
 import Reports from "./pages/mile-hr/reports/reports-1";
 import Reports2 from "./pages/mile-hr/reports/reports-2";
 import ModelBox from "./components/header/modelBox";
+import BookingForm from "./pages/sales/orderToDelivery/bookingForm";
 
 function App() {
   const theme = useSelector((state) => state.theme);
@@ -65,7 +66,7 @@ function App() {
         {/* main contents */}
         <Routes>
           {/* =================== dashboard ============= */}
-          <Route exact path="/" element={<DashboardPage />}></Route>
+          <Route exact path="/home" element={<DashboardPage />}></Route>
           {/* ==================== Mile/HR ============== */}
           <Route
             path="/mile-hr/employee-management"
@@ -81,6 +82,12 @@ function App() {
             path="/mile-hr/reports/reports-2"
             element={<Reports2 />}
           ></Route>
+           {/* ==================== Sales ============== */}
+           <Route
+            path="/sales/order-to-delivery/booking-form"
+            element={<BookingForm />}
+          ></Route>
+
         </Routes>
       </div>
     </div>

@@ -1,0 +1,45 @@
+.loginInputFields {
+    width: 100%;
+    height: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 14px;
+    background-color: transparent !important;
+  
+    &:focus,
+    &:active {
+      background-color: transparent !important;
+    }
+  
+    &::placeholder {
+      color: #858585;
+      content: "*";
+    }
+  
+    & + svg {
+      margin-left: -25px;
+      margin-top: -2px;
+      visibility: visible;
+      cursor: pointer;
+    }
+  
+    &:placeholder-shown + svg {
+      visibility: hidden;
+    }
+  
+    &::-webkit-search-cancel-button {
+      -webkit-appearance: none;
+    }
+  }
+  
+  @media screen and (max-width: 880px) {
+    .inputFields {
+      & + svg {
+        margin-left: -55px;
+      }
+    }
+  }
+  

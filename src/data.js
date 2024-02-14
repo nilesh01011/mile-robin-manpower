@@ -5,7 +5,7 @@ export const menuItems = [
   {
     key: 1,
     name: "Home",
-    link: "/",
+    link: "/home",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -157,7 +157,7 @@ export const menuItems = [
           {
             name: "Booking Form",
             key: "4.1.1",
-            // link: "/sales/order-to-delivery/booking-form",
+            link: "/sales/order-to-delivery/booking-form",
           },
           {
             name: "Delivery Note/Invoice Cancellation Request",
@@ -418,6 +418,11 @@ export const searchItems = [
     name: "Masters 2",
     link: "/mile-hr/masters/masters-2",
   },
+  // Booking Form
+  {
+    name: "Booking Form",
+    link: "/sales/order-to-delivery/booking-form",
+  },
 ];
 
 // Notifications
@@ -657,8 +662,7 @@ export const recentlyVisited = [
   },
   {
     name: "Order Booking Form",
-    // link: "/sales/order-to-delivery/booking-form",
-    link: "/home",
+    link: "/sales/order-to-delivery/booking-form",
   },
   {
     name: "Reciepts",
@@ -1948,5 +1952,150 @@ export const mileTableHead = [
   },
   {
     label: "Action",
+  },
+];
+
+// ==================== Booking Table data ==================
+export const bookingTableHead = [
+  {
+    key: "1",
+    label: "#",
+  },
+  {
+    key: "2",
+    label: "Booking No.",
+  },
+  {
+    key: "3",
+    label: "Customer Name",
+  },
+  {
+    key: "4",
+    label: "Booking Date",
+  },
+  {
+    key: "5",
+    label: "Model Description",
+  },
+  {
+    key: "6",
+    label: "Booking Status",
+  },
+  {
+    key: "7",
+    label: "Action",
+  },
+];
+
+export const bookingTableData = [
+  {
+    key: "1.1",
+    one: "BKN21A000001",
+    two: "John Micheal",
+    three: "01 Dec 2021",
+    four: "XUV700 AX7 L PET AT 7 SEATER WHT(C56) ",
+    five: "Booked",
+    notEdit: true,
+    action: true,
+    status: true,
+  },
+  {
+    key: "1.2",
+    one: "BKN21A000002",
+    two: "Alison Reichert",
+    three: "01 Dec 2021",
+    four: "XUV700 AX7 L PET AT 7 SEATER WHT(C56) ",
+    five: "Cancelled",
+    notEdit: true,
+    action: true,
+    status: true,
+  },
+  {
+    key: "1.3",
+    one: "BKN21A000003",
+    two: "Terrill Hills",
+    three: "01 Dec 2021",
+    four: "XUV700 AX7 L PET AT 7 SEATER WHT(C56) ",
+    five: "Cancellation Requsted",
+    notEdit: true,
+    action: true,
+    status: true,
+  },
+  {
+    key: "1.4",
+    one: "BKN21A000004",
+    two: "Paul Deo",
+    three: "01 Dec 2021",
+    four: "XUV700 AX7 L PET AT 7 SEATER WHT(C56) ",
+    five: "Booked",
+    notEdit: true,
+    action: true,
+    status: true,
+  },
+  {
+    key: "1.5",
+    one: "BKN21A000005",
+    two: "Miles Cummerata",
+    three: "01 Dec 2021",
+    four: "XUV700 AX7 L PET AT 7 SEATER WHT(C56) ",
+    five: "Transferred",
+    notEdit: true,
+    action: true,
+    status: true,
+  },
+  {
+    key: "1.6",
+    one: "BKN21A000006",
+    two: "Nilesh Rathod",
+    three: "01 Dec 2021",
+    four: "XUV700 AX7 L PET AT 7 SEATER WHT(C56) ",
+    five: "Delivered",
+    notEdit: true,
+    action: true,
+    status: true,
+  },
+  {
+    key: "1.7",
+    one: "BKN21A000007",
+    two: "Jones Marcel",
+    three: "01 Dec 2021",
+    four: "XUV700 AX7 L PET AT 7 SEATER WHT(C56) ",
+    five: "Invoiced",
+    notEdit: true,
+    action: true,
+    status: true,
+  },
+  {
+    key: "1.8",
+    one: "BKN21A000008",
+    two: "Jeanne Bloom",
+    three: "01 Dec 2021",
+    four: "XUV700 AX7 L PET AT 7 SEATER WHT(C56) ",
+    five: "Alloted",
+    action: true,
+    notEdit: true,
+    status: true,
+  },
+  {
+    key: "1.9",
+    one: "BKN21A000009",
+    two: "Terry Medhurst",
+    three: "01 Dec 2021",
+    four: "XUV700 AX7 L PET AT 7 SEATER WHT(C56) ",
+    five: "Cancellation Requsted",
+    notEdit: true,
+    action: true,
+    status: true,
+  },
+  {
+    key: "1.10",
+    one: "BKN21A0000010",
+    two: "Sheldon Quigley",
+    three: "01 Dec 2021",
+    four: "XUV700 AX7 L PET AT 7 SEATER WHT(C56) ",
+    five: "Booked",
+    notEdit: true,
+    status: true,
+    action: true,
   },
 ];

@@ -1,8 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './styles.scss';
 import { useSelector } from 'react-redux';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+
+let useClickOutSide = (handler) => {
+  let domNode = useRef();
+
+  useEffect(() => {
+    if (!domNode.current) {
+      return;
+    }
+    const handlerEvent = (e) => {
+      if (!domNode.current.contains(e.target)) {
+        handler();
+      }
+    };
+
+    document.addEventListener("mousedown", handlerEvent);
+
+    return () => {
+      document.removeEventListener("mousedown", handlerEvent);
+    };
+  }, [handler]);
+
+  return domNode;
+};
 
 function CalendarInput({ handleChange, name, errors, touched }) {
   const theme = useSelector((state) => state.theme);
@@ -13,19 +36,31 @@ function CalendarInput({ handleChange, name, errors, touched }) {
     setValue(date.target.value);
     handleChange(date.target.value);
   };
+
+  const [isClicked, setIsClicked] = useState(false);
+
+  let domNode = useClickOutSide(() => {
+    setIsClicked(false);
+  });
+
   return (
     <div className="datePicker">
       <div
         className="inputContainerCalendar"
         style={{
-          borderColor:
+          borderColor: isClicked
+          ? theme === "light"
+            ? "#0B0B0C"
+            : "#ffffff" :
             touched && errors && !value
               ? '#ED302D'
               : theme === 'light'
               ? '#b5b5b6'
               : '#545454',
-          backgroundColor: theme === 'light' ? '#FFFFFF' : '',
+          backgroundColor: theme === 'light' ? '#FFFFFF' : '#0B0B0C',
         }}
+        ref={domNode}
+        onClick={()=>setIsClicked(!isClicked)}
       >
         {/* <div onClick={() => setIsOpen(true)}> */}
         <input

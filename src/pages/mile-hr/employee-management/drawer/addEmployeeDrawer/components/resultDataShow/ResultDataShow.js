@@ -26,7 +26,7 @@ function ResultDataShow({
     <>
       <div className="resultDataShow">
         {/* title */}
-        <h5 className="title">Employee Details</h5>
+        <h5>Employee Details</h5>
         {/* data result */}
         <div
           className="resultValues"

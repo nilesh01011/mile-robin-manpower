@@ -111,7 +111,7 @@ function ActionEmployeeDrawer({
           }}
         >
           {/* text */}
-          <span className="title">
+          <span className="drawerTitle">
             {/* {submitData
               ? "Employee Added Successfully"
               : mileIDGenerate

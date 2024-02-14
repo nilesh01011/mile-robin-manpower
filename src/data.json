@@ -1,0 +1,12 @@
+{
+  "isExists": false,
+  "message": "User doesn't exist in the system.",
+  "userDetail": {
+    "firstName": "Ram",
+    "lastName": "Singh",
+    "motherName": "Kavita",
+    "dateOfBirth": "11/03/1995",
+    "gender": "male",
+    "businessName": "AD"
+  }
+}
