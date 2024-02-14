@@ -9,6 +9,7 @@ table {
 
     & td,
     & th {
+      width: max-content;
       font-size: 14px;
       padding: 13px 18px;
       text-align: left;
@@ -18,6 +19,11 @@ table {
       &:nth-child(2) {
         padding-left: 10px;
       }
+    }
+
+    & th:not(:first-child),
+    & td:not(:first-child) {
+      padding-right: 24px;
     }
   }
 
@@ -33,6 +39,7 @@ table {
 
     & .table {
       & th {
+        font-weight: 500;
         border-bottom: 1px solid;
 
         & span {
@@ -107,6 +114,12 @@ table {
             background: #0b0b0c;
           }
         }
+      }
+
+      // secondLastDivSpaces
+      & th .secondLastDivSpaces,
+      & td .secondLastDivSpaces {
+        padding-right: 26px;
       }
 
       &.lightHover:hover td.stickyTableData.lightHover,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import './styles.scss';
 
@@ -8,11 +8,13 @@ function TableData({
   emptyTableData,
   selectDropdownFilterText,
   inputFields,
+  // drawer select data
+  setSelectTableView,
+  // view drawer open
+  tableViewDrawer,
+  setTableViewDrawer
 }) {
   const theme = useSelector((state) => state.theme);
-
-  // const [filteredEmployeesTableData, setFilteredEmployeesTableData] =
-  // useState(tableBody);
 
   // const [tabelScrollbar, setTabelScrollbar] = useState(false);
   // const [textTrucat, setTextTrucat] = useState(false);
@@ -95,7 +97,7 @@ function TableData({
               );
             } else {
               return (
-                <th key={index} style={{ borderColor: borderColor }}>
+                <th key={index} style={{ borderColor: borderColor }} className={tableHead.length - 2 === index ? "secondLastDivSpaces":""}>
                   {ele.label}
                   {/* icons */}
                   <span
@@ -202,7 +204,7 @@ function TableData({
                 {ele.employeeLocation}
               </td>
 
-              <td style={{ borderColor: borderColor }}>
+              <td style={{ borderColor: borderColor }} className='secondLastDivSpaces'>
                 <span
                   className={`${
                     ele.employeeStatus
@@ -241,6 +243,7 @@ function TableData({
                     //     setDrawerType("view");
                     //     setIsDrawerOpen(true);
                     //   }}
+                    onClick={()=>{setSelectTableView(ele);setTableViewDrawer(!tableViewDrawer)}}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
