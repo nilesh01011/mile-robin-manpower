@@ -11,6 +11,7 @@ import axios from "axios";
 import PaginationDropdown from "../../../components/paginationDropdown/PaginationDropdown";
 import SearchDropdownWithInput from "../../../components/searchDropdownWithInput/SearchDropdownWithInput";
 import ToastNotifications from "../../../components/toastNotifications/ToastNotifications";
+import ViewTableData from "./drawer/viewTableData/ViewTableData";
 
 function EmployeeManagementPage() {
   const theme = useSelector((state) => state.theme);
@@ -84,6 +85,9 @@ function EmployeeManagementPage() {
   const [viewBusinessPlanDrawer, setViewBusinessPlanDrawer] = useState(false);
   // Action Employee Drawer
   const [actionEmployeeDrawer, setActionEmployeeDrawer] = useState(false);
+  // View Table Data Drawer
+  const [viewTableDataDrawer, setViewTableDataDrawer] = useState(false);
+  const [employeeDrawerData, setEmployeeDrawerData] = useState([]);
 
   // table pagination
   const [tableData, setTableData] = useState([]);
@@ -652,6 +656,11 @@ function EmployeeManagementPage() {
               // filteredEmployees={filteredEmployees}
               tableHead={mileTableHead}
               emptyTableData={emptyTableData}
+              // Drawer Open state
+              viewTableDataDrawer={viewTableDataDrawer}
+              setViewTableDataDrawer={setViewTableDataDrawer}
+              // Emplo data state
+              setEmployeeDrawerData={setEmployeeDrawerData}
             />
           </div>
         </div>
@@ -871,6 +880,16 @@ function EmployeeManagementPage() {
       <AddEmployeeDrawer
         actionEmployeeDrawer={actionEmployeeDrawer}
         setActionEmployeeDrawer={setActionEmployeeDrawer}
+      />
+
+      {/* View Table Data */}
+      <ViewTableData
+        // Drawer Open state
+        viewTableDataDrawer={viewTableDataDrawer}
+        setViewTableDataDrawer={setViewTableDataDrawer}
+        // Emplo data state
+        setEmployeeDrawerData={setEmployeeDrawerData}
+        employeeDrawerData={employeeDrawerData}
       />
     </>
   );

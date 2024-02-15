@@ -257,8 +257,9 @@ function UserDetailsFieldShow({
                     types="text"
                     placeholder="Enter first name"
                     inputTypes="text"
-                    // text={values.first_name}
+                    text={values[0]?.first_name}
                     name="first_name"
+                    defaultValue={values[0]?.first_name}
                     // errors={errors.first_name}
                     // touched={touched.first_name}
                     // handleChange={handleChange}
@@ -273,8 +274,9 @@ function UserDetailsFieldShow({
                     types="text"
                     placeholder="Enter last name"
                     inputTypes="text"
-                    // text={values.first_name}
+                    text={values[0]?.last_name}
                     name="last_name"
+                    defaultValue={values[0]?.last_name}
                     // errors={errors.first_name}
                     // touched={touched.first_name}
                     // handleChange={handleChange}
@@ -289,8 +291,9 @@ function UserDetailsFieldShow({
                     types="text"
                     placeholder="Enter mother's name"
                     inputTypes="text"
-                    // text={values.first_name}
+                    text={values[0]?.mother_name}
                     name="mother_name"
+                    defaultValue={values[0]?.mother_name}
                     // errors={errors.first_name}
                     // touched={touched.first_name}
                     // handleChange={handleChange}
@@ -302,7 +305,7 @@ function UserDetailsFieldShow({
                     Date of Birth<span style={{ color: "red" }}>*</span>
                   </label>
                   <CalendarInput
-                    // text={values.date_birth}
+                    text={values[0]?.date_birth}
                     name="dateBirth"
                     // errors={errors.date_birth}
                     // handleChange={(value) => handleChange("date_birth")(value)}
@@ -316,7 +319,7 @@ function UserDetailsFieldShow({
                   </label>
                   <Dropdown
                     items={genderItems}
-                    // selectedText={values.gender}
+                    selectedText={values[0]?.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="gender"
                     // touched={touched.gender}
@@ -330,7 +333,7 @@ function UserDetailsFieldShow({
                   </label>
                   <InputField
                     types="text"
-                    placeholder="Enter Aadhaar Card no."
+                    placeholder="Aadhaar Card no."
                     inputTypes="text"
                     // text={values.first_name}
                     name="mother_name"
@@ -342,11 +345,11 @@ function UserDetailsFieldShow({
 
                 <div className="gridItems">
                   <label style={{ color: "#545454" }}>
-                    Pan Card no.<span style={{ color: "red" }}>*</span>
+                    PAN Card no.<span style={{ color: "red" }}>*</span>
                   </label>
                   <InputField
                     types="text"
-                    placeholder="Enter Pan Card no."
+                    placeholder="PAN Card no."
                     inputTypes="text"
                     // text={values.first_name}
                     name="mother_name"
@@ -362,7 +365,7 @@ function UserDetailsFieldShow({
                   </label>
                   <InputField
                     types="text"
-                    placeholder="Enter mobile number"
+                    placeholder="+91 9876543210"
                     inputTypes="text"
                     // text={values.first_name}
                     name="mother_name"
@@ -394,7 +397,7 @@ function UserDetailsFieldShow({
                   </label>
                   <InputField
                     types="text"
-                    placeholder="Enter monthly salary"
+                    placeholder="Monthly salary in INR"
                     inputTypes="text"
                     // text={values.first_name}
                     name="monthly_salary"
@@ -603,7 +606,7 @@ function UserDetailsFieldShow({
                   <label style={{ color: "#545454" }}>bank Name</label>
                   <InputField
                     types="text"
-                    placeholder="Enter bank name"
+                    placeholder="Bank name"
                     inputTypes="text"
                     // text={values.first_name}
                     name="bank_name"

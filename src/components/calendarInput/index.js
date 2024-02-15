@@ -27,10 +27,10 @@ let useClickOutSide = (handler) => {
   return domNode;
 };
 
-function CalendarInput({ handleChange, name, errors, touched }) {
+function CalendarInput({ handleChange, name, errors, touched,text }) {
   const theme = useSelector((state) => state.theme);
   // const [isOpen, setIsOpen] = useState(false);
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(text?text:'');
 
   const handleChangedCalendar = (date) => {
     setValue(date.target.value);
@@ -42,6 +42,8 @@ function CalendarInput({ handleChange, name, errors, touched }) {
   let domNode = useClickOutSide(() => {
     setIsClicked(false);
   });
+
+  console.log(text)
 
   return (
     <div className="datePicker">

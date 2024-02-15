@@ -7,34 +7,34 @@
     bottom: 0;
     z-index: 99999;
     transition: 0.4s cubic-bezier(0.46, 0.03, 0.52, 0.96);
-    overflow-y: scroll;
-    padding-bottom: 20px;
+    // overflow-y: scroll;
+    // // padding-bottom: 20px;
   
-    &::-webkit-scrollbar {
-      width: 5px;
-    }
+    // &::-webkit-scrollbar {
+    //   width: 5px;
+    // }
   
-    &.light::-webkit-scrollbar-track {
-      background: #f0efef;
-    }
+    // &.light::-webkit-scrollbar-track {
+    //   background: #f0efef;
+    // }
   
-    &.dark::-webkit-scrollbar-track {
-      background: #1c1c1c;
-    }
+    // &.dark::-webkit-scrollbar-track {
+    //   background: #1c1c1c;
+    // }
   
-    // thumb
+    // // thumb
   
-    &::-webkit-scrollbar-thumb {
-      border-radius: 10px;
-    }
+    // &::-webkit-scrollbar-thumb {
+    //   border-radius: 10px;
+    // }
   
-    &.light::-webkit-scrollbar-thumb {
-      background: #8a8a8a;
-    }
+    // &.light::-webkit-scrollbar-thumb {
+    //   background: #8a8a8a;
+    // }
   
-    &.dark::-webkit-scrollbar-thumb {
-      background: #545454;
-    }
+    // &.dark::-webkit-scrollbar-thumb {
+    //   background: #545454;
+    // }
   
     & .title {
       display: flex;

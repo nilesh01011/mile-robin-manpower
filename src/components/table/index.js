@@ -1,6 +1,6 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import './styles.scss';
+import React from "react";
+import { useSelector } from "react-redux";
+import "./styles.scss";
 
 function TableData({
   tableHead,
@@ -8,6 +8,11 @@ function TableData({
   emptyTableData,
   selectDropdownFilterText,
   inputFields,
+  // View Drawer open
+  viewTableDataDrawer,
+  setViewTableDataDrawer,
+  // Emplo data state
+  setEmployeeDrawerData,
 }) {
   const theme = useSelector((state) => state.theme);
 
@@ -39,14 +44,14 @@ function TableData({
   //   }
   // };
 
-  const borderColor = theme === 'light' ? '#e6e6e6' : '#232324';
+  const borderColor = theme === "light" ? "#e6e6e6" : "#232324";
   return (
     <table>
       {/* table heading */}
       <thead
         className="tableHeads"
         style={{
-          backgroundColor: theme === 'light' ? '#F2F2F2' : '#1C1C1C',
+          backgroundColor: theme === "light" ? "#F2F2F2" : "#1C1C1C",
         }}
       >
         <tr className="table">
@@ -57,9 +62,9 @@ function TableData({
                   key={index}
                   style={{
                     borderColor: borderColor,
-                    backgroundColor: theme === 'light' ? '#F2F2F2' : '#1C1C1C',
-                    position: 'sticky',
-                    right: 0,
+                    backgroundColor: theme === "light" ? "#F2F2F2" : "#1C1C1C",
+                    position: "sticky",
+                    right: -1,
                     top: 0,
                   }}
                 >
@@ -69,8 +74,8 @@ function TableData({
                     style={{
                       display:
                         tableHead.length - 1 === index || 0 === index
-                          ? 'none'
-                          : '',
+                          ? "none"
+                          : "",
                     }}
                   >
                     <svg
@@ -102,8 +107,8 @@ function TableData({
                     style={{
                       display:
                         tableHead.length - 1 === index || 0 === index
-                          ? 'none'
-                          : '',
+                          ? "none"
+                          : "",
                     }}
                   >
                     <svg
@@ -138,12 +143,12 @@ function TableData({
           {tableBody.map((ele, index) => (
             <tr
               key={index}
-              className={theme === 'light' ? 'lightHover' : 'darkHover'}
+              className={theme === "light" ? "lightHover" : "darkHover"}
             >
               <td
                 style={{
                   borderColor: borderColor,
-                  color: theme === 'light' ? '#545454' : '#a3a3a3',
+                  color: theme === "light" ? "#545454" : "#a3a3a3",
                 }}
               >
                 {index + 1}
@@ -151,7 +156,7 @@ function TableData({
               <td
                 style={{
                   borderColor: borderColor,
-                  color: theme === 'light' ? '#545454' : '#a3a3a3',
+                  color: theme === "light" ? "#545454" : "#a3a3a3",
                 }}
               >
                 {ele.employeeCode}
@@ -159,8 +164,8 @@ function TableData({
               <td
                 style={{
                   borderColor: borderColor,
-                  color: theme === 'light' ? '#545454' : '#a3a3a3',
-                  position: 'relative',
+                  color: theme === "light" ? "#545454" : "#a3a3a3",
+                  position: "relative",
                 }}
               >
                 {/* {wordSlice(ele.employeeName)} */}
@@ -169,7 +174,7 @@ function TableData({
               <td
                 style={{
                   borderColor: borderColor,
-                  color: theme === 'light' ? '#545454' : '#a3a3a3',
+                  color: theme === "light" ? "#545454" : "#a3a3a3",
                 }}
               >
                 {ele.employeeBusinessName}
@@ -177,7 +182,7 @@ function TableData({
               <td
                 style={{
                   borderColor: borderColor,
-                  color: theme === 'light' ? '#545454' : '#a3a3a3',
+                  color: theme === "light" ? "#545454" : "#a3a3a3",
                 }}
               >
                 {ele.employeeDesignation}
@@ -185,18 +190,18 @@ function TableData({
               <td
                 style={{
                   borderColor: borderColor,
-                  color: theme === 'light' ? '#545454' : '#a3a3a3',
+                  color: theme === "light" ? "#545454" : "#a3a3a3",
                 }}
               >
                 {ele.employeeApprovalStatus
-                  ? 'Pending for ASM Approval'
-                  : 'Approval'}
+                  ? "Pending for ASM Approval"
+                  : "Approval"}
               </td>
 
               <td
                 style={{
                   borderColor: borderColor,
-                  color: theme === 'light' ? '#545454' : '#a3a3a3',
+                  color: theme === "light" ? "#545454" : "#a3a3a3",
                 }}
               >
                 {ele.employeeLocation}
@@ -206,15 +211,15 @@ function TableData({
                 <span
                   className={`${
                     ele.employeeStatus
-                      ? theme === 'light'
-                        ? 'activeLight'
-                        : 'activeDark'
-                      : theme === 'light'
-                      ? 'disactiveLight'
-                      : 'disactiveDark'
+                      ? theme === "light"
+                        ? "activeLight"
+                        : "activeDark"
+                      : theme === "light"
+                      ? "disactiveLight"
+                      : "disactiveDark"
                   } status`}
                 >
-                  {ele.employeeStatus ? 'Active' : 'Non-Active'}
+                  {ele.employeeStatus ? "Active" : "Non-Active"}
                 </span>
               </td>
 
@@ -222,25 +227,26 @@ function TableData({
               <td
                 style={{
                   borderColor: borderColor,
-                  color: theme === 'light' ? '#545454' : '#a3a3a3',
+                  color: theme === "light" ? "#545454" : "#a3a3a3",
                 }}
                 className={`stickyTableData ${
-                  theme === 'light' ? 'lightHover' : 'darkHover'
+                  theme === "light" ? "lightHover" : "darkHover"
                 }`}
               >
                 <div
                   className="stickyActions"
-                  style={{ display: 'flex', alignItems: 'center', gap: 20 }}
+                  style={{ display: "flex", alignItems: "center", gap: 20 }}
                 >
                   {/* view data */}
                   <span
                     title="View Details"
-                    style={{ cursor: 'pointer' }}
+                    style={{ cursor: "pointer" }}
                     //   onClick={() => {
                     //     setDrawerData(ele);
                     //     setDrawerType("view");
                     //     setIsDrawerOpen(true);
                     //   }}
+                    onClick={()=>{setViewTableDataDrawer(!viewTableDataDrawer);setEmployeeDrawerData(ele) }}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

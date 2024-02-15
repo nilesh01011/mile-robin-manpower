@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
-import './styles.scss';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useRef, useState } from "react";
+import "./styles.scss";
+import { useSelector } from "react-redux";
 
 let useClickOutSide = (handler) => {
   let domNode = useRef();
@@ -15,10 +15,10 @@ let useClickOutSide = (handler) => {
       }
     };
 
-    document.addEventListener('mousedown', handlerEvent);
+    document.addEventListener("mousedown", handlerEvent);
 
     return () => {
-      document.removeEventListener('mousedown', handlerEvent);
+      document.removeEventListener("mousedown", handlerEvent);
     };
   }, [handler]);
 
@@ -31,13 +31,14 @@ function Dropdown({
   disabled,
   position,
   // setSelectedText,
+  selectedText,
   handleChange,
   name,
   errors,
   touched,
 }) {
   const theme = useSelector((state) => state.theme);
-  const [selected, setSelected] = useState('');
+  const [selected, setSelected] = useState(selectedText ? selectedText : "");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   let domNode = useClickOutSide(() => {
@@ -47,7 +48,9 @@ function Dropdown({
   const handleDropdownClick = (ele) => {
     setSelected(ele);
     setIsDropdownOpen(!isDropdownOpen);
-    handleChange(ele);
+    if (handleChange) {
+      handleChange(ele);
+    }
   };
   return (
     <div
@@ -61,49 +64,49 @@ function Dropdown({
         style={{
           borderColor:
             touched && errors && !selected
-              ? '#ED302D'
+              ? "#ED302D"
               : disabled
-              ? theme === 'light'
-                ? '#E6E6E6'
-                : '#232324'
+              ? theme === "light"
+                ? "#E6E6E6"
+                : "#232324"
               : isDropdownOpen === true
-              ? theme === 'light'
-                ? '#0B0B0C'
-                : '#ffffff'
-              : theme === 'light'
-              ? '#B5B5B6'
-              : '#545454',
-          cursor: disabled ? 'not-allowed' : 'pointer',
+              ? theme === "light"
+                ? "#0B0B0C"
+                : "#ffffff"
+              : theme === "light"
+              ? "#B5B5B6"
+              : "#545454",
+          cursor: disabled ? "not-allowed" : "pointer",
           backgroundColor: disabled
-            ? theme === 'light'
-              ? '#E6E6E6'
-              : '#232324'
-            : theme === 'light'
-            ? '#FFFFFF'
-            : '#0B0B0C',
+            ? theme === "light"
+              ? "#E6E6E6"
+              : "#232324"
+            : theme === "light"
+            ? "#FFFFFF"
+            : "#0B0B0C",
         }}
         onClick={() => !disabled && setIsDropdownOpen(!isDropdownOpen)}
       >
         <p
           style={{
-            userSelect: 'none',
+            userSelect: "none",
             color: disabled
-              ? theme === 'light'
-                ? '#858585'
-                : '#545454'
-              : theme === 'light'
-              ? '#545454'
-              : '#ffffff',
+              ? theme === "light"
+                ? "#858585"
+                : "#545454"
+              : theme === "light"
+              ? "#545454"
+              : "#ffffff",
           }}
           className="selectedItems"
           name={name}
         >
-          {!selected ? 'Select' : selected}
+          {!selected ? "Select" : selected}
         </p>
         {/* icons */}
         <div
           style={{
-            transform: isDropdownOpen && 'rotate(180deg)',
+            transform: isDropdownOpen && "rotate(180deg)",
           }}
           className="icons"
         >
@@ -118,7 +121,7 @@ function Dropdown({
               fillRule="evenodd"
               clipRule="evenodd"
               d="M14.607 4.50858C14.7681 4.65967 14.7763 4.9128 14.6252 5.07397L8.62521 11.474C8.54959 11.5546 8.44396 11.6004 8.3334 11.6004C8.22283 11.6004 8.1172 11.5546 8.04158 11.474L2.04158 5.07397C1.89049 4.9128 1.89866 4.65967 2.05982 4.50858C2.22099 4.35748 2.47412 4.36565 2.62521 4.52681L8.3334 10.6155L14.0416 4.52682C14.1927 4.36565 14.4458 4.35748 14.607 4.50858Z"
-              fill={disabled ? '#858585' : '#FF3E5B'}
+              fill={disabled ? "#858585" : "#FF3E5B"}
             />
           </svg>
         </div>
@@ -131,11 +134,11 @@ function Dropdown({
       {isDropdownOpen && (
         <ul
           className={`dropdownMenuList ${
-            theme === 'light' ? 'lightTheme' : 'darkTheme'
+            theme === "light" ? "lightTheme" : "darkTheme"
           }`}
           style={{
-            backgroundColor: theme === 'light' ? '#ffffff' : '#1C1C1C',
-            top: position ? (items.length <= 2 ? '-300%' : '-405%') : '125%',
+            backgroundColor: theme === "light" ? "#ffffff" : "#1C1C1C",
+            top: position ? (items.length <= 2 ? "-300%" : "-405%") : "125%",
           }}
         >
           {items.map((ele, index) => {
@@ -143,19 +146,19 @@ function Dropdown({
               <li
                 key={index}
                 className={`listChild ${
-                  theme === 'light' ? 'lightTheme' : 'darkTheme'
+                  theme === "light" ? "lightTheme" : "darkTheme"
                 }`}
                 onClick={() => {
                   handleDropdownClick(ele.name);
                 }}
                 style={{
-                  color: selected === ele.name && '#FF3E5B',
+                  color: selected === ele.name && "#FF3E5B",
                   backgroundColor:
                     selected === ele.name
-                      ? theme === 'light'
-                        ? '#F2F2F2'
-                        : '#232324'
-                      : '',
+                      ? theme === "light"
+                        ? "#F2F2F2"
+                        : "#232324"
+                      : "",
                 }}
               >
                 {ele.name}

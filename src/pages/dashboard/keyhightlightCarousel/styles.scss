@@ -71,6 +71,7 @@
           border-radius: 2px;
           font-size: 12px;
           padding: 3px 8px;
+          white-space: nowrap;
         }
       }
   
@@ -79,6 +80,10 @@
         display: flex;
         align-items: center;
         gap: 6px;
+        // text-overflow: ellipsis;
+        // overflow: hidden;
+        // white-space: nowrap;
+        // max-width:580px;
   
         & .date {
           color: #858585;

@@ -19,6 +19,11 @@ table {
         padding-left: 10px;
       }
     }
+
+    & td:not(:first-child),
+    & th:not(:first-child) {
+      padding-right: 24px;
+    }
   }
 
   & tr:last-child td {
@@ -96,7 +101,7 @@ table {
         // last td
         &.stickyTableData {
           position: sticky;
-          right: -1px;
+          right: -2px;
           top: 0;
 
           &.lightHover {

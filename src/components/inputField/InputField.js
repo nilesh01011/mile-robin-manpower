@@ -34,6 +34,9 @@ function InputField({
   errors,
   touched,
   handleChange,
+
+  // defaultValue
+  defaultValue,
 }) {
   // const [inputText, setInputText] = useState(text ? text : '');
   const theme = useSelector((state) => state.theme);
@@ -93,6 +96,7 @@ function InputField({
         }}
         disabled={types === "disabled" && true}
         name={name}
+        defaultValue={defaultValue !== "" ? defaultValue : null}
       />
     </div>
   );
