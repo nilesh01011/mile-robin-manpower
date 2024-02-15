@@ -9,6 +9,7 @@ table {
 
     & td,
     & th {
+      width: max-content;
       font-size: 14px;
       padding: 13px 18px;
       text-align: left;
@@ -20,8 +21,13 @@ table {
       }
     }
 
+<<<<<<< HEAD
     & td:not(:first-child),
     & th:not(:first-child) {
+=======
+    & th:not(:first-child),
+    & td:not(:first-child) {
+>>>>>>> ae1d6226c3414c2e44fe33c7e85b3569b1dfd7e1
       padding-right: 24px;
     }
   }
@@ -38,6 +44,7 @@ table {
 
     & .table {
       & th {
+        font-weight: 500;
         border-bottom: 1px solid;
 
         & span {
@@ -112,6 +119,12 @@ table {
             background: #0b0b0c;
           }
         }
+      }
+
+      // secondLastDivSpaces
+      & th .secondLastDivSpaces,
+      & td .secondLastDivSpaces {
+        padding-right: 26px;
       }
 
       &.lightHover:hover td.stickyTableData.lightHover,

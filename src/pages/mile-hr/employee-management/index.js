@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 import "./styles.scss";
 import { useSelector } from "react-redux";
@@ -12,13 +13,29 @@ import PaginationDropdown from "../../../components/paginationDropdown/Paginatio
 import SearchDropdownWithInput from "../../../components/searchDropdownWithInput/SearchDropdownWithInput";
 import ToastNotifications from "../../../components/toastNotifications/ToastNotifications";
 import ViewTableData from "./drawer/viewTableData/ViewTableData";
+=======
+import React, { useEffect, useState } from 'react';
+import './styles.scss';
+import { useSelector } from 'react-redux';
+import Title from '../../../components/title';
+import AdvanceFilterDrawer from './drawer/advanceFilterDrawer/AdvanceFilterDrawer';
+import ViewBusinessPlan from './drawer/viewBusinessPlan/ViewBusinessPlan';
+import AddEmployeeDrawer from './drawer/addEmployeeDrawer/AddEmployeeDrawer';
+import TableData from '../../../components/table';
+import { mileTableHead } from '../../../data';
+import axios from 'axios';
+import PaginationDropdown from '../../../components/paginationDropdown/PaginationDropdown';
+import SearchDropdownWithInput from '../../../components/searchDropdownWithInput/SearchDropdownWithInput';
+import ToastNotifications from '../../../components/toastNotifications/ToastNotifications';
+import ViewDrawer from './drawer/ViewDrawer';
+>>>>>>> ae1d6226c3414c2e44fe33c7e85b3569b1dfd7e1
 
 function EmployeeManagementPage() {
   const theme = useSelector((state) => state.theme);
   // tabs
-  const [isActiveTabs, setIsActiveTabs] = useState("sales");
+  const [isActiveTabs, setIsActiveTabs] = useState('sales');
   // Search Filter inputs
-  const [inputFields, setInputFields] = useState("");
+  const [inputFields, setInputFields] = useState('');
   // Search results items
   const [searchResultsItems, setSearchResultsItems] = useState([]);
   // errors
@@ -39,43 +56,43 @@ function EmployeeManagementPage() {
 
   // search dropdown text
   const [selectDropdownFilterText, setSelectedDropdownFilterText] =
-    useState("");
+    useState('');
 
   const tabs = [
     {
       id: 1,
-      name: "sales",
+      name: 'sales',
     },
     {
       id: 2,
-      name: "services",
+      name: 'services',
     },
     {
       id: 3,
-      name: "common",
+      name: 'common',
     },
   ];
 
   const employeeManagementSearchList = [
     {
       id: 1,
-      name: "Mile ID",
-      search: "",
+      name: 'Mile ID',
+      search: '',
     },
     {
       id: 2,
-      name: "Employee Name",
-      search: "",
+      name: 'Employee Name',
+      search: '',
     },
     {
       id: 3,
-      name: "Location Name",
-      search: "",
+      name: 'Location Name',
+      search: '',
     },
     {
       id: 4,
-      name: "Mobile Number",
-      search: "",
+      name: 'Mobile Number',
+      search: '',
     },
   ];
 
@@ -85,9 +102,15 @@ function EmployeeManagementPage() {
   const [viewBusinessPlanDrawer, setViewBusinessPlanDrawer] = useState(false);
   // Action Employee Drawer
   const [actionEmployeeDrawer, setActionEmployeeDrawer] = useState(false);
+<<<<<<< HEAD
   // View Table Data Drawer
   const [viewTableDataDrawer, setViewTableDataDrawer] = useState(false);
   const [employeeDrawerData, setEmployeeDrawerData] = useState([]);
+=======
+  // Table View Drawer
+  const [tableViewDrawer, setTableViewDrawer] = useState(false);
+  const [selectTableView, setSelectTableView] = useState([]);
+>>>>>>> ae1d6226c3414c2e44fe33c7e85b3569b1dfd7e1
 
   // table pagination
   const [tableData, setTableData] = useState([]);
@@ -98,7 +121,7 @@ function EmployeeManagementPage() {
   useEffect(() => {
     const fetchDataTable = async () => {
       const result = await axios
-        .get("/data.json")
+        .get('/data.json')
         .then((res) => setTableData(res.data))
         .catch((error) => console.log(error));
 
@@ -145,14 +168,16 @@ function EmployeeManagementPage() {
   // const [filteredData, setFilteredData] = useState([]);
 
   // useEffect(() => {
-  //   if (filteredData.length === 0) {
+  //   if (tableData.length > 0 || !inputFields) {
+  //     const indexOfLastTodo = currentPage * tableDataPerPage;
+  //     const indexOfFirstTodo = indexOfLastTodo - tableDataPerPage;
+  //     const visibleTableData = tableData.slice(
+  //       indexOfFirstTodo,
+  //       indexOfLastTodo
+  //     );
   //     setFilteredData(visibleTableData);
-  //   } else {
-  //     setFilteredData(filteredData);
   //   }
-  // }, [filteredData, visibleTableData]);
-
-  // console.log(filteredData);
+  // }, [tableData, currentPage, tableDataPerPage, inputFields]);
 
   // searching
   const handleSearch = myDebounce(() => {
@@ -166,63 +191,74 @@ function EmployeeManagementPage() {
     // setSelectedDropdownFilterText('');
     // setInputFields('');
 
-    if (inputFields === "") {
+    if (inputFields === '') {
       setError(true);
       setCurrentPage(1);
       return;
     } else {
       setSearchResultsItems([...searchResultsItems, { name: inputFields }]);
 
-      // filteredEmployees(inputFields);
+      // filteredEmployees(inputFields)
     }
   }, 500);
 
   // filter data fetching
-  const filteredEmployees = (values) => {
-    console.log(values);
-    // data fetch with json files
-    const filteredEmployees = visibleTableData.filter((employee) => {
-      const searchTerm = values.toLowerCase();
-      const filterOption = selectDropdownFilterText.toLowerCase();
+  // const filteredEmployees = (values) => {
+  //     // filter data based on input fields and selected dropdown filter text
+  //     const searchTerm = values.toLowerCase();
 
-      if (filterOption === "mile id") {
-        return employee.employeeCode.toLowerCase().includes(searchTerm);
-      } else if (filterOption === "employee name") {
-        return employee.employeeName.toLowerCase().includes(searchTerm);
-      } else if (filterOption === "location name") {
-        return employee.employeeBusinessName.toLowerCase().includes(searchTerm);
-      } else if (filterOption === "mobile number") {
-        return employee.employeeDesignation.toLowerCase().includes(searchTerm);
-      } else if (searchTerm) {
-        return employee.employeeStatus
-          .toString()
-          .toLowerCase()
-          .includes(searchTerm);
-      }
+  //     const filteredData = tableData.filter((item) =>
+  //       item.employeeName.toLowerCase().includes(searchTerm)
+  //     );
 
-      // else if (filterOption === 'employee approval status') {
-      //   return employee.employeeApprovalStatus
-      //     .toLowerCase()
-      //     .includes(searchTerm);
-      // } else if (filterOption === 'employee location') {
-      //   return employee.employeeLocation.toLowerCase().includes(searchTerm);
-      // } else if (filterOption === 'employee status') {
-      //   return employee.employeeStatus
-      //     .toString()
-      //     .toLowerCase()
-      //     .includes(searchTerm);
-      // }
+  //     setFilteredData(filteredData);
+  // }
 
-      return false;
-    });
+  // const filteredEmployees = (values) => {
+  //   console.log(values);
+  //   // data fetch with json files
+  //   const filteredEmployees = visibleTableData.filter((employee) => {
+  //     const searchTerm = values.toLowerCase();
+  //     const filterOption = selectDropdownFilterText.toLowerCase();
 
-    console.log(filteredEmployees);
+  //     if (filterOption === 'mile id') {
+  //       return employee.employeeCode.toLowerCase().includes(searchTerm);
+  //     } else if (filterOption === 'employee name') {
+  //       return employee.employeeName.toLowerCase().includes(searchTerm);
+  //     } else if (filterOption === 'location name') {
+  //       return employee.employeeBusinessName.toLowerCase().includes(searchTerm);
+  //     } else if (filterOption === 'mobile number') {
+  //       return employee.employeeDesignation.toLowerCase().includes(searchTerm);
+  //     } else if (searchTerm) {
+  //       return employee.employeeStatus
+  //         .toString()
+  //         .toLowerCase()
+  //         .includes(searchTerm);
+  //     }
 
-    // filter data fetching
-    // return filteredEmployees;
-    // setFilteredEmployeesTableData(filteredEmployees);
-    // setTableData(filteredEmployees);
-  };
+  //     // else if (filterOption === 'employee approval status') {
+  //     //   return employee.employeeApprovalStatus
+  //     //     .toLowerCase()
+  //     //     .includes(searchTerm);
+  //     // } else if (filterOption === 'employee location') {
+  //     //   return employee.employeeLocation.toLowerCase().includes(searchTerm);
+  //     // } else if (filterOption === 'employee status') {
+  //     //   return employee.employeeStatus
+  //     //     .toString()
+  //     //     .toLowerCase()
+  //     //     .includes(searchTerm);
+  //     // }
+
+  //     return false;
+  //   });
+
+  //   console.log(filteredEmployees);
+
+  //   // filter data fetching
+  //   // return filteredEmployees;
+  //   // setFilteredEmployeesTableData(filteredEmployees);
+  //   // setTableData(filteredEmployees);
+  // };
 
   // pagination items
   const paginationItems = [
@@ -242,7 +278,7 @@ function EmployeeManagementPage() {
 
   // empty table data
   const emptyTableData = () => (
-    <tbody className="emptyDataTable" style={{ color: "#545454" }}>
+    <tbody className="emptyDataTable" style={{ color: '#545454' }}>
       <tr>
         <td>
           {/* icons */}
@@ -278,10 +314,10 @@ function EmployeeManagementPage() {
         <td>
           {/* description */}
           <span>
-            Please{" "}
-            <span style={{ color: theme === "light" ? "black" : "white" }}>
+            Please{' '}
+            <span style={{ color: theme === 'light' ? 'black' : 'white' }}>
               "Add New Employee"
-            </span>{" "}
+            </span>{' '}
             using below button.
           </span>
         </td>
@@ -321,6 +357,9 @@ function EmployeeManagementPage() {
   // previous search results
   const handlePreviousDataFetching = (data) => {
     // filteredEmployees(data);
+    console.log(data);
+    // setInputFields(data);
+    // filteredEmployees(data);
   };
 
   return (
@@ -335,11 +374,11 @@ function EmployeeManagementPage() {
         {/* ============ title ============ */}
         <div
           style={{
-            background: theme === "light" ? "white" : "#1C1C1C",
+            background: theme === 'light' ? 'white' : '#1C1C1C',
             boxShadow:
-              theme === "light"
-                ? "0px 1px 1px 0px rgba(0, 0, 0, 0.15)"
-                : "0px 1px 1px 0px rgba(255, 255, 255, 0.15)",
+              theme === 'light'
+                ? '0px 1px 1px 0px rgba(0, 0, 0, 0.15)'
+                : '0px 1px 1px 0px rgba(255, 255, 255, 0.15)',
           }}
           className="container-fluid titleContainer"
         >
@@ -350,8 +389,8 @@ function EmployeeManagementPage() {
           {/* header */}
           <div
             style={{
-              border: `1px solid ${theme === "light" ? "#E6E6E6" : "#232324"}`,
-              backgroundColor: theme === "light" ? "#f2f2f2" : "#1C1C1C",
+              border: `1px solid ${theme === 'light' ? '#E6E6E6' : '#232324'}`,
+              backgroundColor: theme === 'light' ? '#f2f2f2' : '#1C1C1C',
             }}
             className="employeeManagementHeader"
           >
@@ -363,7 +402,7 @@ function EmployeeManagementPage() {
                   className="tabs"
                   style={{
                     border: `1px solid ${
-                      theme === "light" ? "#B5B5B6" : "#232324"
+                      theme === 'light' ? '#B5B5B6' : '#232324'
                     }`,
                   }}
                 >
@@ -373,13 +412,13 @@ function EmployeeManagementPage() {
                       type="button"
                       onClick={() => setIsActiveTabs(tab.name)}
                       style={{
-                        textTransform: "capitalize",
+                        textTransform: 'capitalize',
                         background:
-                          isActiveTabs === tab.name ? "#FF3E5B" : "transparent",
+                          isActiveTabs === tab.name ? '#FF3E5B' : 'transparent',
                         color:
                           isActiveTabs === tab.name
-                            ? "#fff"
-                            : `${theme === "light" ? "black" : "white"}`,
+                            ? '#fff'
+                            : `${theme === 'light' ? 'black' : 'white'}`,
                       }}
                     >
                       {tab.name}
@@ -425,9 +464,9 @@ function EmployeeManagementPage() {
                     {/* icons */}
                     <span
                       style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
                       }}
                     >
                       <svg
@@ -497,7 +536,7 @@ function EmployeeManagementPage() {
                     <span
                       style={{
                         fontSize: 14,
-                        color: "#FF3E5B",
+                        color: '#FF3E5B',
                         fontWeight: 700,
                         marginLeft: 7,
                       }}
@@ -571,7 +610,7 @@ function EmployeeManagementPage() {
                 <div
                   className="divided"
                   style={{
-                    backgroundColor: theme === "light" ? "#E6E6E6" : "#232324",
+                    backgroundColor: theme === 'light' ? '#E6E6E6' : '#232324',
                   }}
                 />
                 <div className="searchResults">
@@ -585,16 +624,16 @@ function EmployeeManagementPage() {
                           key={index}
                           style={{
                             borderColor:
-                              theme === "light" ? "#B5B5B6" : "#545454",
-                            color: theme === "light" ? "#545454" : "#a3a3a3",
-                            cursor: "pointer",
+                              theme === 'light' ? '#B5B5B6' : '#545454',
+                            color: theme === 'light' ? '#545454' : '#a3a3a3',
+                            cursor: 'pointer',
                           }}
                           onClick={() => handlePreviousDataFetching(ele.name)}
                         >
                           {ele.name}
                           {/* icons */}
                           <span
-                            style={{ cursor: "pointer" }}
+                            style={{ cursor: 'pointer' }}
                             onClick={() => handleResultsItemsCanceled(ele)}
                           >
                             <svg
@@ -625,7 +664,7 @@ function EmployeeManagementPage() {
           <div
             className="tableContainer"
             style={{
-              borderColor: theme === "light" ? "#e6e6e6" : "#232324",
+              borderColor: theme === 'light' ? '#e6e6e6' : '#232324',
               // minHeight: inputFields === ""
               //   ? 'calc(100vh - 320px)'
               //   : 'calc(100vh - 280px)',
@@ -634,12 +673,12 @@ function EmployeeManagementPage() {
               //   : 'calc(100vh - 280px)',
               minHeight:
                 searchResultsItems.length === 0
-                  ? "calc(100vh - 280px)"
-                  : "calc(100vh - 320px)",
+                  ? 'calc(100vh - 280px)'
+                  : 'calc(100vh - 320px)',
               maxHeight:
                 searchResultsItems.length === 0
-                  ? "calc(100vh - 280px)"
-                  : "calc(100vh - 320px)",
+                  ? 'calc(100vh - 280px)'
+                  : 'calc(100vh - 320px)',
             }}
           >
             <TableData
@@ -650,37 +689,46 @@ function EmployeeManagementPage() {
               //     : filteredEmployeesTableData
               // }
               tableBody={visibleTableData}
-              // inputFields={inputFields}
+              // tableBody={filteredData}
+              inputFields={inputFields}
               // selectDropdownFilterText={selectDropdownFilterText}
               // tableBody={filteredData}
               // filteredEmployees={filteredEmployees}
               tableHead={mileTableHead}
               emptyTableData={emptyTableData}
+<<<<<<< HEAD
               // Drawer Open state
               viewTableDataDrawer={viewTableDataDrawer}
               setViewTableDataDrawer={setViewTableDataDrawer}
               // Emplo data state
               setEmployeeDrawerData={setEmployeeDrawerData}
+=======
+              // drawer select data
+              setSelectTableView={setSelectTableView}
+              // View Drawer open
+              tableViewDrawer={tableViewDrawer}
+              setTableViewDrawer={setTableViewDrawer}
+>>>>>>> ae1d6226c3414c2e44fe33c7e85b3569b1dfd7e1
             />
           </div>
         </div>
         {/* pagination */}
         <div
           className={`paginationContainer ${
-            theme === "light" ? "light" : "dark"
+            theme === 'light' ? 'light' : 'dark'
           }`}
           style={{
-            backgroundColor: theme === "light" ? "#ffffff" : "#0B0B0C",
+            backgroundColor: theme === 'light' ? '#ffffff' : '#0B0B0C',
           }}
         >
           {/* left side */}
           <div className="leftSide">
             {/* total length of table data */}
-            <p style={{ color: "#858585", fontSize: 14, whiteSpace: "nowrap" }}>
-              Total{" "}
-              <span style={{ color: theme === "light" ? "black" : "white" }}>
+            <p style={{ color: '#858585', fontSize: 14, whiteSpace: 'nowrap' }}>
+              Total{' '}
+              <span style={{ color: theme === 'light' ? 'black' : 'white' }}>
                 {tableData.length}
-              </span>{" "}
+              </span>{' '}
               items
             </p>
             {/* table data dropdown pagination limits */}
@@ -700,10 +748,10 @@ function EmployeeManagementPage() {
             {/* left pagination btn */}
             <button
               type="button"
-              className={`btn ${currentPage === 1 && "disabledBtn"}`}
+              className={`btn ${currentPage === 1 && 'disabledBtn'}`}
               style={{
                 border: `1px solid ${
-                  theme === "light" ? "#b5b5b6" : "#232324"
+                  theme === 'light' ? '#b5b5b6' : '#232324'
                 }`,
               }}
               onClick={prevPageHandler}
@@ -784,11 +832,11 @@ function EmployeeManagementPage() {
                 style={{
                   borderColor:
                     currentPage === ele
-                      ? "#FF3E5B"
-                      : theme === "light"
-                      ? "#b5b5b6"
-                      : "#232324",
-                  color: currentPage === ele && "#FF3E5B",
+                      ? '#FF3E5B'
+                      : theme === 'light'
+                      ? '#b5b5b6'
+                      : '#232324',
+                  color: currentPage === ele && '#FF3E5B',
                   // backgroundColor:
                   // 	currentPage === ele && '#d7d7d7'
                 }}
@@ -828,11 +876,11 @@ function EmployeeManagementPage() {
             <button
               type="button"
               className={`btn ${
-                numOfTotalPages === currentPage && "disabledBtn"
+                numOfTotalPages === currentPage && 'disabledBtn'
               }`}
               style={{
                 border: `1px solid ${
-                  theme === "light" ? "#b5b5b6" : "#232324"
+                  theme === 'light' ? '#b5b5b6' : '#232324'
                 }`,
               }}
               onClick={nextPageHandler}
@@ -861,7 +909,7 @@ function EmployeeManagementPage() {
       {/* footers */}
       <div
         className="footer"
-        style={{ backgroundColor: theme === "light" ? "#ffffff" : "#0B0B0C" }}
+        style={{ backgroundColor: theme === 'light' ? '#ffffff' : '#0B0B0C' }}
       >
         <span>Copyright © 2023 ROBIN.</span>
       </div>
@@ -882,6 +930,7 @@ function EmployeeManagementPage() {
         setActionEmployeeDrawer={setActionEmployeeDrawer}
       />
 
+<<<<<<< HEAD
       {/* View Table Data */}
       <ViewTableData
         // Drawer Open state
@@ -890,6 +939,15 @@ function EmployeeManagementPage() {
         // Emplo data state
         setEmployeeDrawerData={setEmployeeDrawerData}
         employeeDrawerData={employeeDrawerData}
+=======
+      {/* Table View Drawer */}
+      <ViewDrawer
+        tableViewDrawer={tableViewDrawer}
+        setTableViewDrawer={setTableViewDrawer}
+
+        // data
+        selectTableView={selectTableView}
+>>>>>>> ae1d6226c3414c2e44fe33c7e85b3569b1dfd7e1
       />
     </>
   );

@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import React from "react";
 import { useSelector } from "react-redux";
 import "./styles.scss";
+=======
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import './styles.scss';
+>>>>>>> ae1d6226c3414c2e44fe33c7e85b3569b1dfd7e1
 
 function TableData({
   tableHead,
@@ -8,16 +14,21 @@ function TableData({
   emptyTableData,
   selectDropdownFilterText,
   inputFields,
+<<<<<<< HEAD
   // View Drawer open
   viewTableDataDrawer,
   setViewTableDataDrawer,
   // Emplo data state
   setEmployeeDrawerData,
+=======
+  // drawer select data
+  setSelectTableView,
+  // view drawer open
+  tableViewDrawer,
+  setTableViewDrawer
+>>>>>>> ae1d6226c3414c2e44fe33c7e85b3569b1dfd7e1
 }) {
   const theme = useSelector((state) => state.theme);
-
-  // const [filteredEmployeesTableData, setFilteredEmployeesTableData] =
-  // useState(tableBody);
 
   // const [tabelScrollbar, setTabelScrollbar] = useState(false);
   // const [textTrucat, setTextTrucat] = useState(false);
@@ -100,7 +111,7 @@ function TableData({
               );
             } else {
               return (
-                <th key={index} style={{ borderColor: borderColor }}>
+                <th key={index} style={{ borderColor: borderColor }} className={tableHead.length - 2 === index ? "secondLastDivSpaces":""}>
                   {ele.label}
                   {/* icons */}
                   <span
@@ -207,7 +218,7 @@ function TableData({
                 {ele.employeeLocation}
               </td>
 
-              <td style={{ borderColor: borderColor }}>
+              <td style={{ borderColor: borderColor }} className='secondLastDivSpaces'>
                 <span
                   className={`${
                     ele.employeeStatus
@@ -246,7 +257,11 @@ function TableData({
                     //     setDrawerType("view");
                     //     setIsDrawerOpen(true);
                     //   }}
+<<<<<<< HEAD
                     onClick={()=>{setViewTableDataDrawer(!viewTableDataDrawer);setEmployeeDrawerData(ele) }}
+=======
+                    onClick={()=>{setSelectTableView(ele);setTableViewDrawer(!tableViewDrawer)}}
+>>>>>>> ae1d6226c3414c2e44fe33c7e85b3569b1dfd7e1
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
