@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 import "./styles.scss";
 import { useSelector } from "react-redux";
@@ -13,22 +12,7 @@ import PaginationDropdown from "../../../components/paginationDropdown/Paginatio
 import SearchDropdownWithInput from "../../../components/searchDropdownWithInput/SearchDropdownWithInput";
 import ToastNotifications from "../../../components/toastNotifications/ToastNotifications";
 import ViewTableData from "./drawer/viewTableData/ViewTableData";
-=======
-import React, { useEffect, useState } from 'react';
-import './styles.scss';
-import { useSelector } from 'react-redux';
-import Title from '../../../components/title';
-import AdvanceFilterDrawer from './drawer/advanceFilterDrawer/AdvanceFilterDrawer';
-import ViewBusinessPlan from './drawer/viewBusinessPlan/ViewBusinessPlan';
-import AddEmployeeDrawer from './drawer/addEmployeeDrawer/AddEmployeeDrawer';
-import TableData from '../../../components/table';
-import { mileTableHead } from '../../../data';
-import axios from 'axios';
-import PaginationDropdown from '../../../components/paginationDropdown/PaginationDropdown';
-import SearchDropdownWithInput from '../../../components/searchDropdownWithInput/SearchDropdownWithInput';
-import ToastNotifications from '../../../components/toastNotifications/ToastNotifications';
 import ViewDrawer from './drawer/ViewDrawer';
->>>>>>> ae1d6226c3414c2e44fe33c7e85b3569b1dfd7e1
 
 function EmployeeManagementPage() {
   const theme = useSelector((state) => state.theme);
@@ -102,15 +86,12 @@ function EmployeeManagementPage() {
   const [viewBusinessPlanDrawer, setViewBusinessPlanDrawer] = useState(false);
   // Action Employee Drawer
   const [actionEmployeeDrawer, setActionEmployeeDrawer] = useState(false);
-<<<<<<< HEAD
   // View Table Data Drawer
   const [viewTableDataDrawer, setViewTableDataDrawer] = useState(false);
   const [employeeDrawerData, setEmployeeDrawerData] = useState([]);
-=======
   // Table View Drawer
   const [tableViewDrawer, setTableViewDrawer] = useState(false);
   const [selectTableView, setSelectTableView] = useState([]);
->>>>>>> ae1d6226c3414c2e44fe33c7e85b3569b1dfd7e1
 
   // table pagination
   const [tableData, setTableData] = useState([]);
@@ -696,19 +677,16 @@ function EmployeeManagementPage() {
               // filteredEmployees={filteredEmployees}
               tableHead={mileTableHead}
               emptyTableData={emptyTableData}
-<<<<<<< HEAD
               // Drawer Open state
               viewTableDataDrawer={viewTableDataDrawer}
               setViewTableDataDrawer={setViewTableDataDrawer}
               // Emplo data state
               setEmployeeDrawerData={setEmployeeDrawerData}
-=======
               // drawer select data
               setSelectTableView={setSelectTableView}
               // View Drawer open
               tableViewDrawer={tableViewDrawer}
               setTableViewDrawer={setTableViewDrawer}
->>>>>>> ae1d6226c3414c2e44fe33c7e85b3569b1dfd7e1
             />
           </div>
         </div>
@@ -930,7 +908,6 @@ function EmployeeManagementPage() {
         setActionEmployeeDrawer={setActionEmployeeDrawer}
       />
 
-<<<<<<< HEAD
       {/* View Table Data */}
       <ViewTableData
         // Drawer Open state
@@ -939,7 +916,7 @@ function EmployeeManagementPage() {
         // Emplo data state
         setEmployeeDrawerData={setEmployeeDrawerData}
         employeeDrawerData={employeeDrawerData}
-=======
+        />
       {/* Table View Drawer */}
       <ViewDrawer
         tableViewDrawer={tableViewDrawer}
@@ -947,7 +924,6 @@ function EmployeeManagementPage() {
 
         // data
         selectTableView={selectTableView}
->>>>>>> ae1d6226c3414c2e44fe33c7e85b3569b1dfd7e1
       />
     </>
   );

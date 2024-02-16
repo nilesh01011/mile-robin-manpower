@@ -7,7 +7,7 @@
   bottom: 0;
   z-index: 99999;
   transition: 0.4s cubic-bezier(0.46, 0.03, 0.52, 0.96);
-  overflow-y: scroll;
+  // overflow-y: scroll;
   // padding-bottom: 20px;
 
   &::-webkit-scrollbar {
@@ -44,7 +44,6 @@
     border-bottom: 1px solid;
     position: sticky;
     top: 0;
-<<<<<<< HEAD
     bottom: 0;
     z-index: 99999;
     transition: 0.4s cubic-bezier(0.46, 0.03, 0.52, 0.96);
@@ -76,8 +75,7 @@
     // &.dark::-webkit-scrollbar-thumb {
     //   background: #545454;
     // }
-  
-=======
+
 
     & .mobileViewCloseIcons {
       display: none;
@@ -142,8 +140,6 @@
 @media screen and (max-width: 660px) {
   .drawerContainer {
     width: 100%;
-
->>>>>>> ae1d6226c3414c2e44fe33c7e85b3569b1dfd7e1
     & .title {
       justify-content: center;
 

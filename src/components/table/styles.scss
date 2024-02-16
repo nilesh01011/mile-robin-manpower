@@ -6,7 +6,6 @@ table {
   // box-sizing: border-box;
 
   & tr {
-
     & td,
     & th {
       width: max-content;
@@ -21,163 +20,158 @@ table {
       }
     }
 
-<<<<<<< HEAD
     & td:not(:first-child),
     & th:not(:first-child) {
-=======
-    & th:not(:first-child),
-    & td:not(:first-child) {
->>>>>>> ae1d6226c3414c2e44fe33c7e85b3569b1dfd7e1
-      padding-right: 24px;
-    }
-  }
-
-  & tr:last-child td {
-    border-bottom: 0;
-  }
-
-  // tabel heads
-  & .tableHeads {
-    position: sticky;
-    top: 0;
-    z-index: 4;
-
-    & .table {
-      & th {
-        font-weight: 500;
-        border-bottom: 1px solid;
-
-        & span {
-          position: relative;
-
-          & svg {
-            position: absolute;
-            right: -20px;
-            top: 1px;
-          }
-        }
-
-        &:first-child {
-          border-top-left-radius: 4px;
-          padding-right: 0;
-        }
-
-        &:last-child {
-          border-top-right-radius: 4px;
-        }
+      & th:not(:first-child),
+      & td:not(:first-child) {
+        padding-right: 24px;
       }
     }
-  }
 
-  & tbody {
-    & tr {
-      & td {
-        border-bottom: 1px solid;
+    & tr:last-child td {
+      border-bottom: 0;
+    }
 
-        & .status {
-          padding: 2px 6px;
-          border-radius: 4px;
-          font-size: 12px;
-          border: 1px solid;
+    // tabel heads
+    & .tableHeads {
+      position: sticky;
+      top: 0;
+      z-index: 4;
 
-          &.activeLight {
-            background: #e2f9d2;
-            border-color: #56ac18;
-            color: #56ac18;
+      & .table {
+        & th {
+          font-weight: 500;
+          border-bottom: 1px solid;
+
+          & span {
+            position: relative;
+
+            & svg {
+              position: absolute;
+              right: -20px;
+              top: 1px;
+            }
           }
 
-          &.activeDark {
-            background: #162d06;
-            border-color: #56ac18;
-            color: #56ac18;
+          &:first-child {
+            border-top-left-radius: 4px;
+            padding-right: 0;
           }
 
-          &.disactiveLight {
-            background: #fbd1d0;
-            border-color: #ed302d;
-            color: #ed302d;
-          }
-
-          &.disactiveDark {
-            background: #2f0504;
-            border-color: #ed302d;
-            color: #ed302d;
-          }
-        }
-
-        // last td
-        &.stickyTableData {
-          position: sticky;
-          right: -2px;
-          top: 0;
-
-          &.lightHover {
-            background: #ffff;
-          }
-
-          &.darkHover {
-            background: #0b0b0c;
+          &:last-child {
+            border-top-right-radius: 4px;
           }
         }
       }
+    }
 
-      // secondLastDivSpaces
-      & th .secondLastDivSpaces,
-      & td .secondLastDivSpaces {
-        padding-right: 26px;
-      }
+    & tbody {
+      & tr {
+        & td {
+          border-bottom: 1px solid;
 
-      &.lightHover:hover td.stickyTableData.lightHover,
-      &.lightHover:hover {
-        background: #f2f2f2 !important;
-      }
+          & .status {
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            border: 1px solid;
 
-      &.darkHover:hover td.stickyTableData.darkHover,
-      &.darkHover:hover {
-        background: #1c1c1c !important;
+            &.activeLight {
+              background: #e2f9d2;
+              border-color: #56ac18;
+              color: #56ac18;
+            }
+
+            &.activeDark {
+              background: #162d06;
+              border-color: #56ac18;
+              color: #56ac18;
+            }
+
+            &.disactiveLight {
+              background: #fbd1d0;
+              border-color: #ed302d;
+              color: #ed302d;
+            }
+
+            &.disactiveDark {
+              background: #2f0504;
+              border-color: #ed302d;
+              color: #ed302d;
+            }
+          }
+
+          // last td
+          &.stickyTableData {
+            position: sticky;
+            right: -2px;
+            top: 0;
+
+            &.lightHover {
+              background: #ffff;
+            }
+
+            &.darkHover {
+              background: #0b0b0c;
+            }
+          }
+        }
+
+        // secondLastDivSpaces
+        & th .secondLastDivSpaces,
+        & td .secondLastDivSpaces {
+          padding-right: 26px;
+        }
+
+        &.lightHover:hover td.stickyTableData.lightHover,
+        &.lightHover:hover {
+          background: #f2f2f2 !important;
+        }
+
+        &.darkHover:hover td.stickyTableData.darkHover,
+        &.darkHover:hover {
+          background: #1c1c1c !important;
+        }
       }
     }
   }
-}
 
-@media screen and (max-width: 1366px) {
-  table {
+  @media screen and (max-width: 1366px) {
+    table {
+      & tr td:not(:last-child, :first-child),
+      & th:not(:last-child, :first-child) {
+        margin-right: 10px;
+        margin-left: 10px;
+      }
 
-    & tr td:not(:last-child, :first-child),
-    & th:not(:last-child, :first-child) {
-      margin-right: 10px;
-      margin-left: 10px;
+      & tr td:first-child {
+        padding-right: 0;
+      }
+
+      // & tr td:last-child {
+      //   padding-left: 0;
+      // }
     }
-
-    & tr td:first-child {
-      padding-right: 0;
-    }
-
-    // & tr td:last-child {
-    //   padding-left: 0;
-    // }
   }
-}
 
-@media screen and (max-width: 1058px) {
-  table {
-    & tr {
-
-      & td,
-      & th {
-        margin: 13px 18px;
+  @media screen and (max-width: 1058px) {
+    table {
+      & tr {
+        & td,
+        & th {
+          margin: 13px 18px;
+        }
       }
     }
   }
-}
 
-@media screen and (max-width: 1038px) {
-  table {
-    & tr {
-
-      & td,
-      & th {
-        margin: 13px 16px;
+  @media screen and (max-width: 1038px) {
+    table {
+      & tr {
+        & td,
+        & th {
+          margin: 13px 16px;
+        }
       }
     }
   }
