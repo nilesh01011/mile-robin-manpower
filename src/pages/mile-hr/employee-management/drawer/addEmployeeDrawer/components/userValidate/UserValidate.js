@@ -270,9 +270,9 @@ function UserValidate({
             </label>
 
             <ConfigProvider
-              theme={{
-                inherit: true,
-              }}
+              // theme={{
+              //   inherit: true,
+              // }}
             >
               <SingleDatePicker
                 // onChange={handleDatePickerChange}
