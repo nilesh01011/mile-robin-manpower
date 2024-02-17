@@ -213,7 +213,7 @@ function UserValidate({
               name="first_name"
               errors={errors.first_name}
               touched={touched.first_name}
-              handleChange={(value)=>handleChange("first_name")(value)}
+              handleChange={(value) => handleChange("first_name")(value)}
             />
             {/* error */}
             {touched.first_name && errors.first_name ? (
@@ -234,7 +234,7 @@ function UserValidate({
               name="last_name"
               errors={errors.last_name}
               touched={touched.last_name}
-              handleChange={(value)=>handleChange("last_name")(value)}
+              handleChange={(value) => handleChange("last_name")(value)}
             />
             {/* error */}
             {touched.last_name && errors.last_name ? (
@@ -255,7 +255,7 @@ function UserValidate({
               name="mother_name"
               errors={errors.mother_name}
               touched={touched.mother_name}
-              handleChange={(value)=>handleChange("mother_name")(value)}
+              handleChange={(value) => handleChange("mother_name")(value)}
             />
             {/* error */}
             {touched.mother_name && errors.mother_name ? (
@@ -269,7 +269,11 @@ function UserValidate({
               Date of Birth<span style={{ color: "red" }}>*</span>
             </label>
 
-            <ConfigProvider>
+            <ConfigProvider
+              theme={{
+                inherit: true,
+              }}
+            >
               <SingleDatePicker
                 // onChange={handleDatePickerChange}
                 handleChange={(value) => handleChange("date_birth")(value)}
