@@ -353,6 +353,8 @@
 :where(.css-1xg9z9n).ant-picker-dropdown
   .ant-picker-cell-in-view.ant-picker-cell-today
   .ant-picker-cell-inner::before,
+:where(.css-1xg9z9n).ant-picker-outlined:focus-within,
+:where(.css-1xg9z9n).ant-picker-outlined:focus,
 :where(.css-dev-only-do-not-override-1xg9z9n).ant-picker-outlined:focus,
 :where(.css-dev-only-do-not-override-1xg9z9n).ant-picker-outlined:focus-within,
 :where(.css-dev-only-do-not-override-1bw14ii).ant-picker-outlined:focus,
@@ -361,6 +363,10 @@
 :where(.css-dev-only-do-not-override-v800az).ant-picker-outlined:focus-within {
   border-color: none;
   box-shadow: none;
+}
+
+:where(.css-1xg9z9n).ant-picker-outlined:hover {
+  background: none;
 }
 
 // range background color
