@@ -167,6 +167,7 @@
   color: #ffffff;
 }
 
+.dark :where(.css-1xg9z9n).ant-picker-outlined:hover,
 :where(.css-1xg9z9n).ant-picker-outlined:hover,
 .dark :where(.css-1xg9z9n).ant-picker-dropdown .ant-picker-panel-container,
 .dark :where(.css-1xg9z9n).ant-picker-outlined,
@@ -378,11 +379,13 @@
 
 // border color
 .dark :where(.css-1xg9z9n).ant-picker-outlined,
+.dark :where(.css-1xg9z9n).ant-picker-outlined:hover,
 .dark :where(.css-dev-only-do-not-override-1xg9z9n).ant-picker-outlined,
 .dark :where(.css-dev-only-do-not-override-1bw14ii).ant-picker-outlined {
   border-color: #545454;
 }
 
+:where(.css-1xg9z9n).ant-picker-outlined:hover,
 :where(.css-1xg9z9n).ant-picker-outlined,
 :where(.css-dev-only-do-not-override-1bw14ii).ant-picker-outlined {
   border-color: #b5b5b6;
