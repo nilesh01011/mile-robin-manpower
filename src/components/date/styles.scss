@@ -126,6 +126,8 @@
   background: #ff3e5b;
 }
 
+:where(.css-1xg9z9n) a,
+.dark :where(.css-1xg9z9n) a,
 :where(.css-1xg9z9n).ant-picker-dropdown .ant-picker-header-view button:hover,
 :where(.css-dev-only-do-not-override-1xg9z9n).ant-picker-dropdown
   .ant-picker-header-view
@@ -278,7 +280,6 @@
   color: #fff;
 }
 
-.dark :where(.css-1xg9z9n) a,
 .dark :where(.css-dev-only-do-not-override-1xg9z9n) a,
 .dark :where(.css-dev-only-do-not-override-1bw14ii) a,
 .dark :where(.css-dev-only-do-not-override-pwpnrm) a {
