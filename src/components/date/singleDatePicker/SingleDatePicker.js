@@ -37,9 +37,6 @@ function SingleDatePicker({
 }) {
   const theme = useSelector((state) => state.theme);
 
-  // date picker visible
-  // const [isAntdVisible, setIsAntdVisible] = useState(value ? true : false);
-
   // value
   const [isValues, setIsValues] = useState(value ? value : "");
 
@@ -49,6 +46,13 @@ function SingleDatePicker({
   let domNode = useClickOutSide(() => {
     setIsClicked(false);
   });
+
+  // useEffect(() => {
+  //   if (!isValues) {
+  //     document.querySelector(".cal1 .ant-picker-input input").placeholder =
+  //       "DD/MM/YYYY";
+  //   }
+  // }, [isValues]);
 
   const handleChangedCalendar = (date, dateString) => {
     handleChange(dateString);
@@ -74,8 +78,7 @@ function SingleDatePicker({
             }}
             onClick={() => {
               setIsClicked(true);
-              setIsValues(isValues);
-              // setIsAntdVisible(false);
+              // setIsValues("");
             }}
             ref={domNode}
           >
@@ -135,7 +138,6 @@ function SingleDatePicker({
                 : theme === "light"
                 ? "#b5b5b6"
                 : "#545454",
-            backgroundColor: theme === "light" ? "#ffffff" : "#0B0B0C",
           }}
           onChange={handleChangedCalendar}
           placeholder="DD-MM-YYYY"
