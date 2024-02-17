@@ -2,9 +2,9 @@ import React from "react";
 import "./styles.scss";
 import { useSelector } from "react-redux";
 import moment from "moment";
-import UserExistsButInactive from "../../userExistsButInactive/UserExistsButInactive";
-import UserExistsWithActive from "../../userExistsWithActive/UserExistsWithActive";
-import UserNotExists from "../../userNotExists/UserNotExists";
+import UserExistsButInactive from "../../messagesBox/userExistsButInactive/UserExistsButInactive";
+import UserExistsWithActive from "../../messagesBox/userExistsWithActive/UserExistsWithActive";
+import UserNotExists from "../../messagesBox/userNotExists/UserNotExists";
 
 function ResultDataShow({
   resultsValues,

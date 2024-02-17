@@ -1,0 +1,32 @@
+.overlay_2 {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 999997;
+    cursor: pointer;
+}
+
+.editWorkExperienceContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    & .boxModel {
+        height: 400px;
+        width: 400px;
+        border-radius: 4px;
+        // z-index: 999998;
+        // position: fixed;
+        // left: 0;
+        // right: 0;
+        // bottom: 0;
+        // top: 0;
+    }
+
+}

@@ -6,7 +6,7 @@ import './styles.scss';
 function ViewDrawer({ tableViewDrawer, setTableViewDrawer, selectTableView }) {
   const theme = useSelector((state) => state.theme);
 
-  console.log(selectTableView);
+  // console.log(selectTableView);
   return (
     <>
       <Overlay showOverlay={tableViewDrawer} hideOverlay={setTableViewDrawer} />

@@ -11,7 +11,7 @@ function InputFields({ mileId }) {
     setCopiedText(text);
   }
 
-  console.log(copiedText)
+  // console.log(copiedText)
   return (
     <div className="mileIDKeyboard">
       {/* mileIDKey */}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles.scss";
 import { useFormik } from "formik";
 import { employeeExists } from "../../../../../../../formikSchema/addEmployee";
@@ -8,6 +8,10 @@ import Dropdown from "../../../../../../../components/dropdown/Dropdown";
 import CalendarInput from "../../../../../../../components/calendarInput";
 import InputField from "../../../../../../../components/inputField/InputField";
 import LoadingCircle from "../../../../../../../components/loadingCircle/LoadingCircle";
+import SingleDatePicker from "../../../../../../../components/date/singleDatePicker/SingleDatePicker";
+import { ConfigProvider } from "antd";
+import MuiltiDatePicker from "../../../../../../../components/date/muiltiDatePicker/MuiltiDatePicker";
+import moment from "moment";
 
 function UserValidate({
   // userValidate drawer show
@@ -89,7 +93,7 @@ function UserValidate({
           );
         });
 
-        console.log("Filtered user exists:", filterUserExists);
+        // console.log("Filtered user exists:", filterUserExists);
 
         setResultShow(true);
 
@@ -118,7 +122,7 @@ function UserValidate({
 
         // user not exists
         if (filterUserExists.length === 0) {
-          console.log("user not found:", values);
+          // console.log("user not found:", values);
           setUserNotExists(!userNotExists); // true
 
           setUserExistsWithActive(false);
@@ -126,7 +130,6 @@ function UserValidate({
           setUserExistsButInActive(false);
 
           setResultValues([values]);
-          console.log("user not found:", values);
         }
 
         action.resetForm();
@@ -165,6 +168,27 @@ function UserValidate({
       name: "AD 3",
     },
   ];
+
+  // date picker
+  // date //
+  const [dates, setDates] = useState([]);
+
+  const handleDatePickerChange = (date, dateString) => {
+    // handleChange
+    handleChange("date_birth")(dateString);
+  };
+
+  // const handleRangePickerChange = (values) => {
+  //   // console.log("Selected Range:", values);
+  //   if (values) {
+  //     setDates(values.map((date) => moment(date).format("YYYY-MM-DD")));
+  //   } else {
+  //     setDates([]);
+  //   }
+  // };
+
+  // date-end //
+
   return (
     <form onSubmit={handleSubmit} method="post" autoComplete="off">
       {/* validates contents */}
@@ -178,7 +202,7 @@ function UserValidate({
         >
           {/* first name */}
           <div className="gridItems">
-            <label style={{  color: theme === "light" ? "#545454" : "#B5B5B6"  }}>
+            <label style={{ color: theme === "light" ? "#545454" : "#B5B5B6" }}>
               First Name<span style={{ color: "red" }}>*</span>
             </label>
             <InputField
@@ -189,7 +213,7 @@ function UserValidate({
               name="first_name"
               errors={errors.first_name}
               touched={touched.first_name}
-              handleChange={handleChange}
+              handleChange={(value)=>handleChange("first_name")(value)}
             />
             {/* error */}
             {touched.first_name && errors.first_name ? (
@@ -199,7 +223,7 @@ function UserValidate({
 
           {/* last name */}
           <div className="gridItems">
-            <label style={{  color: theme === "light" ? "#545454" : "#B5B5B6"  }}>
+            <label style={{ color: theme === "light" ? "#545454" : "#B5B5B6" }}>
               Last Name<span style={{ color: "red" }}>*</span>
             </label>
             <InputField
@@ -210,17 +234,17 @@ function UserValidate({
               name="last_name"
               errors={errors.last_name}
               touched={touched.last_name}
-              handleChange={handleChange}
+              handleChange={(value)=>handleChange("last_name")(value)}
             />
             {/* error */}
-            {touched.last_name && errors ? (
+            {touched.last_name && errors.last_name ? (
               <p className="errors">{errors.last_name}</p>
             ) : null}
           </div>
 
           {/* mother name */}
           <div className="gridItems">
-            <label style={{  color: theme === "light" ? "#545454" : "#B5B5B6"  }}>
+            <label style={{ color: theme === "light" ? "#545454" : "#B5B5B6" }}>
               Mother's Name<span style={{ color: "red" }}>*</span>
             </label>
             <InputField
@@ -231,31 +255,53 @@ function UserValidate({
               name="mother_name"
               errors={errors.mother_name}
               touched={touched.mother_name}
-              handleChange={handleChange}
+              handleChange={(value)=>handleChange("mother_name")(value)}
             />
             {/* error */}
-            {touched.mother_name && errors ? (
+            {touched.mother_name && errors.mother_name ? (
               <p className="errors">{errors.mother_name}</p>
             ) : null}
           </div>
 
           {/* date */}
           <div className="gridItems">
-            <label style={{  color: theme === "light" ? "#545454" : "#B5B5B6"  }}>
+            <label style={{ color: theme === "light" ? "#545454" : "#B5B5B6" }}>
               Date of Birth<span style={{ color: "red" }}>*</span>
             </label>
-            <CalendarInput
+
+            <ConfigProvider>
+              <SingleDatePicker
+                // onChange={handleDatePickerChange}
+                handleChange={(value) => handleChange("date_birth")(value)}
+                errors={errors.date_birth}
+                touched={touched.date_birth}
+                name="date_birth"
+              />
+              {/* error */}
+              {touched.date_birth && errors.date_birth ? (
+                <p className="errors">{errors.date_birth}</p>
+              ) : null}
+            </ConfigProvider>
+            {/* antd date picker */}
+            {/* <SingleDatePicker
+                text={values.date_birth}
+                name="dateBirth"
+                errors={errors.date_birth}
+                handleChange={(value) => handleChange("date_birth")(value)}
+                touched={touched.date_birth}
+              /> */}
+            {/* <CalendarInput
               text={values.date_birth}
               name="dateBirth"
               errors={errors.date_birth}
               handleChange={(value) => handleChange("date_birth")(value)}
               touched={touched.date_birth}
-            />
+            /> */}
           </div>
 
           {/* dropdown */}
           <div className="gridItems">
-            <label style={{  color: theme === "light" ? "#545454" : "#B5B5B6"  }}>
+            <label style={{ color: theme === "light" ? "#545454" : "#B5B5B6" }}>
               Gender<span style={{ color: "red" }}>*</span>
             </label>
             <Dropdown
@@ -269,7 +315,7 @@ function UserValidate({
           </div>
 
           <div className="gridItems">
-            <label style={{  color: theme === "light" ? "#545454" : "#B5B5B6"  }}>
+            <label style={{ color: theme === "light" ? "#545454" : "#B5B5B6" }}>
               Business Name<span style={{ color: "red" }}>*</span>
             </label>
             <Dropdown
@@ -284,8 +330,7 @@ function UserValidate({
           </div>
         </div>
       </div>
-        
-      
+
       {/* footer */}
       <div
         className="actionEmployeeFooter"

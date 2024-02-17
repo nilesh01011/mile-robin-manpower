@@ -43,7 +43,11 @@ function CalendarInput({ handleChange, name, errors, touched,text }) {
     setIsClicked(false);
   });
 
-  console.log(text)
+  // console.log(text)
+
+  // useEffect(()=>{
+  //   document.querySelector(".no-calendar").placeholder = "DD-MM-YYYY"
+  // },[])
 
   return (
     <div className="datePicker">
@@ -73,6 +77,8 @@ function CalendarInput({ handleChange, name, errors, touched,text }) {
           value={value}
           onChange={handleChangedCalendar}
           name={name}
+
+          style={{color:value ? theme === "light" ? "" : "" : theme === "light" ? "#B5B5B6" : "#545454"}}
         />
         {/* icons */}
         {/* <span>

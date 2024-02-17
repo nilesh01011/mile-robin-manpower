@@ -37,7 +37,7 @@ function Drawer({
 
   // handleSubmitted
   const handleSubmitted = () => {
-    console.log("Submitted");
+    // console.log("Submitted");
     setFormDataSubmitted(true);
     setCurrentTabsTitle(thankyou.name);
     setTabsStatus(thankyou.key);
@@ -258,7 +258,7 @@ function Drawer({
                 title: "Email",
                 text: "vinay.sk@gmail.com",
                 inputType: "text",
-                placeholder: "Enter email address",
+                placeholder: "Email address",
                 input: "email",
               },
               {
@@ -376,7 +376,7 @@ function Drawer({
                 title: "Email",
                 text: "vinay.sk@gmail.com",
                 inputType: "text",
-                placeholder: "Enter email address",
+                placeholder: "Email address",
                 input: "email",
               },
               {

@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import Overlay from "../../../../../components/overlay/Overlay";
 import Dropdown from "../../../../../components/dropdown/Dropdown";
 import CalendarInput from "../../../../../components/calendarInput";
+import { ConfigProvider } from "antd";
+import SingleDatePicker from "../../../../../components/date/singleDatePicker/SingleDatePicker";
 
 function AdvanceFilterDrawer({ advanceFilterSearch, setAdvancedFilterSearch }) {
   const theme = useSelector((state) => state.theme);
@@ -30,6 +32,12 @@ function AdvanceFilterDrawer({ advanceFilterSearch, setAdvancedFilterSearch }) {
       name: "Dropdown 3",
     },
   ];
+
+  const handleDatePickerChange = (dateString) => {
+    // handleChange
+    // handleChange("date_birth")(dateString);
+    // console.log(dateString);
+  };
   return (
     <>
       <Overlay
@@ -55,7 +63,7 @@ function AdvanceFilterDrawer({ advanceFilterSearch, setAdvancedFilterSearch }) {
           }}
         >
           {/* text */}
-          <span className="title">Advance Filters</span>
+          <span className="drawerTitle">Advance Filters</span>
           {/* icons */}
           <span style={{ cursor: "pointer" }} onClick={() => setAdvancedFilterSearch(!advanceFilterSearch)}>
             <svg
@@ -98,12 +106,38 @@ function AdvanceFilterDrawer({ advanceFilterSearch, setAdvancedFilterSearch }) {
           {/* date */}
           <div className="gridItems">
             <label style={{ color: "#545454" }}>From Date</label>
-            <CalendarInput />
+            {/* <CalendarInput /> */}
+            <ConfigProvider>
+              <SingleDatePicker
+                // onChange={handleDatePickerChange}
+                handleChange={handleDatePickerChange}
+                // errors={errors.date_birth}
+                // touched={touched.date_birth}
+                name="date_birth"
+              />
+              {/* error */}
+              {/* {touched.date_birth && errors.date_birth ? (
+                <p className="errors">{errors.date_birth}</p>
+              ) : null} */}
+            </ConfigProvider>
           </div>
 
           <div className="gridItems">
             <label style={{ color: "#545454" }}>To Date</label>
-            <CalendarInput />
+            {/* <CalendarInput /> */}
+            <ConfigProvider>
+              <SingleDatePicker
+                // onChange={handleDatePickerChange}
+                handleChange={handleDatePickerChange}
+                // errors={errors.date_birth}
+                // touched={touched.date_birth}
+                name="date_birth"
+              />
+              {/* error */}
+              {/* {touched.date_birth && errors.date_birth ? (
+                <p className="errors">{errors.date_birth}</p>
+              ) : null} */}
+            </ConfigProvider>
           </div>
         </div>
         {/* footer */}
@@ -116,7 +150,7 @@ function AdvanceFilterDrawer({ advanceFilterSearch, setAdvancedFilterSearch }) {
                 : "rgb(255 255 255 / 15%) 0px -1px 1px 0px",
           }}
         >
-          <button className="outlineBtn btns" type="button">
+          <button className="outlineBtn btns" type="reset">
             Reset
           </button>
           <button className="primaryBtn btns" type="button">

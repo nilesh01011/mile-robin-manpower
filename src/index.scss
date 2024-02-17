@@ -200,8 +200,12 @@ body.dark::-webkit-scrollbar-thumb {
 .searchFilterContainer {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
   width: 100%;
+
+  & button {
+    padding-left: 0;
+  }
 
   & .searchFilterDropdown {
     width: 330px;

@@ -164,9 +164,9 @@ function EmployeeManagementPage() {
   const handleSearch = myDebounce(() => {
     setError(false);
     // Fetch data based on selected option and search term
-    console.log(
-      `Searching for "${inputFields}" with option "${selectDropdownFilterText}"`
-    );
+    // console.log(
+    //   `Searching for "${inputFields}" with option "${selectDropdownFilterText}"`
+    // );
 
     // empty search term
     // setSelectedDropdownFilterText('');
@@ -338,7 +338,7 @@ function EmployeeManagementPage() {
   // previous search results
   const handlePreviousDataFetching = (data) => {
     // filteredEmployees(data);
-    console.log(data);
+    // console.log(data);
     // setInputFields(data);
     // filteredEmployees(data);
   };
@@ -519,7 +519,7 @@ function EmployeeManagementPage() {
                         fontSize: 14,
                         color: '#FF3E5B',
                         fontWeight: 700,
-                        marginLeft: 7,
+                        // marginLeft: 6,
                       }}
                     >
                       Advanced Filters

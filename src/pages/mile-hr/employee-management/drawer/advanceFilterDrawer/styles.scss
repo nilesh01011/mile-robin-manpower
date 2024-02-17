@@ -8,6 +8,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    & .drawerTitle {
+      font-size: 16px;
+      font-weight: 700;
+    }
   }
 
   // advanceFilterContentsGrid
@@ -15,7 +20,7 @@
     width: 100%;
     max-height: max-content;
     display: grid;
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
     padding: 30px;
 

@@ -4,9 +4,9 @@
     "employeeName": "Hobart Cashley",
     "employeeBusinessName": "Zoonder",
     "employeeDesignation": "Engineer",
-    "employeeApprovalStatus": false,
+    "employeeApprovalStatus": true,
     "employeeLocation": "Apt 1170",
-    "employeeStatus": false
+    "employeeStatus": true
   },
   {
     "employeeCode": "#3decc5",
@@ -40,9 +40,9 @@
     "employeeName": "Ammamaria Nattriss",
     "employeeBusinessName": "Avavee",
     "employeeDesignation": "Construction Manager",
-    "employeeApprovalStatus": false,
+    "employeeApprovalStatus": true,
     "employeeLocation": "Suite 26",
-    "employeeStatus": false
+    "employeeStatus": true
   },
   {
     "employeeCode": "#78d8c4",
@@ -60,7 +60,7 @@
     "employeeDesignation": "Subcontractor",
     "employeeApprovalStatus": true,
     "employeeLocation": "Suite 45",
-    "employeeStatus": false
+    "employeeStatus": true
   },
   {
     "employeeCode": "#96b164",
@@ -85,9 +85,9 @@
     "employeeName": "Sharity Borrel",
     "employeeBusinessName": "Kwimbee",
     "employeeDesignation": "Engineer",
-    "employeeApprovalStatus": false,
+    "employeeApprovalStatus": true,
     "employeeLocation": "1st Floor",
-    "employeeStatus": false
+    "employeeStatus": true
   },
   {
     "employeeCode": "#86c935",

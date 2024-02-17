@@ -4,6 +4,9 @@ import CalendarInput from "../../../../../../../components/calendarInput";
 import Dropdown from "../../../../../../../components/dropdown/Dropdown";
 import { useSelector } from "react-redux";
 import InputField from "../../../../../../../components/inputField/InputField";
+import { ConfigProvider } from "antd";
+import SingleDatePicker from "../../../../../../../components/date/singleDatePicker/SingleDatePicker";
+import axios from "axios";
 
 function UserDetailsFieldShow({
   // for hidding and show submit
@@ -186,6 +189,43 @@ function UserDetailsFieldShow({
       toDate: "Current",
     },
   ];
+
+  const handleDatePickerChange = (dateString) => {
+    // handleChange
+    // handleChange("date_birth")(dateString);
+    // console.log(dateString);
+  };
+
+  // const [firstName, setFirstName] = useState("");
+
+  // PIN Code
+  const [pinCodeValue, setPinCodeValue] = useState("");
+
+  const handlePinCodeFetch = async (pincode) => {
+    // console.log(pincode);
+    if (Number(pincode)) {
+      try {
+        const accessToken = process.env.PUBLIC_PINCODE_APIS_TOKEN;
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${accessToken}`, // add the access token and bearer token here
+            "Access-Token": process.env.PUBLIC_PINCODE_APIS_ACCESS_TOKEN,
+          },
+        };
+
+        const res = await axios.get(
+          `/apidev.mahindradealerrise.com/geography/pincodes?pincode=${pincode}`,
+          config
+        );
+        console.log(res);
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   return (
     <>
       <div className="addEmployeeDetails">
@@ -259,7 +299,7 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     text={values[0]?.first_name}
                     name="first_name"
-                    defaultValue={values[0]?.first_name}
+                    // defaultValue={values[0]?.first_name}
                     // errors={errors.first_name}
                     // touched={touched.first_name}
                     // handleChange={handleChange}
@@ -276,7 +316,7 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     text={values[0]?.last_name}
                     name="last_name"
-                    defaultValue={values[0]?.last_name}
+                    // defaultValue={values[0]?.last_name}
                     // errors={errors.first_name}
                     // touched={touched.first_name}
                     // handleChange={handleChange}
@@ -293,7 +333,7 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     text={values[0]?.mother_name}
                     name="mother_name"
-                    defaultValue={values[0]?.mother_name}
+                    // defaultValue={values[0]?.mother_name}
                     // errors={errors.first_name}
                     // touched={touched.first_name}
                     // handleChange={handleChange}
@@ -304,13 +344,26 @@ function UserDetailsFieldShow({
                   <label style={{ color: "#545454" }}>
                     Date of Birth<span style={{ color: "red" }}>*</span>
                   </label>
-                  <CalendarInput
+                  {/* <CalendarInput
                     text={values[0]?.date_birth}
                     name="dateBirth"
                     // errors={errors.date_birth}
                     // handleChange={(value) => handleChange("date_birth")(value)}
                     // touched={touched.date_birth}
-                  />
+                  /> */}
+                  <ConfigProvider>
+                    <SingleDatePicker
+                      handleChange={handleDatePickerChange}
+                      value={values[0]?.date_birth}
+                      // errors={errors.date_birth}
+                      // touched={touched.date_birth}
+                      name="dates"
+                    />
+                    {/* error
+                    {touched.date_birth && errors.date_birth ? (
+                <p className="errors">{errors.date_birth}</p>
+              ) : null} */}
+                  </ConfigProvider>
                 </div>
 
                 <div className="gridItems">
@@ -381,7 +434,7 @@ function UserDetailsFieldShow({
                   </label>
                   <InputField
                     types="text"
-                    placeholder="Enter email address"
+                    placeholder="example@gmail.com"
                     inputTypes="text"
                     // text={values.first_name}
                     name="email_address"
@@ -411,13 +464,26 @@ function UserDetailsFieldShow({
                   <label style={{ color: "#545454" }}>
                     Date of Joining<span style={{ color: "red" }}>*</span>
                   </label>
-                  <CalendarInput
+                  {/* <CalendarInput
                     // text={values.date_birth}
                     name="dateBirth"
                     // errors={errors.date_birth}
                     // handleChange={(value) => handleChange("date_birth")(value)}
                     // touched={touched.date_birth}
-                  />
+                  /> */}
+                  <ConfigProvider>
+                    <SingleDatePicker
+                      handleChange={handleDatePickerChange}
+                      value=""
+                      // errors={errors.date_birth}
+                      // touched={touched.date_birth}
+                      name="dates_2"
+                    />
+                    {/* error
+                    {touched.date_birth && errors.date_birth ? (
+                <p className="errors">{errors.date_birth}</p>
+              ) : null} */}
+                  </ConfigProvider>
                 </div>
               </div>
               {/* divider */}
@@ -435,7 +501,7 @@ function UserDetailsFieldShow({
                   </label>
                   <InputField
                     types="text"
-                    placeholder="Enter address 1"
+                    placeholder="Enter"
                     inputTypes="text"
                     // text={values.first_name}
                     name="address1"
@@ -451,7 +517,7 @@ function UserDetailsFieldShow({
                   </label>
                   <InputField
                     types="text"
-                    placeholder="Enter address 2"
+                    placeholder="Enter"
                     inputTypes="text"
                     // text={values.first_name}
                     name="address2"
@@ -469,15 +535,38 @@ function UserDetailsFieldShow({
                     PIN Code<span style={{ color: "red" }}>*</span>
                   </label>
                   <InputField
+                    // types is if input field is text or disabled
                     types="text"
-                    placeholder="Enter PIN Code"
-                    inputTypes="text"
-                    // text={values.first_name}
+                    placeholder="PIN Code"
+                    inputTypes="tel"
+                    maxLength={6}
+                    text={pinCodeValue}
+                    handleChange={setPinCodeValue}
                     name="pinCode"
+                    icons={true}
+                    // pincode search function
+                    handlePinCodeFetch={handlePinCodeFetch}
+                    // <svg
+                    //   width="20"
+                    //   height="20"
+                    //   viewBox="0 0 20 20"
+                    //   fill="none"
+                    //   xmlns="http://www.w3.org/2000/svg"
+                    // >
+                    //   <path
+                    //     fillRule="evenodd"
+                    //     clipRule="evenodd"
+                    //     d="M8.43469 0.400024C3.9972 0.400024 0.399902 3.99732 0.399902 8.43481C0.399902 12.8723 3.9972 16.4696 8.43469 16.4696C10.4375 16.4696 12.2691 15.7368 13.6761 14.5248L18.5756 19.4243C18.8099 19.6586 19.1898 19.6586 19.4242 19.4243C19.6585 19.19 19.6585 18.8101 19.4242 18.5758L14.5246 13.6762C15.7367 12.2692 16.4695 10.4376 16.4695 8.43481C16.4695 3.99732 12.8722 0.400024 8.43469 0.400024ZM1.5999 8.43481C1.5999 4.66006 4.65994 1.60002 8.43469 1.60002C12.2094 1.60002 15.2695 4.66006 15.2695 8.43481C15.2695 12.2096 12.2094 15.2696 8.43469 15.2696C4.65994 15.2696 1.5999 12.2096 1.5999 8.43481Z"
+                    //     fill="#FF3E5B"
+                    //   ></path>
+                    // </svg>
                     // errors={errors.first_name}
                     // touched={touched.first_name}
-                    // handleChange={handleChange}
                   />
+                  {/* error
+                  {touched.date_birth && errors.date_birth ? (
+                    <p className="errors">{errors.date_birth}</p>
+                  ) : null} */}
                 </div>
 
                 <div className="gridItems">
@@ -606,7 +695,7 @@ function UserDetailsFieldShow({
                   <label style={{ color: "#545454" }}>bank Name</label>
                   <InputField
                     types="text"
-                    placeholder="Bank name"
+                    placeholder="Enter"
                     inputTypes="text"
                     // text={values.first_name}
                     name="bank_name"
@@ -620,7 +709,7 @@ function UserDetailsFieldShow({
                   <label style={{ color: "#545454" }}>bank branch</label>
                   <InputField
                     types="text"
-                    placeholder="Enter bank branch name"
+                    placeholder="Enter"
                     inputTypes="text"
                     // text={values.first_name}
                     name="bank_branch"
@@ -634,7 +723,7 @@ function UserDetailsFieldShow({
                   <label style={{ color: "#545454" }}>Bank Address</label>
                   <InputField
                     types="text"
-                    placeholder="Enter bank address name"
+                    placeholder="Enter"
                     inputTypes="text"
                     // text={values.first_name}
                     name="bank_address"
@@ -648,7 +737,7 @@ function UserDetailsFieldShow({
                   <label style={{ color: "#545454" }}>Branch PIN code</label>
                   <InputField
                     types="text"
-                    placeholder="Enter bank pin code"
+                    placeholder="Enter"
                     inputTypes="text"
                     // text={values.first_name}
                     name="bank_pincode"
@@ -662,7 +751,7 @@ function UserDetailsFieldShow({
                   <label style={{ color: "#545454" }}>Bank Account No.</label>
                   <InputField
                     types="text"
-                    placeholder="Enter bank account number"
+                    placeholder="Enter"
                     inputTypes="text"
                     // text={values.first_name}
                     name="bank_account_number"
@@ -676,7 +765,7 @@ function UserDetailsFieldShow({
                   <label style={{ color: "#545454" }}>IFSC code</label>
                   <InputField
                     types="text"
-                    placeholder="Enter IFSC code"
+                    placeholder="Enter"
                     inputTypes="text"
                     // text={values.first_name}
                     name="bank_ifsc_code"
@@ -690,7 +779,7 @@ function UserDetailsFieldShow({
                   <label style={{ color: "#545454" }}>MICR No.</label>
                   <InputField
                     types="text"
-                    placeholder="Enter MICR code"
+                    placeholder="Enter"
                     inputTypes="text"
                     // text={values.first_name}
                     name="bank_micr_code"
@@ -1098,24 +1187,50 @@ function UserDetailsFieldShow({
 
                 <div className="gridItems">
                   <label style={{ color: "#545454" }}>From Date</label>
-                  <CalendarInput
+                  {/* <CalendarInput
                     // text={values.date_birth}
                     name="fromDate"
                     // errors={errors.date_birth}
                     // handleChange={(value) => handleChange("date_birth")(value)}
                     // touched={touched.date_birth}
-                  />
+                  /> */}
+                  <ConfigProvider>
+                    <SingleDatePicker
+                      handleChange={handleDatePickerChange}
+                      value=""
+                      // errors={errors.date_birth}
+                      // touched={touched.date_birth}
+                      name="dates_2"
+                    />
+                    {/* error
+                    {touched.date_birth && errors.date_birth ? (
+                <p className="errors">{errors.date_birth}</p>
+              ) : null} */}
+                  </ConfigProvider>
                 </div>
 
                 <div className="gridItems">
                   <label style={{ color: "#545454" }}>To Date</label>
-                  <CalendarInput
+                  {/* <CalendarInput
                     // text={values.date_birth}
                     name="toDate"
                     // errors={errors.date_birth}
                     // handleChange={(value) => handleChange("date_birth")(value)}
                     // touched={touched.date_birth}
-                  />
+                  /> */}
+                  <ConfigProvider>
+                    <SingleDatePicker
+                      handleChange={handleDatePickerChange}
+                      value=""
+                      // errors={errors.date_birth}
+                      // touched={touched.date_birth}
+                      name="dates_2"
+                    />
+                    {/* error
+                    {touched.date_birth && errors.date_birth ? (
+                <p className="errors">{errors.date_birth}</p>
+              ) : null} */}
+                  </ConfigProvider>
                 </div>
               </div>
 

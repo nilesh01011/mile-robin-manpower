@@ -34,11 +34,12 @@ function InputField({
   errors,
   touched,
   handleChange,
-
-  // defaultValue
-  defaultValue,
+  // pincode type only icons and function
+  icons,
+  handlePinCodeFetch,
+  maxLength,
 }) {
-  // const [inputText, setInputText] = useState(text ? text : '');
+  const [inputText, setInputText] = useState(text ? text : "");
   const theme = useSelector((state) => state.theme);
   const [isClicked, setIsClicked] = useState(false);
 
@@ -46,10 +47,12 @@ function InputField({
     setIsClicked(false);
   });
 
-  // const handleChangedText = (e) => {
-  //   setInputText(e.target.value);
-  //   handleChange((e) => handleChange(name)(e.target.value))
-  // };
+  const handleChangedText = (e) => {
+    setInputText(e.target.value);
+    if (handleChange) {
+      handleChange(e.target.value);
+    }
+  };
 
   return (
     <div
@@ -78,9 +81,10 @@ function InputField({
     >
       <input
         type={inputTypes}
-        maxLength={inputTypes === "tel" ? 10 : null}
-        value={text}
-        onChange={handleChange}
+        // maxLength={inputTypes === "tel" ? 10 : null}
+        maxLength={maxLength&&maxLength}
+        value={inputText}
+        onChange={handleChangedText}
         placeholder={placeholder}
         style={{
           color:
@@ -96,8 +100,30 @@ function InputField({
         }}
         disabled={types === "disabled" && true}
         name={name}
-        defaultValue={defaultValue !== "" ? defaultValue : null}
       />
+
+      {/* search icons for pincode only */}
+      {icons && (
+        <span
+          className="searchIcons"
+          onClick={() => handlePinCodeFetch(inputText)}
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fillRule="evenodd"
+              clipRule="evenodd"
+              d="M8.43469 0.400024C3.9972 0.400024 0.399902 3.99732 0.399902 8.43481C0.399902 12.8723 3.9972 16.4696 8.43469 16.4696C10.4375 16.4696 12.2691 15.7368 13.6761 14.5248L18.5756 19.4243C18.8099 19.6586 19.1898 19.6586 19.4242 19.4243C19.6585 19.19 19.6585 18.8101 19.4242 18.5758L14.5246 13.6762C15.7367 12.2692 16.4695 10.4376 16.4695 8.43481C16.4695 3.99732 12.8722 0.400024 8.43469 0.400024ZM1.5999 8.43481C1.5999 4.66006 4.65994 1.60002 8.43469 1.60002C12.2094 1.60002 15.2695 4.66006 15.2695 8.43481C15.2695 12.2096 12.2094 15.2696 8.43469 15.2696C4.65994 15.2696 1.5999 12.2096 1.5999 8.43481Z"
+              fill="#FF3E5B"
+            ></path>
+          </svg>
+        </span>
+      )}
     </div>
   );
 }

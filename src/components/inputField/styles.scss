@@ -10,6 +10,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 
   & input {
     background: transparent;
@@ -19,8 +20,25 @@
     border-radius: 4px;
     width: 100%;
     min-height: 36px;
-    appearance: none;
+    appearance: none !important;
     font-size: 14px !important;
+  }
+
+  /* Chrome, Safari, Edge, Opera */
+  & input::-webkit-outer-spin-button,
+  & input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
+  }
+
+  & .searchIcons {
+    position: absolute;
+    right: 12px;
+    top: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
   }
 
   // errors

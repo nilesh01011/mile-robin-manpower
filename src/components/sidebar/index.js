@@ -353,7 +353,7 @@ function SidebarRedevelop() {
                       searchResultsData?.map((ele, index) => {
                         // const regex = new RegExp(ele);
 
-                        console.log(searchMenuItems);
+                        // console.log(searchMenuItems);
                         return (
                           <li
                             key={index}
