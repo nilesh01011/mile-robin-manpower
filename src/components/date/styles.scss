@@ -105,6 +105,7 @@
   }
 }
 
+:where(.css-1xg9z9n).ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-selected:not(.ant-picker-cell-disabled) .ant-picker-cell-inner,
 :where(.css-dev-only-do-not-override-1xg9z9n).ant-picker-dropdown
   .ant-picker-cell-in-view.ant-picker-cell-selected:not(
     .ant-picker-cell-disabled
@@ -125,6 +126,7 @@
   background: #ff3e5b;
 }
 
+:where(.css-1xg9z9n).ant-picker-dropdown .ant-picker-header-view button:hover,
 :where(.css-dev-only-do-not-override-1xg9z9n).ant-picker-dropdown
   .ant-picker-header-view
   button:hover,
@@ -134,6 +136,8 @@
   color: #ff3e5b;
 }
 
+.dark :where(.css-1xg9z9n).ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner::before,
+:where(.css-1xg9z9n).ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner::before,
 :where(.css-dev-only-do-not-override-1xg9z9n).ant-picker-dropdown
   .ant-picker-cell-in-view.ant-picker-cell-today
   .ant-picker-cell-inner::before,
@@ -143,6 +147,7 @@
   border-color: #ff3e5b;
 }
 
+:where(.css-1xg9z9n).ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-selected:not(.ant-picker-cell-disabled) .ant-picker-cell-inner,
 :where(.css-dev-only-do-not-override-1xg9z9n).ant-picker-dropdown
   .ant-picker-cell
   .ant-picker-cell-inner {
