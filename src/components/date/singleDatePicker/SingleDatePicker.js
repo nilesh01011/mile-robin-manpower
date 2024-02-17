@@ -135,6 +135,7 @@ function SingleDatePicker({
                 : theme === "light"
                 ? "#b5b5b6"
                 : "#545454",
+            backgroundColor: theme === "light" ? "#ffffff" : "#0B0B0C",
           }}
           onChange={handleChangedCalendar}
           placeholder="DD-MM-YYYY"
