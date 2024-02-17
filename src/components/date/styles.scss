@@ -167,6 +167,7 @@
   color: #ffffff;
 }
 
+:where(.css-1xg9z9n).ant-picker-outlined:hover,
 .dark :where(.css-1xg9z9n).ant-picker-dropdown .ant-picker-panel-container,
 .dark :where(.css-1xg9z9n).ant-picker-outlined,
 .dark :where(.css-dev-only-do-not-override-1xg9z9n).ant-picker-outlined {
@@ -366,7 +367,7 @@
 }
 
 :where(.css-1xg9z9n).ant-picker-outlined:hover {
-  background: none;
+  background-color: #ffffff;
 }
 
 // range background color
