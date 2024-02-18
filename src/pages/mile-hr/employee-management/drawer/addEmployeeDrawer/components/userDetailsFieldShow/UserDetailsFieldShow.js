@@ -283,7 +283,7 @@ function UserDetailsFieldShow({
               <div
                 className="divider"
                 style={{
-                  backgroundColor: theme === "light" ? "#E6E6E6" : "",
+                  backgroundColor: theme === "light" ? "#E6E6E6" : "#232324",
                 }}
               />
               {/* contents */}
@@ -490,7 +490,7 @@ function UserDetailsFieldShow({
               <div
                 className="divider"
                 style={{
-                  backgroundColor: theme === "light" ? "#E6E6E6" : "",
+                  backgroundColor: theme === "light" ? "#E6E6E6" : "#232324",
                 }}
               />
               {/* flex design */}

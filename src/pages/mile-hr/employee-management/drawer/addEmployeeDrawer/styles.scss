@@ -1,5 +1,5 @@
 .actionEmployeeDrawer {
-  width: 100%;
+  width: 93%;
   height: 100%;
 
   // header
@@ -139,5 +139,41 @@
     justify-content: space-between;
     gap: 10px;
     z-index: 100;
+  }
+}
+
+// media queries
+@media screen and (max-width: 992px) {
+  .actionEmployeeDrawer {
+    width: 100%;
+    // contents
+    & .actionEmployeeContainer {
+      padding: 30px 20px;
+      & .actionEmployeeContents {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 880px) {
+  .actionEmployeeDrawer {
+    // contents
+    & .actionEmployeeContainer {
+      & .actionEmployeeContents {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .actionEmployeeDrawer {
+    // contents
+    & .actionEmployeeContainer {
+      & .actionEmployeeContents {
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
   }
 }

@@ -856,7 +856,7 @@ function SidebarRedevelop() {
       </aside>
       {/* mobile device */}
       {/* overlay */}
-      <div id="overlay" onClick={handleSidebar}></div>
+      <div id="overlay" onClick={handleSidebar}  style={{backgroundColor:theme === "light"?"rgba(0, 0, 0, 0.8)":"rgba(84, 84, 84, 0.8)"}}></div>
     </>
   );
 }

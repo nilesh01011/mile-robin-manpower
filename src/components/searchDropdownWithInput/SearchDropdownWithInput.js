@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
-import './styles.scss';
-import { useSelector } from 'react-redux';
-import InputField from './inputField';
+import React, { useEffect, useRef, useState } from "react";
+import "./styles.scss";
+import { useSelector } from "react-redux";
+import InputField from "./inputField";
 
 let useClickOutSide = (handler) => {
   let domNode = useRef();
@@ -16,10 +16,10 @@ let useClickOutSide = (handler) => {
       }
     };
 
-    document.addEventListener('mousedown', handlerEvent);
+    document.addEventListener("mousedown", handlerEvent);
 
     return () => {
-      document.removeEventListener('mousedown', handlerEvent);
+      document.removeEventListener("mousedown", handlerEvent);
     };
   }, [handler]);
 
@@ -58,32 +58,29 @@ function SearchDropdownWithInput({
   }, [dropdownList, selectDropdownFilterText, setSelectedDropdownFilterText]);
 
   return (
-    <div
-      className="selectDropdownFilter"
-      ref={domNode}
-    >
+    <div className="selectDropdownFilter" ref={domNode}>
       <div
         className={`selectDropdownFilterContainer ${
-          theme === 'light' ? 'lightTheme' : 'darkTheme'
+          theme === "light" ? "lightTheme" : "darkTheme"
         } ${
           isDropdownOpen === true
-            ? theme === 'light'
-              ? 'isDropdownOpenLightTheme'
-              : 'isDropdownOpenDarkTheme'
-            : theme === 'light'
-            ? 'isDropdownCloseLightTheme'
-            : 'isDropdownCloseDarkTheme'
+            ? theme === "light"
+              ? "isDropdownOpenLightTheme"
+              : "isDropdownOpenDarkTheme"
+            : theme === "light"
+            ? "isDropdownCloseLightTheme"
+            : "isDropdownCloseDarkTheme"
         } `}
         onClick={() => setIsClicked(!isClicked)}
         style={{
           borderColor:
             error === true
-              ? '#FF3E5B'
+              ? "#FF3E5B"
               : isClicked === true
-              ? theme === 'light'
-                ? '#0b0b0c'
-                : '#ffffff'
-              : '',
+              ? theme === "light"
+                ? "#0b0b0c"
+                : "#ffffff"
+              : "",
         }}
       >
         {/* dropdown list */}
@@ -91,7 +88,7 @@ function SearchDropdownWithInput({
           <div className="selectOption">
             <div
               className={`selectOptionContainer ${
-                theme === 'light' ? 'lightTheme' : 'darkTheme'
+                theme === "light" ? "lightTheme" : "darkTheme"
               }`}
             >
               {/* select fields */}
@@ -100,25 +97,28 @@ function SearchDropdownWithInput({
                 className="selectOptionFields"
               >
                 <p
-                  style={{ color: theme === 'light' ? 'black' : '#A3A3A3' }}
-                  className="selectFields desktopView"
+                  style={{ color: theme === "light" ? "black" : "#A3A3A3" }}
+                  className="selectFields"
+                  // desktopView
                 >
-                  {selectDropdownFilterText === ''
+                  {selectDropdownFilterText === ""
                     ? dropdownList[0].name
                     : selectDropdownFilterText}
                 </p>
 
-                <p
+                {/* <p
                   style={{ color: theme === 'light' ? 'black' : '#A3A3A3' }}
                   className="selectFields mobileView"
                 >
-                  {selectDropdownFilterText}
-                </p>
+                  {selectDropdownFilterText === ""
+                    ? dropdownList[0].name
+                    : selectDropdownFilterText}
+                </p> */}
 
                 {/* icons */}
                 <div
                   style={{
-                    transform: isDropdownOpen && 'rotate(180deg)',
+                    transform: isDropdownOpen && "rotate(180deg)",
                   }}
                   className="icons"
                 >
@@ -145,7 +145,15 @@ function SearchDropdownWithInput({
         {/* inputs */}
         <div
           className={`inputFieldsContainer ${
-            theme === 'light' ? 'lightTheme' : 'darkTheme'
+            theme === "light" ? "lightTheme" : "darkTheme"
+          } ${
+            error
+              ? "errors"
+              : isClicked
+              ? theme === "light"
+                ? "isClickedLight"
+                : "isClickedDark"
+              : ""
           }`}
         >
           <InputField
@@ -178,12 +186,13 @@ function SearchDropdownWithInput({
           </svg>
         </button>
       </div>
+      {/* errors messages */}
       {error && (
         <div
           className="errorContainer"
           style={{
-            borderColor: theme === 'light' ? '#FF3E5B' : '#ed302d',
-            backgroundColor: theme === 'light' ? '#FFCCD4' : '#2f0504',
+            borderColor: theme === "light" ? "#FF3E5B" : "#ed302d",
+            backgroundColor: theme === "light" ? "#FFCCD4" : "#2f0504",
           }}
         >
           {/* icons */}
@@ -211,7 +220,7 @@ function SearchDropdownWithInput({
       {isDropdownOpen && (
         <ul
           className={`allListItems ${
-            theme === 'light' ? 'lightTheme' : 'darkTheme'
+            theme === "light" ? "lightTheme" : "darkTheme"
           }`}
         >
           {dropdownList.map((ele, id) => {
@@ -223,16 +232,16 @@ function SearchDropdownWithInput({
                   setIsDropdownOpen(!isDropdownOpen);
                 }}
                 className={`allListItemsChild ${
-                  theme === 'light' ? 'lightHover' : 'darkHover'
+                  theme === "light" ? "lightHover" : "darkHover"
                 }`}
                 style={{
-                  color: selectDropdownFilterText === ele.name && '#FF3E5B',
+                  color: selectDropdownFilterText === ele.name && "#FF3E5B",
                   backgroundColor:
                     selectDropdownFilterText === ele.name
-                      ? theme === 'light'
-                        ? '#F2F2F2'
-                        : '#232324'
-                      : '',
+                      ? theme === "light"
+                        ? "#F2F2F2"
+                        : "#232324"
+                      : "",
                 }}
               >
                 {ele.name}

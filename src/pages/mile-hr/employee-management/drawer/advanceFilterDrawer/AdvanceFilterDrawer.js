@@ -48,7 +48,6 @@ function AdvanceFilterDrawer({ advanceFilterSearch, setAdvancedFilterSearch }) {
         className="drawerContainer advanceFilterContainer"
         style={{
           backgroundColor: theme === "light" ? "#FFF" : "#0B0B0C",
-          width: "34%",
           right: advanceFilterSearch ? 0 : "-150%",
         }}
       >

@@ -6,6 +6,7 @@
     position: relative;
 
     & .selectDropdownFilterContainer {
+        width: 100%;
         border-radius: 4px;
         padding: 5px 6px;
         border: 1px solid;
@@ -232,7 +233,7 @@
 }
 
 // media queries
-@media screen and (max-width: 880px) {
+@media screen and (max-width: 992px) {
     .selectDropdownFilter {
         height: 100%;
 
@@ -246,25 +247,25 @@
                 background-color: transparent !important;
             }
 
-            &.isDropdownOpenDarkTheme {
-                & .dropdownContainers {
-                    & .selectOption {
-                        & .selectOptionContainer {
-                            border-color: white !important;
-                        }
-                    }
-                }
-            }
+            // &.isDropdownOpenDarkTheme {
+            //     & .dropdownContainers {
+            //         & .selectOption {
+            //             & .selectOptionContainer {
+            //                 border-color: white !important;
+            //             }
+            //         }
+            //     }
+            // }
 
-            &.isDropdownOpenLightTheme {
-                & .dropdownContainers {
-                    & .selectOption {
-                        & .selectOptionContainer {
-                            border-color: #0b0b0c !important;
-                        }
-                    }
-                }
-            }
+            // &.isDropdownOpenLightTheme {
+            //     & .dropdownContainers {
+            //         & .selectOption {
+            //             & .selectOptionContainer {
+            //                 border-color: #0b0b0c !important;
+            //             }
+            //         }
+            //     }
+            // }
 
             & .dropdownContainers {
                 width: 100%;
@@ -281,6 +282,7 @@
 
                             & .selectFields {
                                 font-size: 14px !important;
+                                width: 100%;
 
                                 &.mobileView {
                                     display: block;
@@ -309,9 +311,25 @@
                     border-color: #b5b5b6;
                 }
 
+                &.errors {
+                    border-color: #ed302d;
+                }
+
+                &.isClickedLight {
+                    border-color: #0b0b0c;
+                }
+
+                &.isClickedDark {
+                    border-color: #ffffff;
+                }
+
                 & .inputFields {
                     padding-left: 10px !important;
                     padding: 10px;
+
+                    & + svg {
+                        margin-left: -60px;
+                    }
                 }
             }
         }

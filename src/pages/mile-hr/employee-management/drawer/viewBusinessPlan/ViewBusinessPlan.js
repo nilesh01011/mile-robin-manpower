@@ -78,7 +78,7 @@ function ViewBusinessPlan({
         className="drawerContainer viewBusinessPlan"
         style={{
           backgroundColor: theme === "light" ? "#FFF" : "#0B0B0C",
-          width: "93%",
+          // width: "93%",
           right: viewBusinessPlanDrawer ? 0 : "-150%",
         }}
       >

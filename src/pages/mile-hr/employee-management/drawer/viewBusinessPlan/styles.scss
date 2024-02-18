@@ -1,5 +1,5 @@
 .viewBusinessPlan {
-  width: 100%;
+  width: 93%;
   height: 100%;
 
   & .viewBusinessPlanHeader {
@@ -43,5 +43,18 @@
         }
       }
     }
+  }
+}
+
+// media queries
+@media screen and (max-width: 992px) {
+  .viewBusinessPlan {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .viewBusinessPlan {
+
   }
 }

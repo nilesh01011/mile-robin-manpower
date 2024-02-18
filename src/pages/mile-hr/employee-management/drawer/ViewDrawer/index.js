@@ -15,7 +15,7 @@ function ViewDrawer({ tableViewDrawer, setTableViewDrawer, selectTableView }) {
         className="drawerContainer actionEmployeeDrawer"
         style={{
           backgroundColor: theme === 'light' ? '#FFF' : '#0B0B0C',
-          width: '93%',
+          // width: '93%',
           right: tableViewDrawer ? 0 : '-150%',
         }}
       >

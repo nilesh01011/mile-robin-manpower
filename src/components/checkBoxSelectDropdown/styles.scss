@@ -41,9 +41,12 @@
       top: 125%;
       width: 100%;
       height: fit-content;
+      max-height: 100px;
+      overflow: auto;
       left: 0;
       right: 0;
-      z-index: 5;
+      // z-index: 5;
+      z-index: 999;
       padding: 8px;
       border-radius: 4px;
       border: 1px solid;

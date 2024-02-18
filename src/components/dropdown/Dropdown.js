@@ -138,7 +138,7 @@ function Dropdown({
           }`}
           style={{
             backgroundColor: theme === "light" ? "#ffffff" : "#1C1C1C",
-            top: position ? (items.length <= 2 ? "-300%" : "-405%") : "125%",
+            top: errors && touched && !selected ? "90%" : position ? (items.length <= 2 ? "-300%" : "-405%") : "125%",
           }}
         >
           {items.map((ele, index) => {

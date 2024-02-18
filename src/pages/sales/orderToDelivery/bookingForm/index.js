@@ -4,12 +4,13 @@ import React, { useState } from "react";
 import "./styles.scss";
 import { useSelector } from "react-redux";
 import SelectDropdownFilter from "./components/searchdropdownfilter";
-import Table from "./components/table";
+// import Table from "./components/table";
 import Drawer from "./components/drawer/Drawer";
 import MobileViewDrawer from "./mobileViewDrawer/MobileViewDrawer";
 import ResponsiveTable from "./components/responsiveTable/ResponsiveTable";
 import { bookingTableData, bookingTableHead } from "../../../../data";
 import Title from "../../../../components/title";
+import TableDataBookingForm from "../../../../components/table/bookingFormTable";
 
 function BookingForm() {
   const theme = useSelector((state) => state.theme);
@@ -329,7 +330,7 @@ function BookingForm() {
               borderColor: theme === "light" ? "#e6e6e6" : "#232324",
             }}
           >
-            <Table
+            <TableDataBookingForm
               tableHead={bookingTableHead}
               tableBody={bookingTableData}
               selectDropdownFilter={setSelectedDropdownFilterText}
@@ -383,25 +384,25 @@ function BookingForm() {
       </div>
 
       {/* Drawer */}
-      <Drawer
+      {/* <Drawer
         data={drawerData}
         drawerType={drawerType}
         setDrawerType={setDrawerType}
         isDrawerOpen={isDrawerOpen}
         setIsDrawerOpen={setIsDrawerOpen}
-      />
+      /> */}
 
       {/* Movile View Drawer */}
-      <MobileViewDrawer
+      {/* <MobileViewDrawer
         data={drawerData}
         drawerType={drawerType}
         isDrawerOpen={isDrawerOpen}
         setIsDrawerOpen={setIsDrawerOpen}
         setDrawerType={setDrawerType}
-      />
+      /> */}
 
       {/* overlay */}
-      <div
+      {/* <div
         id="newsDrawerOverlay"
         style={{
           display: isDrawerOpen ? "block" : "none",
@@ -409,7 +410,7 @@ function BookingForm() {
             theme === "light" ? "rgba(0, 0, 0, 0.8)" : "rgba(84, 84, 84,0.8)",
         }}
         onClick={() => handleDrawerClosed()}
-      ></div>
+      ></div> */}
     </div>
   );
 }

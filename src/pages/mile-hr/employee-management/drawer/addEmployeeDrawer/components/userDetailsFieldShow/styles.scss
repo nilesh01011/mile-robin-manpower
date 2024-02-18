@@ -127,3 +127,45 @@
       }
     }
   }
+
+  // media queries
+
+  @media screen and (max-width: 1280px) {
+    .addEmployeeDetails {
+      & .addEmployeeAccordionContainer {
+        & .accordionContainerBody {
+          & .grid {
+            grid-template-columns: repeat(3, 1fr);
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 992px) {
+    .addEmployeeDetails {
+      & .addEmployeeAccordionContainer {
+        & .accordionContainerBody {
+          & .grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 660px) {
+    .addEmployeeDetails {
+      & .addEmployeeAccordionContainer {
+        & .accordionContainerBody {
+          & .grid {
+            grid-template-columns: repeat(1, 1fr);
+          }
+
+          & .flex {
+            flex-direction: column;
+          }
+        }
+      }
+    }
+  }

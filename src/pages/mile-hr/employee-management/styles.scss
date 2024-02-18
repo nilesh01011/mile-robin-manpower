@@ -4,7 +4,7 @@
   position: relative;
   max-height: max-content;
   box-sizing: border-box;
-  margin-bottom: 38px;
+  // margin-bottom: 38px;
 
   & .employeeManagementContainer {
     width: 100%;
@@ -32,6 +32,10 @@
       margin-top: 30px;
       margin-bottom: 20px;
 
+      & .desktopView {
+        width: 100%;
+      }
+
       & .topHeaderSide {
         width: 100%;
         display: flex;
@@ -42,24 +46,6 @@
           display: flex;
           align-items: center;
           gap: 16px;
-
-          & .tabs {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            padding: 6px;
-            border-radius: 4px;
-            height: max-content;
-
-            & button {
-              font-size: 14px;
-              padding: 2px 6px;
-              border-radius: 2px;
-              outline: none;
-              border: none;
-              cursor: pointer;
-            }
-          }
         }
 
         & .employeeManagementHeaderRight {
@@ -78,6 +64,61 @@
               font-weight: 700;
               font-size: 14px;
             }
+          }
+        }
+      }
+
+      // tabs
+      & .tabs {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 6px;
+        border-radius: 4px;
+        height: max-content;
+
+        & button {
+          font-size: 14px;
+          padding: 2px 6px;
+          border-radius: 2px;
+          outline: none;
+          border: none;
+          cursor: pointer;
+        }
+      }
+
+      // mobiles view
+      & .mobileView {
+        display: none;
+        width: 100%;
+        height: auto;
+
+        & .topHeaderSide {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+
+          & .tabsSearchFilter {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            
+            & .tabs {
+              width: 100%;
+
+              & button {
+                width: 100%;
+              }
+            }
+          }
+
+          & .advanceFilterWithAddEmployee {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
           }
         }
       }
@@ -132,6 +173,23 @@
         }
       }
     }
+  }
+}
 
+// media queries
+@media screen and (max-width: 992px) {
+  .employeeManagement {
+    & .employeeManagementContainer {
+      & .employeeManagementHeader {
+        & .mobileView {
+          display: block;
+        }
+
+        // desktop view display none
+        & .desktopView {
+          display: none;
+        }
+      }
+    }
   }
 }

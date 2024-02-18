@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import "./styles.scss";
+import "../styles.scss";
 
 function TableData({
   tableHead,

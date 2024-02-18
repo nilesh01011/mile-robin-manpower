@@ -95,7 +95,7 @@ function ActionEmployeeDrawer({
         className="drawerContainer actionEmployeeDrawer"
         style={{
           backgroundColor: theme === "light" ? "#FFF" : "#0B0B0C",
-          width: "93%",
+          // width: "93%",
           right: actionEmployeeDrawer ? 0 : "-150%",
         }}
       >
