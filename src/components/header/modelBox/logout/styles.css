@@ -1,0 +1,74 @@
+.modelContainer {
+  width: -moz-max-content;
+  width: max-content;
+  height: -moz-max-content;
+  height: max-content;
+  z-index: 99999;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.logoutContainer {
+  width: 100%;
+  min-width: 316px;
+  height: -moz-max-content;
+  height: max-content;
+  border-radius: 10px;
+  padding: 20px;
+}
+.logoutContainer .heads {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logoutContainer .heads .textIcons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 2px;
+}
+.logoutContainer .heads h4 {
+  font-weight: 700;
+}
+.logoutContainer .divider {
+  width: 100%;
+  height: 1px;
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 13px;
+}
+.logoutContainer .contents {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.logoutContainer .contents .btns {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 30px;
+}
+.logoutContainer .contents button {
+  padding: 4px 16px;
+  height: 35px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 700;
+  border: 1.5px solid #FF3E5B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logoutContainer .contents button.one {
+  color: #FF3E5B;
+}
+.logoutContainer .contents button.two {
+  background-color: #FF3E5B;
+  color: white;
+}/*# sourceMappingURL=styles.css.map */

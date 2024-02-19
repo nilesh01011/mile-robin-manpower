@@ -1,0 +1,43 @@
+.inputFields {
+  width: 100%;
+  height: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+  background-color: transparent !important;
+}
+.inputFields:focus, .inputFields:active {
+  background-color: transparent !important;
+}
+.inputFields::-moz-placeholder {
+  color: #858585;
+  content: "*";
+}
+.inputFields::placeholder {
+  color: #858585;
+  content: "*";
+}
+.inputFields + svg {
+  margin-left: -25px;
+  margin-top: -2px;
+  visibility: visible;
+  cursor: pointer;
+}
+.inputFields:-moz-placeholder-shown + svg {
+  visibility: hidden;
+}
+.inputFields:placeholder-shown + svg {
+  visibility: hidden;
+}
+.inputFields::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+@media screen and (max-width: 880px) {
+  .inputFields + svg {
+    margin-left: -55px;
+  }
+}/*# sourceMappingURL=styles.css.map */

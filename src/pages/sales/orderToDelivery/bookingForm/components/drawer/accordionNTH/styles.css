@@ -1,0 +1,34 @@
+.accordionNTH {
+  border-radius: 4px;
+}
+.accordionNTH .accordionHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 30px;
+}
+.accordionNTH .accordionContents {
+  padding: 20px 30px;
+  padding-top: 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.accordionNTH .accordionContents.accordionInput {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .accordionNTH .accordionContents.accordionInput {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (max-width: 576px) {
+  .accordionNTH .accordionContents.accordionInput {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}/*# sourceMappingURL=styles.css.map */

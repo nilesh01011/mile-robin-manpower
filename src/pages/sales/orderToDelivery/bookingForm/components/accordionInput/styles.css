@@ -1,0 +1,17 @@
+.drawerInputFields {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.drawerInputFields .inputs, .drawerInputFields .label {
+  font-size: 14px;
+  font-weight: 400;
+}
+.drawerInputFields .inputs {
+  border-radius: 4px;
+  padding: 5px 12px;
+  border: 1px solid;
+  min-height: 36px;
+  outline: none;
+}/*# sourceMappingURL=styles.css.map */

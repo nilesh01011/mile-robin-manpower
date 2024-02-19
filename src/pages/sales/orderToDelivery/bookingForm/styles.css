@@ -1,0 +1,50 @@
+.bookingFormContainer {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.bookingFormContainer .bookingFormHeader {
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+.bookingFormContainer .bookingFormHeader .bookingFormHeaderLeftSide {
+  padding: 8px 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.bookingFormContainer .bookingFormHeader .bookingFormHeaderLeftSide .bookingFormHeaderLeftSideText {
+  width: -moz-max-content;
+  width: max-content;
+}
+.bookingFormContainer .bookingFormHeader .bookingFormHeaderLeftSide .bookingFormHeaderLeftSideText .advanceFilter {
+  display: none !important;
+}
+.bookingFormContainer .tablesScroll .tableContainer {
+  min-height: calc(100vh - 230px);
+  max-height: calc(100vh - 230px);
+  max-width: calc(100vw - 64px);
+  overflow: scroll;
+}
+
+@media screen and (max-width: 880px) {
+  .otfContainer .otfHeader .otfHeaderLeftSide {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .otfContainer .otfHeader .otfHeaderLeftSide .searchFilterContainer .advanceFilter {
+    display: none !important;
+  }
+  .otfContainer .otfHeader .otfHeaderLeftSide .otfHeaderLeftSideText {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .otfContainer .otfHeader .otfHeaderLeftSide .otfHeaderLeftSideText .advanceFilter {
+    display: flex !important;
+  }
+  .otfContainer .tablesScroll .tableMobileView .responsiveTable .responsiveTableContents {
+    max-height: calc(100vh - 370px);
+  }
+}/*# sourceMappingURL=styles.css.map */

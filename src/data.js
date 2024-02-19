@@ -87,23 +87,6 @@ export const menuItems = [
         link: "/mile-hr/employee-management",
       },
       {
-        name: "Reports",
-        key: 3.2,
-        isFolder: true,
-        items: [
-          {
-            name: "Reports 1",
-            key: "3.2.1",
-            link: "/mile-hr/reports/reports-1",
-          },
-          {
-            name: "Reports 2",
-            key: "3.2.2",
-            link: "/mile-hr/reports/reports-2",
-          },
-        ],
-      },
-      {
         name: "Training Management",
         key: 3.3,
         isFolder: true,
@@ -117,6 +100,23 @@ export const menuItems = [
             name: "Training Management 2",
             key: "3.3.2",
             link: "/mile-hr/training-management/training-management-1",
+          },
+        ],
+      },
+      {
+        name: "Reports",
+        key: 3.2,
+        isFolder: true,
+        items: [
+          {
+            name: "Reports 1",
+            key: "3.2.1",
+            link: "/mile-hr/reports/reports-1",
+          },
+          {
+            name: "Reports 2",
+            key: "3.2.2",
+            link: "/mile-hr/reports/reports-2",
           },
         ],
       },

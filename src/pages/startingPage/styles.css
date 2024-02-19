@@ -1,0 +1,124 @@
+@keyframes scaling {
+  0%, 50% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.startingPage_container {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  padding: 30px 20px;
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.startingPage_container .logoImg {
+  height: 40px;
+  width: 220px;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.startingPage_container .logoImg img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  -o-object-position: right;
+     object-position: right;
+}
+.startingPage_container .loadingAnimation {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.startingPage_container .loadingAnimation .loadingName {
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+.startingPage_container .loadingAnimation .loadingName #R_IMG {
+  opacity: 0;
+  transform: scale(0.1);
+  transition: all 500ms ease-out;
+}
+.startingPage_container .loadingAnimation .loadingName #R_IMG.R_show {
+  opacity: 1;
+  transition: all 500ms ease-out;
+  transform: scale(1);
+}
+.startingPage_container .loadingAnimation .loadingName #O_IMG {
+  opacity: 0;
+  transition: all 800ms ease-out;
+  transform: scale(0.1);
+}
+.startingPage_container .loadingAnimation .loadingName #O_IMG.O_show {
+  opacity: 1;
+  transition: all 800ms ease-out;
+  transform: scale(1);
+}
+.startingPage_container .loadingAnimation .loadingName #B_IMG {
+  opacity: 0;
+  transition: all 200ms ease-out;
+  transform: scale(0.5);
+}
+.startingPage_container .loadingAnimation .loadingName #B_IMG.B_show {
+  opacity: 1;
+  transition: all 200ms ease-out;
+  transform: scale(1);
+}
+.startingPage_container .loadingAnimation .loadingName #I_IMG {
+  opacity: 0;
+  transition: all 1s ease-out;
+  transform: scale(0.2);
+}
+.startingPage_container .loadingAnimation .loadingName #I_IMG.I_show {
+  opacity: 1;
+  transition: all 1s ease-out;
+  transform: scale(1);
+}
+.startingPage_container .loadingAnimation .loadingName #N_IMG {
+  opacity: 0;
+  transition: all 1.2s ease-out;
+  transform: scale(0.1);
+}
+.startingPage_container .loadingAnimation .loadingName #N_IMG.N_show {
+  opacity: 1;
+  transition: all 1.2s ease-out;
+  transform: scale(1);
+}
+.startingPage_container .loadingAnimation .lineAnimation {
+  width: 300px;
+  height: 1px;
+  animation: scaling 2s ease-out;
+}
+.startingPage_container .startingPage_footer {
+  text-align: center;
+}
+.startingPage_container .startingPage_footer span {
+  font-size: 10px;
+  color: #858585;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 768px) {
+  .startingPage_container .logoImg {
+    margin: 0 auto;
+    width: 100%;
+  }
+  .startingPage_container .logoImg img {
+    -o-object-position: center;
+       object-position: center;
+  }
+}/*# sourceMappingURL=styles.css.map */

@@ -207,6 +207,7 @@ body.dark::-webkit-scrollbar-thumb {
 
     & .rightSide {
       width: 100%;
+      flex-wrap: wrap;
     }
   }
 }

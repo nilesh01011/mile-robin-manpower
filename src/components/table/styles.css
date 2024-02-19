@@ -1,0 +1,166 @@
+table {
+  width: 100%;
+  border-spacing: 0;
+  position: relative;
+}
+table tr td, table tr th {
+  width: -moz-max-content;
+  width: max-content;
+  font-size: 14px;
+  padding: 13px 18px;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+table tr td:nth-child(2), table tr th:nth-child(2) {
+  padding-left: 10px;
+}
+table tr td:not(:first-child) th:not(:first-child), table tr td:not(:first-child) td:not(:first-child), table tr th:not(:first-child) th:not(:first-child), table tr th:not(:first-child) td:not(:first-child) {
+  padding-right: 24px;
+}
+table tr:last-child td {
+  border-bottom: 0;
+}
+table .tableHeads {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+}
+table .tableHeads .table th {
+  font-weight: 500;
+  border-bottom: 1px solid;
+}
+table .tableHeads .table th span {
+  position: relative;
+}
+table .tableHeads .table th span svg {
+  position: absolute;
+  right: -20px;
+  top: 1px;
+}
+table .tableHeads .table th:first-child {
+  border-top-left-radius: 4px;
+  padding-right: 0;
+}
+table .tableHeads .table th:last-child {
+  border-top-right-radius: 4px;
+}
+table tbody tr td {
+  border-bottom: 1px solid;
+}
+table tbody tr td .status {
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  border: 1px solid;
+}
+table tbody tr td .status.activeLight {
+  background: #e2f9d2;
+  border-color: #56ac18;
+  color: #56ac18;
+}
+table tbody tr td .status.activeDark {
+  background: #162d06;
+  border-color: #56ac18;
+  color: #56ac18;
+}
+table tbody tr td .status.disactiveLight {
+  background: #fbd1d0;
+  border-color: #ed302d;
+  color: #ed302d;
+}
+table tbody tr td .status.disactiveDark {
+  background: #2f0504;
+  border-color: #ed302d;
+  color: #ed302d;
+}
+table tbody tr td .status.Alloted.lightTheme, table tbody tr td .status.Delivered.lightTheme, table tbody tr td .status.Booked.lightTheme {
+  border-color: #56ac18;
+  background: #e2f9d2;
+  color: #56ac18;
+}
+table tbody tr td .status.Alloted.darkTheme, table tbody tr td .status.Delivered.darkTheme, table tbody tr td .status.Booked.darkTheme {
+  border-color: #56ac18;
+  background: #162d06;
+  color: #56ac18;
+}
+table tbody tr td .status.Cancelled.lightTheme {
+  border-color: #ed302d;
+  background: #fbd1d0;
+  color: #ed302d;
+}
+table tbody tr td .status.Cancelled.darkTheme {
+  border-color: #ed302d;
+  background: #2f0504;
+  color: #ed302d;
+}
+table tbody tr td .status.Cancellation.lightTheme {
+  border-color: #f99c22;
+  background: #fef3d2;
+  color: #f99c22;
+}
+table tbody tr td .status.Cancellation.darkTheme {
+  border-color: #f99c22;
+  background: #2b2521;
+  color: #f99c22;
+}
+table tbody tr td .status.Transferred.lightTheme {
+  border-color: #2782f9;
+  background: #d3edfe;
+  color: #2782f9;
+}
+table tbody tr td .status.Transferred.darkTheme {
+  border-color: #2782f9;
+  background: #20232c;
+  color: #2782f9;
+}
+table tbody tr td .status.Invoiced.lightTheme {
+  border-color: #9747ff;
+  background: #f3eaff;
+  color: #9747ff;
+}
+table tbody tr td .status.Invoiced.darkTheme {
+  border-color: #9747ff;
+  background: #20232c;
+  color: #9747ff;
+}
+table tbody tr td.stickyTableData {
+  position: sticky;
+  right: -2px;
+  top: 0;
+}
+table tbody tr td.stickyTableData.lightHover {
+  background: white;
+}
+table tbody tr td.stickyTableData.darkHover {
+  background: #0b0b0c;
+}
+table tbody tr th .secondLastDivSpaces, table tbody tr td .secondLastDivSpaces {
+  padding-right: 26px;
+}
+table tbody tr.lightHover:hover td.stickyTableData.lightHover, table tbody tr.lightHover:hover {
+  background: #f2f2f2 !important;
+}
+table tbody tr.darkHover:hover td.stickyTableData.darkHover, table tbody tr.darkHover:hover {
+  background: #1c1c1c !important;
+}
+
+@media screen and (max-width: 1366px) {
+  table tr td:not(:last-child, :first-child), table th:not(:last-child, :first-child) {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  table tr td:first-child {
+    padding-right: 0;
+  }
+}
+@media screen and (max-width: 1058px) {
+  table tr td, table tr th {
+    margin: 13px 18px;
+  }
+}
+@media screen and (max-width: 1038px) {
+  table tr td, table tr th {
+    margin: 13px 16px;
+  }
+}/*# sourceMappingURL=styles.css.map */

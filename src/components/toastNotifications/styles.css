@@ -1,0 +1,36 @@
+.toastNotification {
+  position: relative;
+}
+.toastNotification .toastContainer {
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+  position: absolute;
+  top: -47px;
+  padding: 10px 16px;
+  border-radius: 4px;
+  max-width: 390px;
+  transition: right 1.3s ease-in-out;
+}
+.toastNotification .toastContainer .leftSideToast {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+.toastNotification .toastContainer .leftSideToast .toastContents {
+  display: flex;
+  flex-direction: column;
+}
+.toastNotification .toastContainer .leftSideToast .toastContents p {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  text-transform: capitalize;
+}
+.toastNotification .toastContainer .leftSideToast .toastContents span {
+  font-size: 14px;
+  line-height: 23px;
+}
+.toastNotification .toastContainer .rightSideToast span {
+  cursor: pointer;
+}/*# sourceMappingURL=styles.css.map */

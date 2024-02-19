@@ -299,10 +299,10 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     text={values[0]?.first_name}
                     name="first_name"
-                    // defaultValue={values[0]?.first_name}
-                    // errors={errors.first_name}
-                    // touched={touched.first_name}
-                    // handleChange={handleChange}
+                  // defaultValue={values[0]?.first_name}
+                  // errors={errors.first_name}
+                  // touched={touched.first_name}
+                  // handleChange={handleChange}
                   />
                 </div>
 
@@ -316,10 +316,10 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     text={values[0]?.last_name}
                     name="last_name"
-                    // defaultValue={values[0]?.last_name}
-                    // errors={errors.first_name}
-                    // touched={touched.first_name}
-                    // handleChange={handleChange}
+                  // defaultValue={values[0]?.last_name}
+                  // errors={errors.first_name}
+                  // touched={touched.first_name}
+                  // handleChange={handleChange}
                   />
                 </div>
 
@@ -333,10 +333,10 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     text={values[0]?.mother_name}
                     name="mother_name"
-                    // defaultValue={values[0]?.mother_name}
-                    // errors={errors.first_name}
-                    // touched={touched.first_name}
-                    // handleChange={handleChange}
+                  // defaultValue={values[0]?.mother_name}
+                  // errors={errors.first_name}
+                  // touched={touched.first_name}
+                  // handleChange={handleChange}
                   />
                 </div>
 
@@ -375,8 +375,8 @@ function UserDetailsFieldShow({
                     selectedText={values[0]?.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="gender"
-                    // touched={touched.gender}
-                    // errors={errors.gender}
+                  // touched={touched.gender}
+                  // errors={errors.gender}
                   />
                 </div>
 
@@ -390,9 +390,9 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     // text={values.first_name}
                     name="mother_name"
-                    // errors={errors.first_name}
-                    // touched={touched.first_name}
-                    // handleChange={handleChange}
+                  // errors={errors.first_name}
+                  // touched={touched.first_name}
+                  // handleChange={handleChange}
                   />
                 </div>
 
@@ -406,9 +406,9 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     // text={values.first_name}
                     name="mother_name"
-                    // errors={errors.first_name}
-                    // touched={touched.first_name}
-                    // handleChange={handleChange}
+                  // errors={errors.first_name}
+                  // touched={touched.first_name}
+                  // handleChange={handleChange}
                   />
                 </div>
 
@@ -422,9 +422,9 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     // text={values.first_name}
                     name="mother_name"
-                    // errors={errors.first_name}
-                    // touched={touched.first_name}
-                    // handleChange={handleChange}
+                  // errors={errors.first_name}
+                  // touched={touched.first_name}
+                  // handleChange={handleChange}
                   />
                 </div>
 
@@ -438,9 +438,9 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     // text={values.first_name}
                     name="email_address"
-                    // errors={errors.first_name}
-                    // touched={touched.first_name}
-                    // handleChange={handleChange}
+                  // errors={errors.first_name}
+                  // touched={touched.first_name}
+                  // handleChange={handleChange}
                   />
                 </div>
 
@@ -454,9 +454,9 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     // text={values.first_name}
                     name="monthly_salary"
-                    // errors={errors.first_name}
-                    // touched={touched.first_name}
-                    // handleChange={handleChange}
+                  // errors={errors.first_name}
+                  // touched={touched.first_name}
+                  // handleChange={handleChange}
                   />
                 </div>
 
@@ -505,9 +505,9 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     // text={values.first_name}
                     name="address1"
-                    // errors={errors.first_name}
-                    // touched={touched.first_name}
-                    // handleChange={handleChange}
+                  // errors={errors.first_name}
+                  // touched={touched.first_name}
+                  // handleChange={handleChange}
                   />
                 </div>
 
@@ -521,9 +521,9 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     // text={values.first_name}
                     name="address2"
-                    // errors={errors.first_name}
-                    // touched={touched.first_name}
-                    // handleChange={handleChange}
+                  // errors={errors.first_name}
+                  // touched={touched.first_name}
+                  // handleChange={handleChange}
                   />
                 </div>
               </div>
@@ -546,22 +546,22 @@ function UserDetailsFieldShow({
                     icons={true}
                     // pincode search function
                     handlePinCodeFetch={handlePinCodeFetch}
-                    // <svg
-                    //   width="20"
-                    //   height="20"
-                    //   viewBox="0 0 20 20"
-                    //   fill="none"
-                    //   xmlns="http://www.w3.org/2000/svg"
-                    // >
-                    //   <path
-                    //     fillRule="evenodd"
-                    //     clipRule="evenodd"
-                    //     d="M8.43469 0.400024C3.9972 0.400024 0.399902 3.99732 0.399902 8.43481C0.399902 12.8723 3.9972 16.4696 8.43469 16.4696C10.4375 16.4696 12.2691 15.7368 13.6761 14.5248L18.5756 19.4243C18.8099 19.6586 19.1898 19.6586 19.4242 19.4243C19.6585 19.19 19.6585 18.8101 19.4242 18.5758L14.5246 13.6762C15.7367 12.2692 16.4695 10.4376 16.4695 8.43481C16.4695 3.99732 12.8722 0.400024 8.43469 0.400024ZM1.5999 8.43481C1.5999 4.66006 4.65994 1.60002 8.43469 1.60002C12.2094 1.60002 15.2695 4.66006 15.2695 8.43481C15.2695 12.2096 12.2094 15.2696 8.43469 15.2696C4.65994 15.2696 1.5999 12.2096 1.5999 8.43481Z"
-                    //     fill="#FF3E5B"
-                    //   ></path>
-                    // </svg>
-                    // errors={errors.first_name}
-                    // touched={touched.first_name}
+                  // <svg
+                  //   width="20"
+                  //   height="20"
+                  //   viewBox="0 0 20 20"
+                  //   fill="none"
+                  //   xmlns="http://www.w3.org/2000/svg"
+                  // >
+                  //   <path
+                  //     fillRule="evenodd"
+                  //     clipRule="evenodd"
+                  //     d="M8.43469 0.400024C3.9972 0.400024 0.399902 3.99732 0.399902 8.43481C0.399902 12.8723 3.9972 16.4696 8.43469 16.4696C10.4375 16.4696 12.2691 15.7368 13.6761 14.5248L18.5756 19.4243C18.8099 19.6586 19.1898 19.6586 19.4242 19.4243C19.6585 19.19 19.6585 18.8101 19.4242 18.5758L14.5246 13.6762C15.7367 12.2692 16.4695 10.4376 16.4695 8.43481C16.4695 3.99732 12.8722 0.400024 8.43469 0.400024ZM1.5999 8.43481C1.5999 4.66006 4.65994 1.60002 8.43469 1.60002C12.2094 1.60002 15.2695 4.66006 15.2695 8.43481C15.2695 12.2096 12.2094 15.2696 8.43469 15.2696C4.65994 15.2696 1.5999 12.2096 1.5999 8.43481Z"
+                  //     fill="#FF3E5B"
+                  //   ></path>
+                  // </svg>
+                  // errors={errors.first_name}
+                  // touched={touched.first_name}
                   />
                   {/* error
                   {touched.date_birth && errors.date_birth ? (
@@ -578,8 +578,8 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="state"
-                    // touched={touched.gender}
-                    // errors={errors.gender}
+                  // touched={touched.gender}
+                  // errors={errors.gender}
                   />
                 </div>
 
@@ -592,8 +592,8 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="state"
-                    // touched={touched.gender}
-                    // errors={errors.gender}
+                  // touched={touched.gender}
+                  // errors={errors.gender}
                   />
                 </div>
 
@@ -606,8 +606,8 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="state"
-                    // touched={touched.gender}
-                    // errors={errors.gender}
+                  // touched={touched.gender}
+                  // errors={errors.gender}
                   />
                 </div>
               </div>
@@ -699,9 +699,9 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     // text={values.first_name}
                     name="bank_name"
-                    // errors={errors.first_name}
-                    // touched={touched.first_name}
-                    // handleChange={handleChange}
+                  // errors={errors.first_name}
+                  // touched={touched.first_name}
+                  // handleChange={handleChange}
                   />
                 </div>
 
@@ -713,9 +713,9 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     // text={values.first_name}
                     name="bank_branch"
-                    // errors={errors.first_name}
-                    // touched={touched.first_name}
-                    // handleChange={handleChange}
+                  // errors={errors.first_name}
+                  // touched={touched.first_name}
+                  // handleChange={handleChange}
                   />
                 </div>
 
@@ -727,9 +727,9 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     // text={values.first_name}
                     name="bank_address"
-                    // errors={errors.first_name}
-                    // touched={touched.first_name}
-                    // handleChange={handleChange}
+                  // errors={errors.first_name}
+                  // touched={touched.first_name}
+                  // handleChange={handleChange}
                   />
                 </div>
 
@@ -741,9 +741,9 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     // text={values.first_name}
                     name="bank_pincode"
-                    // errors={errors.first_name}
-                    // touched={touched.first_name}
-                    // handleChange={handleChange}
+                  // errors={errors.first_name}
+                  // touched={touched.first_name}
+                  // handleChange={handleChange}
                   />
                 </div>
 
@@ -755,9 +755,9 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     // text={values.first_name}
                     name="bank_account_number"
-                    // errors={errors.first_name}
-                    // touched={touched.first_name}
-                    // handleChange={handleChange}
+                  // errors={errors.first_name}
+                  // touched={touched.first_name}
+                  // handleChange={handleChange}
                   />
                 </div>
 
@@ -769,9 +769,9 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     // text={values.first_name}
                     name="bank_ifsc_code"
-                    // errors={errors.first_name}
-                    // touched={touched.first_name}
-                    // handleChange={handleChange}
+                  // errors={errors.first_name}
+                  // touched={touched.first_name}
+                  // handleChange={handleChange}
                   />
                 </div>
 
@@ -783,9 +783,9 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     // text={values.first_name}
                     name="bank_micr_code"
-                    // errors={errors.first_name}
-                    // touched={touched.first_name}
-                    // handleChange={handleChange}
+                  // errors={errors.first_name}
+                  // touched={touched.first_name}
+                  // handleChange={handleChange}
                   />
                 </div>
               </div>
@@ -878,8 +878,8 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="dealer_operations"
-                    // touched={touched.gender}
-                    // errors={errors.gender}
+                  // touched={touched.gender}
+                  // errors={errors.gender}
                   />
                 </div>
 
@@ -892,8 +892,8 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="department"
-                    // touched={touched.gender}
-                    // errors={errors.gender}
+                  // touched={touched.gender}
+                  // errors={errors.gender}
                   />
                 </div>
 
@@ -906,8 +906,8 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="department"
-                    // touched={touched.gender}
-                    // errors={errors.gender}
+                  // touched={touched.gender}
+                  // errors={errors.gender}
                   />
                 </div>
 
@@ -920,8 +920,8 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="designation"
-                    // touched={touched.gender}
-                    // errors={errors.gender}
+                  // touched={touched.gender}
+                  // errors={errors.gender}
                   />
                 </div>
 
@@ -932,8 +932,8 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="qualifications"
-                    // touched={touched.gender}
-                    // errors={errors.gender}
+                  // touched={touched.gender}
+                  // errors={errors.gender}
                   />
                 </div>
 
@@ -944,8 +944,8 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="skills"
-                    // touched={touched.gender}
-                    // errors={errors.gender}
+                  // touched={touched.gender}
+                  // errors={errors.gender}
                   />
                 </div>
 
@@ -956,8 +956,8 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="sub_skills"
-                    // touched={touched.gender}
-                    // errors={errors.gender}
+                  // touched={touched.gender}
+                  // errors={errors.gender}
                   />
                 </div>
 
@@ -970,8 +970,8 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="reportManager"
-                    // touched={touched.gender}
-                    // errors={errors.gender}
+                  // touched={touched.gender}
+                  // errors={errors.gender}
                   />
                 </div>
 
@@ -984,8 +984,8 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="reportManager"
-                    // touched={touched.gender}
-                    // errors={errors.gender}
+                  // touched={touched.gender}
+                  // errors={errors.gender}
                   />
                 </div>
 
@@ -998,8 +998,8 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="common_employee"
-                    // touched={touched.gender}
-                    // errors={errors.gender}
+                  // touched={touched.gender}
+                  // errors={errors.gender}
                   />
                 </div>
 
@@ -1012,8 +1012,8 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="dealerLocation"
-                    // touched={touched.gender}
-                    // errors={errors.gender}
+                  // touched={touched.gender}
+                  // errors={errors.gender}
                   />
                 </div>
               </div>
@@ -1138,8 +1138,8 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="dealer_operations"
-                    // touched={touched.gender}
-                    // errors={errors.gender}
+                  // touched={touched.gender}
+                  // errors={errors.gender}
                   />
                 </div>
               </div>
@@ -1152,8 +1152,8 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="role"
-                    // touched={touched.gender}
-                    // errors={errors.gender}
+                  // touched={touched.gender}
+                  // errors={errors.gender}
                   />
                 </div>
 
@@ -1166,8 +1166,8 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="role"
-                    // touched={touched.gender}
-                    // errors={errors.gender}
+                  // touched={touched.gender}
+                  // errors={errors.gender}
                   />
                 </div>
 
@@ -1180,8 +1180,8 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="role"
-                    // touched={touched.gender}
-                    // errors={errors.gender}
+                  // touched={touched.gender}
+                  // errors={errors.gender}
                   />
                 </div>
 

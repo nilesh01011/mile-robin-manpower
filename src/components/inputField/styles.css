@@ -1,8 +1,14 @@
 .inputText {
   border-radius: 4px;
   width: 100%;
+  height: auto;
   border: 1px solid;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  /* Chrome, Safari, Edge, Opera */
 }
 .inputText input {
   background: transparent;
@@ -11,11 +17,28 @@
   padding: 5px 12px;
   border-radius: 4px;
   width: 100%;
-  height: 100%;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
+  min-height: 36px;
+  -webkit-appearance: none !important;
+     -moz-appearance: none !important;
+          appearance: none !important;
   font-size: 14px !important;
+}
+.inputText input::-webkit-outer-spin-button, .inputText input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  display: none;
+}
+.inputText .searchIcons {
+  position: absolute;
+  right: 12px;
+  top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.inputText .errors {
+  font-size: 12px;
+  color: #ed302d;
 }
 
 @media screen and (max-width: 992px) {

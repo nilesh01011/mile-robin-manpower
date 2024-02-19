@@ -1,0 +1,154 @@
+.graphsProgressBarContainer {
+  width: 100%;
+  height: -moz-max-content;
+  height: max-content;
+  position: relative;
+  padding: 16px 0;
+  border-radius: 4px;
+  border: 1px solid;
+}
+.graphsProgressBarContainer .headerCollapse {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  cursor: pointer;
+}
+.graphsProgressBarContainer .headerCollapse h2 {
+  font-size: 16px;
+  font-weight: 500;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.graphsProgressBarContainer .divider {
+  width: calc(100% - 32px);
+  height: 1px;
+  display: block;
+  margin: 0 auto;
+}
+.graphsProgressBarContainer .graphsDataWrapper {
+  margin-top: 12px;
+  width: 100%;
+  height: -moz-max-content;
+  height: max-content;
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 0 16px;
+  gap: 10px;
+}
+.graphsProgressBarContainer .graphsDataWrapper.addScrollBar {
+  overflow: scroll;
+  overflow-x: hidden;
+  max-height: 195px;
+}
+.graphsProgressBarContainer .graphsDataWrapper.addScrollBar::-webkit-scrollbar {
+  width: 5px;
+}
+.graphsProgressBarContainer .graphsDataWrapper.addScrollBar.light::-webkit-scrollbar-track {
+  background: #f0efef;
+}
+.graphsProgressBarContainer .graphsDataWrapper.addScrollBar.dark::-webkit-scrollbar-track {
+  background: #1c1c1c;
+}
+.graphsProgressBarContainer .graphsDataWrapper.addScrollBar::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+}
+.graphsProgressBarContainer .graphsDataWrapper.addScrollBar.light::-webkit-scrollbar-thumb {
+  background: #b5b5b6;
+}
+.graphsProgressBarContainer .graphsDataWrapper.addScrollBar.dark::-webkit-scrollbar-thumb {
+  background: #545454;
+}
+.graphsProgressBarContainer .graphsDataWrapper .graphsProgressBarData {
+  display: flex;
+  align-items: center;
+  min-height: 20px;
+  justify-content: space-between;
+}
+.graphsProgressBarContainer .graphsDataWrapper .graphsProgressBarLeftSide {
+  width: 100%;
+  min-height: 230px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  white-space: nowrap;
+}
+.graphsProgressBarContainer .graphsDataWrapper .graphsProgressBarLeftSide p {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.graphsProgressBarContainer .graphsDataWrapper .graphsProgressBarLeftSide span {
+  font-size: 12px;
+  font-weight: 500;
+}
+.graphsProgressBarContainer .graphsDataWrapper .graphsProgressBarLeftSide span.name {
+  text-transform: capitalize;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 80px;
+}
+.graphsProgressBarContainer .graphsDataWrapper .graphsProgressBarRightSide {
+  width: 100%;
+  min-height: 230px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.graphsProgressBarContainer .graphsDataWrapper .graphsProgressBarRightSide .progressBar {
+  border-radius: 4px;
+  height: 12px;
+  margin: 4px 0;
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+.graphsProgressBarContainer .graphsDataWrapper .graphsProgressBarRightSide .progressBar .tooltips {
+  position: absolute;
+  top: -2px;
+  right: -70px;
+  display: block;
+  padding: 3px 10px;
+  border-radius: 4px;
+  box-shadow: 0px 0px 4px 0px rgba(255, 255, 255, 0.15);
+  white-space: nowrap;
+}
+.graphsProgressBarContainer .graphsDataWrapper .graphsProgressBarRightSide .progressBar .tooltips p {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.graphsProgressBarContainer .graphsDataWrapper .graphsProgressBarRightSide .progressBar .tooltips p::before {
+  content: "";
+  position: absolute;
+  display: block;
+  border: 6px solid transparent;
+  border-right-color: #000000;
+  left: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.graphsProgressBarContainer .graphsDataWrapper .graphsProgressBarRightSide .progressBar .tooltips p.lightTheme::before {
+  border-right-color: #ffffff;
+}
+.graphsProgressBarContainer .graphsDataWrapper .graphsProgressBarRightSide .progressBar .tooltips p.darkTheme::before {
+  border-right-color: #545454;
+}
+.graphsProgressBarContainer .graphsDataWrapper .graphsProgressBarRightSide .progressBar .tooltips span {
+  font-size: 10px;
+  font-weight: 400;
+  text-transform: capitalize;
+}
+
+@media screen and (max-width: 1280px) {
+  .graphsProgressBarContainer .graphsDataWrapper {
+    gap: 10px;
+  }
+  .graphsProgressBarContainer .graphsDataWrapper .graphsProgressBarRightSide .progressBar .tooltips {
+    right: 0;
+  }
+}/*# sourceMappingURL=styles.css.map */

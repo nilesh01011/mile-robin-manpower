@@ -1,0 +1,57 @@
+.accordionContainer {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+.accordionContainer .accordionHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 30px;
+}
+.accordionContainer .accordionHeader .markDefault {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.accordionContainer .accordionHeader .markDefault .divider {
+  width: 1px;
+  height: 20px;
+  display: block;
+}
+.accordionContainer .accordionContents {
+  padding: 0 16px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.accordionContainer .flexColumnData {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  padding-top: 0;
+}
+.accordionContainer .flexColumnData textarea {
+  resize: none;
+  border-radius: 4px;
+  border: 1px solid;
+  padding: 5px 12px;
+  font-size: 14px;
+  font-weight: 400;
+  outline: none;
+}
+.accordionContainer .gridTableContainer {
+  border: 1px solid;
+  border-radius: 4px;
+}
+.accordionContainer .gridTableContainer thead th {
+  padding: 13px 20px;
+  text-align: left;
+}
+
+@media screen and (max-width: 756px) {
+  .accordionContainer .accordionContents {
+    padding: 0 16px !important;
+  }
+}/*# sourceMappingURL=styles.css.map */

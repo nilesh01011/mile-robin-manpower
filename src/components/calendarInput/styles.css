@@ -1,10 +1,21 @@
+.no-calendar::-webkit-calendar-picker-indicator {
+  color: red;
+}
+
+[type=date]::-webkit-inner-spin-button {
+  color: red;
+}
+
 .datePicker {
-  border-radius: 4px;
   width: 100%;
-  border: 1px solid;
   position: relative;
 }
-.datePicker input {
+.datePicker .inputContainerCalendar {
+  border: 1px solid;
+  width: 100%;
+  border-radius: 4px;
+}
+.datePicker .inputContainerCalendar input {
   background: transparent;
   border: none;
   outline: none;
@@ -12,12 +23,46 @@
   border-radius: 4px;
   width: 100%;
   height: 100%;
-  font-size: 14px !important;
-  max-height: 26px;
+  text-transform: uppercase;
+  min-height: 36px;
+  max-height: 36px;
+  font-size: 14px;
 }
-.datePicker span {
+.datePicker .inputContainerCalendar input.lightInput {
+  color: #0b0b0c;
+}
+.datePicker .inputContainerCalendar input.lightInput::-moz-placeholder {
+  color: red;
+}
+.datePicker .inputContainerCalendar input.lightInput::placeholder {
+  color: red;
+}
+.datePicker .inputContainerCalendar input.darkInput {
+  color: white;
+}
+.datePicker .inputContainerCalendar input.darkInput::-moz-placeholder {
+  color: #757575;
+}
+.datePicker .inputContainerCalendar input.darkInput::placeholder {
+  color: #757575;
+}
+.datePicker .inputContainerCalendar span {
   position: absolute;
   right: 12px;
-  top: 5px;
-  opacity: 0;
+  top: 2.5px;
+  cursor: pointer;
+}
+.datePicker .calendar {
+  position: absolute;
+  right: 0;
+  top: 32px;
+}
+.datePicker .calendar .react-calendar {
+  max-width: 243px;
+}
+.datePicker .calendar .react-calendar .lightTheme {
+  background: red !important;
+}
+.datePicker .calendar .react-calendar .darkTheme {
+  background: green !important;
 }/*# sourceMappingURL=styles.css.map */

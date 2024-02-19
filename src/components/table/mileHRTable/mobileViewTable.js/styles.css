@@ -1,0 +1,87 @@
+.mileHRMobileViewTable {
+  width: 100%;
+  height: 100%;
+  border: 1px solid;
+  border-radius: 4px;
+  display: none;
+}
+.mileHRMobileViewTable .mileHRMobileViewTableHead {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+}
+.mileHRMobileViewTable .mileHRMobileViewTableHead span {
+  font-size: 14px;
+  font-weight: 500;
+}
+.mileHRMobileViewTable .mileHRMobileViewTableHead .stickyActions {
+  position: sticky;
+  right: 16px;
+  top: 0;
+  z-index: 10;
+}
+.mileHRMobileViewTable .mileHRMobileViewTableBody {
+  width: 100%;
+  overflow-x: auto;
+}
+.mileHRMobileViewTable .mileHRMobileViewTableBody .mileHRMobileViewTableBodyEmployeeContainer {
+  display: flex;
+  justify-content: space-between;
+}
+.mileHRMobileViewTable .mileHRMobileViewTableBody .mileHRMobileViewTableBodyEmployeeContainer:hover.lightTheme {
+  background-color: #f2f2f2;
+}
+.mileHRMobileViewTable .mileHRMobileViewTableBody .mileHRMobileViewTableBodyEmployeeContainer:hover.darkTheme {
+  background-color: #1c1c1c;
+}
+.mileHRMobileViewTable .mileHRMobileViewTableBody .mileHRMobileViewTableBodyEmployeeContainer:not(:last-child) {
+  border-bottom: 1px solid;
+}
+.mileHRMobileViewTable .mileHRMobileViewTableBody .mileHRMobileViewTableBodyEmployeeContainer:last-child .mileHRMobileViewTableBodyAction {
+  border-bottom-right-radius: 4px;
+}
+.mileHRMobileViewTable .mileHRMobileViewTableBody .mileHRMobileViewTableBodyEmployeeContainer .mileHRMobileViewTableBodyAction {
+  position: sticky;
+  right: 0;
+  top: 0;
+  z-index: 10;
+  padding: 14px 16px;
+}
+.mileHRMobileViewTable .mileHRMobileViewTableBody .mileHRMobileViewTableBodyEmployeeContainer .mileHRMobileViewTableBodyAction:last-child {
+  background: #000;
+}
+.mileHRMobileViewTable .mileHRMobileViewTableBody .mileHRMobileViewTableBodyEmployeeContainer .mileHRMobileViewTableBodyEmployeeList {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+.mileHRMobileViewTable .mileHRMobileViewTableBody .mileHRMobileViewTableBodyEmployeeContainer .employeeData {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 230px;
+  padding: 14px 16px;
+}
+.mileHRMobileViewTable .mileHRMobileViewTableBody .mileHRMobileViewTableBodyEmployeeContainer .employeeData:first-child {
+  border-bottom-left-radius: 4px;
+}
+.mileHRMobileViewTable .mileHRMobileViewTableBody .mileHRMobileViewTableBodyEmployeeContainer .employeeData p {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.mileHRMobileViewTable .mileHRMobileViewTableBody .mileHRMobileViewTableBodyEmployeeContainer .employeeData p span {
+  font-size: 12px;
+  text-transform: capitalize;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 992px) {
+  .mileHRMobileViewTable {
+    display: block;
+  }
+}/*# sourceMappingURL=styles.css.map */

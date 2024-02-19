@@ -1,0 +1,287 @@
+.drawerDataHeader {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.drawerDataHeader h3 {
+  text-transform: capitalize;
+  font-size: 18px;
+  font-weight: 700;
+}
+.drawerDataHeader span {
+  cursor: pointer;
+}
+
+.drawerData {
+  width: 100%;
+  height: calc(100vh - 56.2px);
+  display: flex;
+  position: relative;
+}
+.drawerData .leftSide {
+  width: 23%;
+  height: 100%;
+  padding: 0;
+  margin-top: 1px;
+  overflow-y: scroll;
+}
+.drawerData .leftSide::-webkit-scrollbar {
+  width: 5px;
+}
+.drawerData .leftSide::-webkit-scrollbar-track {
+  background: transparent;
+}
+.drawerData .leftSide::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+}
+.drawerData .leftSide.activeScroll::-webkit-scrollbar {
+  opacity: 1;
+}
+.drawerData .leftSide.activeScroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.drawerData .leftSide.activeScroll::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+}
+.drawerData .leftSide.activeScroll.light::-webkit-scrollbar-thumb {
+  background: #b5b5b6;
+}
+.drawerData .leftSide.activeScroll.dark::-webkit-scrollbar-thumb {
+  background: #242424;
+}
+.drawerData .leftSide .leftSideTopHeaders {
+  padding: 20px;
+  padding-bottom: 0;
+  position: sticky;
+  top: 0;
+  z-index: 8;
+}
+.drawerData .leftSide .leftSideTopHeaders .userProfile {
+  border-radius: 4px;
+  padding: 12px 16px;
+}
+.drawerData .leftSide .leftSideTopHeaders .userProfile .userImgNameId {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.drawerData .leftSide .leftSideTopHeaders .userProfile .userImgNameId .userImg {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.drawerData .leftSide .leftSideTopHeaders .userProfile .userImgNameId .userImg span {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.drawerData .leftSide .leftSideTopHeaders .userProfile .userImgNameId .userName_id {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.drawerData .leftSide .leftSideTopHeaders .userProfile .userImgNameId .userName_id h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ff3e5b;
+  position: relative;
+  cursor: pointer;
+}
+.drawerData .leftSide .leftSideTopHeaders .userProfile .userImgNameId .userName_id h3 .userName {
+  font-weight: 700;
+}
+.drawerData .leftSide .leftSideTopHeaders .userProfile .userImgNameId .userName_id p {
+  font-size: 14px;
+  font-weight: 400;
+}
+.drawerData .leftSide .leftSideTopHeaders .userProfile .divider {
+  width: 100%;
+  height: 1px;
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 6px;
+}
+.drawerData .leftSide .leftSideTopHeaders .userProfile .customerType {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+.drawerData .leftSide .leftSideTopHeaders .userProfile .flexJustifyBetween {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.drawerData .leftSide .leftSideTopHeaders .userProfile .flexJustifyBetween span {
+  font-size: 12px;
+  font-weight: 400;
+}
+.drawerData .leftSide .leftSideTopHeaders .userProfile .flexJustifyBetween .rightText {
+  font-weight: 550;
+}
+.drawerData .rightSide {
+  width: 77%;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.drawerData .rightSide .contents {
+  width: 100%;
+  height: 100%;
+  padding: 30px 40px;
+  padding-bottom: 0;
+  overflow-y: scroll;
+  padding-bottom: 130px !important;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.drawerData .rightSide .contents::-webkit-scrollbar {
+  width: 5px;
+}
+.drawerData .rightSide .contents.lightTheme::-webkit-scrollbar-track {
+  background: #f0efef;
+}
+.drawerData .rightSide .contents.darkTheme::-webkit-scrollbar-track {
+  background: #1c1c1c;
+}
+.drawerData .rightSide .contents::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+}
+.drawerData .rightSide .contents.lightTheme::-webkit-scrollbar-thumb {
+  background: #8a8a8a;
+}
+.drawerData .rightSide .contents.darkTheme::-webkit-scrollbar-thumb {
+  background: #545454;
+}
+.drawerData .rightSide .contents .addEmployeeAccordionContainer {
+  width: 100%;
+  border-radius: 4px;
+  padding: 20px 30px;
+}
+.drawerData .rightSide .contents .addEmployeeAccordionContainer .accordionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.drawerData .rightSide .contents .addEmployeeAccordionContainer .accordionHeader h5 {
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+.drawerData .rightSide .contents .addEmployeeAccordionContainer .accordionHeader span {
+  cursor: pointer;
+}
+.drawerData .rightSide .contents .addEmployeeAccordionContainer .accordionHeader .editButton {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.drawerData .rightSide .contents .addEmployeeAccordionContainer .accordionHeader .editButton button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.drawerData .rightSide .contents .addEmployeeAccordionContainer .accordionHeader .editButton button span {
+  font-weight: 700;
+}
+.drawerData .rightSide .contents .addEmployeeAccordionContainer .accordionContainerBody .divider {
+  margin: 20px 0;
+  display: block;
+  height: 1px;
+  width: 100%;
+}
+.drawerData .rightSide .contents .addEmployeeAccordionContainer .accordionContainerBody .grid {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px 24px;
+}
+.drawerData .rightSide .contents .addEmployeeAccordionContainer .accordionContainerBody .grid .gridItems label {
+  margin-bottom: 6px;
+  display: block;
+}
+.drawerData .rightSide .contents .addEmployeeAccordionContainer .accordionContainerBody .table {
+  overflow-x: auto;
+  -webkit-user-select: auto;
+     -moz-user-select: auto;
+          user-select: auto;
+}
+.drawerData .rightSide .contents .addEmployeeAccordionContainer .accordionContainerBody .table::-webkit-scrollbar {
+  height: 6px;
+}
+.drawerData .rightSide .contents .addEmployeeAccordionContainer .accordionContainerBody .table.light::-webkit-scrollbar-track {
+  background: #f0efef;
+}
+.drawerData .rightSide .contents .addEmployeeAccordionContainer .accordionContainerBody .table.dark::-webkit-scrollbar-track {
+  background: #1c1c1c;
+}
+.drawerData .rightSide .contents .addEmployeeAccordionContainer .accordionContainerBody .table::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+}
+.drawerData .rightSide .contents .addEmployeeAccordionContainer .accordionContainerBody .table.light::-webkit-scrollbar-thumb {
+  background: #b5b5b6;
+}
+.drawerData .rightSide .contents .addEmployeeAccordionContainer .accordionContainerBody .table.dark::-webkit-scrollbar-thumb {
+  background: #545454;
+}
+.drawerData .rightSide .contents .addEmployeeAccordionContainer .accordionContainerBody .table thead tr th.stickyTableData {
+  position: sticky;
+  right: -2px;
+  top: 0;
+}
+.drawerData .rightSide .contents .addEmployeeAccordionContainer .accordionContainerBody .table thead tr th.stickyTableData.lightHover {
+  background: white;
+}
+.drawerData .rightSide .contents .addEmployeeAccordionContainer .accordionContainerBody .table thead tr th.stickyTableData.darkHover {
+  background: #0b0b0c;
+}
+.drawerData .rightSide .contents .addEmployeeAccordionContainer .accordionContainerBody .table tbody tr td.stickyTableData {
+  position: sticky;
+  right: -2px;
+  top: 0;
+}
+.drawerData .rightSide .contents .addEmployeeAccordionContainer .accordionContainerBody .table tbody tr td.stickyTableData.lightHover {
+  background: white;
+}
+.drawerData .rightSide .contents .addEmployeeAccordionContainer .accordionContainerBody .table tbody tr td.stickyTableData.darkHover {
+  background: #0b0b0c;
+}
+.drawerData .rightSide .footerSide {
+  position: absolute;
+  bottom: 56.2px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: -moz-max-content;
+  height: max-content;
+  z-index: 5;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.drawerData .rightSide .footerSide .leftsideBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.drawerData .rightSide .footerSide .rightSideBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}/*# sourceMappingURL=styles.css.map */

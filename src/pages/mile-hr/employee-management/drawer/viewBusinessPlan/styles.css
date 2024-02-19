@@ -1,5 +1,5 @@
 .viewBusinessPlan {
-  width: 100%;
+  width: 93%;
   height: 100%;
 }
 .viewBusinessPlan .viewBusinessPlanHeader {
@@ -33,4 +33,10 @@
   padding-bottom: 12px;
   border-bottom: 1px solid;
   font-size: 14px;
+}
+
+@media screen and (max-width: 992px) {
+  .viewBusinessPlan {
+    width: 100%;
+  }
 }/*# sourceMappingURL=styles.css.map */

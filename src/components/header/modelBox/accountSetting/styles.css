@@ -1,0 +1,20 @@
+.modelContainer {
+  width: -moz-max-content;
+  width: max-content;
+  height: -moz-max-content;
+  height: max-content;
+  z-index: 99999;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.accountSettingContainer {
+  width: 100%;
+  min-width: 316px;
+  height: -moz-max-content;
+  height: max-content;
+  border-radius: 10px;
+  padding: 20px;
+}/*# sourceMappingURL=styles.css.map */

@@ -1,0 +1,50 @@
+.inputText {
+  border-radius: 4px;
+  width: 100%;
+  border: 1px solid;
+  position: relative;
+}
+.inputText input {
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 5px 12px;
+  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  font-size: 14px !important;
+}
+.inputText .editText {
+  position: absolute;
+  right: 12px;
+  top: 5px;
+  color: #ff3e5b;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.inputText .dropdown {
+  position: absolute;
+  left: 12px;
+  top: 5px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+.inputText .dropdown .img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+@media screen and (max-width: 992px) {
+  .inputText {
+    margin-top: 6px;
+  }
+}/*# sourceMappingURL=styles.css.map */

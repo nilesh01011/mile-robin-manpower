@@ -1,0 +1,274 @@
+.selectDropdownFilter {
+  height: -moz-max-content;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+}
+.selectDropdownFilter .selectDropdownFilterContainer {
+  width: 100%;
+  border-radius: 4px;
+  padding: 5px 6px;
+  border: 1px solid;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.selectDropdownFilter .selectDropdownFilterContainer.lightTheme {
+  background-color: #ffffff;
+}
+.selectDropdownFilter .selectDropdownFilterContainer.darkTheme {
+  background-color: #0b0b0c;
+}
+.selectDropdownFilter .selectDropdownFilterContainer.isDropdownOpenLightTheme {
+  border-color: #0b0b0c;
+}
+.selectDropdownFilter .selectDropdownFilterContainer.isDropdownOpenDarkTheme {
+  border-color: #ffffff;
+}
+.selectDropdownFilter .selectDropdownFilterContainer.isDropdownCloseLightTheme {
+  border-color: #b5b5b6;
+}
+.selectDropdownFilter .selectDropdownFilterContainer.isDropdownCloseDarkTheme {
+  border-color: #232324;
+}
+.selectDropdownFilter .selectDropdownFilterContainer .selectOption {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+.selectDropdownFilter .selectDropdownFilterContainer .selectOption .selectOptionContainer {
+  width: 100%;
+  height: 100%;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  color: #635d5d;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.selectDropdownFilter .selectDropdownFilterContainer .selectOption .selectOptionContainer.lightTheme {
+  background-color: #e6e6e6;
+  border-color: #dedede;
+}
+.selectDropdownFilter .selectDropdownFilterContainer .selectOption .selectOptionContainer.darkTheme {
+  background-color: #232324;
+  border-color: #232324;
+}
+.selectDropdownFilter .selectDropdownFilterContainer .selectOption .selectOptionContainer .selectOptionFields {
+  width: 100%;
+  min-width: 110px;
+  max-width: 110px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  gap: 10px;
+  padding: 4px 6px;
+}
+.selectDropdownFilter .selectDropdownFilterContainer .selectOption .selectOptionContainer .selectOptionFields .selectFields {
+  width: -moz-max-content;
+  width: max-content;
+  white-space: nowrap;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  text-transform: capitalize;
+  font-size: 12px;
+  overflow: hidden;
+  width: 72px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.selectDropdownFilter .selectDropdownFilterContainer .selectOption .selectOptionContainer .selectOptionFields .selectFields.mobileView {
+  display: none;
+}
+.selectDropdownFilter .selectDropdownFilterContainer .selectOption .selectOptionContainer .selectOptionFields .icons {
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ed302d;
+}
+.selectDropdownFilter .dropdownContainers {
+  width: auto;
+  position: absolute;
+  top: 6px;
+  left: 80x;
+  bottom: 6px;
+}
+.selectDropdownFilter .dropdownContainers.lightTheme {
+  background-color: #ffffff;
+}
+.selectDropdownFilter .dropdownContainers.darkTheme {
+  background-color: #1c1c1c;
+}
+.selectDropdownFilter .dropdownFieldContainer {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  flex: 1;
+  position: relative;
+}
+.selectDropdownFilter .inputFieldsContainer {
+  width: 100%;
+  height: 100%;
+}
+.selectDropdownFilter .btn {
+  width: -moz-max-content;
+  width: max-content;
+  height: -moz-max-content;
+  height: max-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  right: 3px;
+  cursor: pointer;
+}
+.selectDropdownFilter .errorContainer {
+  z-index: 10;
+  position: absolute;
+  left: 0;
+  bottom: -60px;
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid;
+  transition: all 0.4s ease-in;
+}
+.selectDropdownFilter .errorContainer .error {
+  font-size: 12px;
+}
+.selectDropdownFilter .errorContainer .icons {
+  position: absolute;
+  top: -17px;
+  left: 45%;
+  right: 50%;
+}
+.selectDropdownFilter .allListItems {
+  width: 100%;
+  z-index: 20;
+  border: 1px solid;
+  border-radius: 3px;
+  transition: all 0.1s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  font-size: 12px;
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 10px);
+}
+.selectDropdownFilter .allListItems.lightTheme {
+  background-color: #ffffff;
+}
+.selectDropdownFilter .allListItems.darkTheme {
+  background-color: #1c1c1c;
+}
+.selectDropdownFilter .allListItems .allListItemsChild {
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+}
+.selectDropdownFilter .allListItems .allListItemsChild:first-child {
+  border-radius: 3px 3px 0 0;
+}
+.selectDropdownFilter .allListItems .allListItemsChild:last-child {
+  border-radius: 0 0 3px 3px;
+}
+.selectDropdownFilter .allListItems .allListItemsChild.lightHover {
+  color: #0b0b0c;
+  border-color: #dedede;
+}
+.selectDropdownFilter .allListItems .allListItemsChild.darkHover {
+  color: #a3a3a3;
+  border-color: #232324;
+}
+.selectDropdownFilter .allListItems .allListItemsChild.darkHover:hover {
+  background-color: #232324;
+  color: #a3a3a3;
+}
+.selectDropdownFilter .allListItems .allListItemsChild.lightHover:hover {
+  background-color: #f2f2f2;
+  color: #0b0b0c;
+}
+
+@media screen and (max-width: 992px) {
+  .selectDropdownFilter {
+    height: 100%;
+  }
+  .selectDropdownFilter .selectDropdownFilterContainer {
+    flex-direction: column;
+    padding: 0;
+    border: 0;
+  }
+  .selectDropdownFilter .selectDropdownFilterContainer.darkTheme, .selectDropdownFilter .selectDropdownFilterContainer.lightTheme {
+    background-color: transparent !important;
+  }
+  .selectDropdownFilter .selectDropdownFilterContainer .dropdownContainers {
+    width: 100%;
+    position: relative;
+  }
+  .selectDropdownFilter .selectDropdownFilterContainer .dropdownContainers .selectOption .selectOptionContainer {
+    padding: 10px;
+  }
+  .selectDropdownFilter .selectDropdownFilterContainer .dropdownContainers .selectOption .selectOptionContainer .selectOptionFields {
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+  }
+  .selectDropdownFilter .selectDropdownFilterContainer .dropdownContainers .selectOption .selectOptionContainer .selectOptionFields .selectFields {
+    font-size: 14px !important;
+    width: 100%;
+  }
+  .selectDropdownFilter .selectDropdownFilterContainer .dropdownContainers .selectOption .selectOptionContainer .selectOptionFields .selectFields.mobileView {
+    display: block;
+  }
+  .selectDropdownFilter .selectDropdownFilterContainer .dropdownContainers .selectOption .selectOptionContainer .selectOptionFields .selectFields.desktopView {
+    display: none;
+  }
+  .selectDropdownFilter .selectDropdownFilterContainer .inputFieldsContainer {
+    border: 1px solid;
+    margin-top: 14px;
+    display: block;
+    border-radius: 4px;
+  }
+  .selectDropdownFilter .selectDropdownFilterContainer .inputFieldsContainer.lightTheme {
+    border-color: #b5b5b6;
+  }
+  .selectDropdownFilter .selectDropdownFilterContainer .inputFieldsContainer.darkTheme {
+    border-color: #b5b5b6;
+  }
+  .selectDropdownFilter .selectDropdownFilterContainer .inputFieldsContainer.errors {
+    border-color: #ed302d;
+  }
+  .selectDropdownFilter .selectDropdownFilterContainer .inputFieldsContainer.isClickedLight {
+    border-color: #0b0b0c;
+  }
+  .selectDropdownFilter .selectDropdownFilterContainer .inputFieldsContainer.isClickedDark {
+    border-color: #ffffff;
+  }
+  .selectDropdownFilter .selectDropdownFilterContainer .inputFieldsContainer .inputFields {
+    padding-left: 10px !important;
+    padding: 10px;
+  }
+  .selectDropdownFilter .selectDropdownFilterContainer .inputFieldsContainer .inputFields + svg {
+    margin-left: -60px;
+  }
+  .selectDropdownFilter .allListItems {
+    top: calc(100% - 39px);
+  }
+  .selectDropdownFilter .btn {
+    position: absolute;
+    right: 14px;
+    bottom: 10px;
+  }
+}/*# sourceMappingURL=styles.css.map */

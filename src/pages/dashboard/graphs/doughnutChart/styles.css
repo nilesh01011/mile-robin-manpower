@@ -1,0 +1,70 @@
+.graphsDoughnutContainer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding: 16px 0;
+  border-radius: 4px;
+  border: 1px solid;
+  overflow: hidden;
+}
+.graphsDoughnutContainer .headerCollapse {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  cursor: pointer;
+}
+.graphsDoughnutContainer .headerCollapse h2 {
+  font-size: 16px;
+  font-weight: 500;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.graphsDoughnutContainer .divider {
+  width: 100%;
+  height: 1px;
+  display: block;
+  margin: 16px 0;
+}
+.graphsDoughnutContainer .graphsWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-height: -moz-max-content;
+  max-height: max-content;
+  display: flex;
+  flex-direction: column;
+}
+.graphsDoughnutContainer .graphsWrapper .graphs {
+  width: 100%;
+  height: -moz-max-content;
+  height: max-content;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.graphsDoughnutContainer .graphsWrapper .graphs canvas {
+  max-height: 140px;
+}
+.graphsDoughnutContainer .graphsWrapper .graphs .graphMiddeltext {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  font-weight: 700;
+}
+.graphsDoughnutContainer .graphsWrapper .graphsContents {
+  width: 100%;
+  display: grid;
+}
+.graphsDoughnutContainer .graphsWrapper .graphsContents p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 12px;
+}/*# sourceMappingURL=styles.css.map */

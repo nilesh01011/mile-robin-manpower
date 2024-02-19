@@ -1,0 +1,152 @@
+.mileHRMobileViewTable {
+  width: 100%;
+  height: 100%;
+  border: 1px solid;
+  border-radius: 4px;
+  display: none;
+
+  // head
+  & .mileHRMobileViewTableHead {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+
+    & span {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    & .stickyActions {
+      position: sticky;
+      right: 16px;
+      top: 0;
+      z-index: 10;
+    }
+  }
+
+  // body
+  & .mileHRMobileViewTableBody {
+    width: 100%;
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+      // width: 5px;
+      height: 7px;
+    }
+
+    &::-webkit-scrollbar-track {
+      border-radius: 10px;
+    }
+
+    &.lightTheme::-webkit-scrollbar-track {
+      background: #f0efef;
+    }
+
+    &.darkTheme::-webkit-scrollbar-track {
+      background: #0b0b0c;
+    }
+
+    // thumb
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+    }
+
+    &.lightTheme::-webkit-scrollbar-thumb {
+      background: #b5b5b6;
+    }
+
+    &.darkTheme::-webkit-scrollbar-thumb {
+      background: #545454;
+    }
+
+    & .mileHRMobileViewTableBodyEmployeeContainer {
+      width: 100%;
+      //   display: flex;
+      //   justify-content: space-between;
+      display: grid;
+      grid-template-columns: 1.3fr 1.3fr 0.4fr;
+      position: relative;
+
+      &:hover.lightTheme {
+        background-color: #f2f2f2;
+      }
+
+      &:hover.darkTheme {
+        background-color: #1c1c1c;
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid;
+      }
+
+      &:last-child .mileHRMobileViewTableBodyAction {
+        border-bottom-right-radius: 4px;
+      }
+
+      & .mileHRMobileViewTableBodyAction {
+        position: sticky;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 10;
+        padding: 14px 16px;
+        text-align: right;
+
+        &:last-child {
+          // border-bottom-right-radius: 4px;
+          background: #000;
+        }
+      }
+
+      &:hover.lightTheme .mileHRMobileViewTableBodyAction {
+        background-color: #f2f2f2 !important;
+      }
+
+      &:hover.darkTheme .mileHRMobileViewTableBodyAction {
+        background-color: #1c1c1c !important;
+      }
+
+      //   & .mileHRMobileViewTableBodyEmployeeList {
+      //     display: flex;
+      //     align-items: flex-start;
+      //     gap: 16px;
+      //   }
+
+      & .employeeData {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        // max-width: 230px;
+        min-width: 230px;
+        padding: 14px 16px;
+
+        &:first-child {
+          border-bottom-left-radius: 4px;
+        }
+
+        & p {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+
+          & span {
+            font-size: 12px;
+            text-transform: capitalize;
+            // max-width: 100px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .mileHRMobileViewTable {
+    display: block;
+  }
+}

@@ -14,6 +14,7 @@ import ToastNotifications from "../../../components/toastNotifications/ToastNoti
 import ViewTableData from "./drawer/viewTableData/ViewTableData";
 import ViewDrawer from "./drawer/ViewDrawer";
 import TableData from "../../../components/table/mileHRTable";
+import MileHRMobileViewTable from "../../../components/table/mileHRTable/mobileViewTable.js/MileHRMobileViewtable";
 
 function EmployeeManagementPage() {
   const theme = useSelector((state) => state.theme);
@@ -104,7 +105,11 @@ function EmployeeManagementPage() {
     const fetchDataTable = async () => {
       const result = await axios
         .get("/data.json")
-        .then((res) => setTableData(res.data))
+        .then((res) => {
+          const { data } = res.data;
+          console.log("APIs Data:", data);
+          setTableData(data.data);
+        })
         .catch((error) => console.log(error));
 
       return result;
@@ -386,9 +391,8 @@ function EmployeeManagementPage() {
                   <div
                     className="tabs"
                     style={{
-                      border: `1px solid ${
-                        theme === "light" ? "#B5B5B6" : "#232324"
-                      }`,
+                      border: `1px solid ${theme === "light" ? "#B5B5B6" : "#232324"
+                        }`,
                     }}
                   >
                     {tabs.map((tab) => (
@@ -602,9 +606,8 @@ function EmployeeManagementPage() {
                   <div
                     className="tabs"
                     style={{
-                      border: `1px solid ${
-                        theme === "light" ? "#B5B5B6" : "#232324"
-                      }`,
+                      border: `1px solid ${theme === "light" ? "#B5B5B6" : "#232324"
+                        }`,
                     }}
                   >
                     {tabs.map((tab) => (
@@ -720,6 +723,28 @@ function EmployeeManagementPage() {
                   </button> */}
                 </div>
 
+                {/* search filter */}
+                <div className="searchFilterContainer mobileView">
+                  {/* search filter dropdown */}
+                  <div className="searchFilterDropdown">
+                    <SearchDropdownWithInput
+                      dropdownList={employeeManagementSearchList}
+                      // dropdown text select
+                      setSelectedDropdownFilterText={
+                        setSelectedDropdownFilterText
+                      }
+                      selectDropdownFilterText={selectDropdownFilterText}
+                      // search input text
+                      setInputFields={setInputFields}
+                      inputFields={inputFields}
+                      // error message
+                      setError={setError}
+                      error={error}
+                      // form submit
+                      handleSearch={handleSearch}
+                    />
+                  </div>
+                </div>
                 {/* advance filter and Add Employee */}
                 <div className="advanceFilterWithAddEmployee">
                   {/* Advanced filters drawer btn */}
@@ -729,6 +754,7 @@ function EmployeeManagementPage() {
                     onClick={() =>
                       setAdvancedFilterSearch(!advanceFilterSearch)
                     }
+                    style={{ paddingLeft: 0, fontSize: 12 }}
                   >
                     {/* icons */}
                     <span
@@ -804,7 +830,7 @@ function EmployeeManagementPage() {
                     {/* text */}
                     <span
                       style={{
-                        fontSize: 14,
+                        fontSize: 12,
                         color: "#FF3E5B",
                         fontWeight: 700,
                         // marginLeft: 6,
@@ -821,6 +847,7 @@ function EmployeeManagementPage() {
                     onClick={() =>
                       setActionEmployeeDrawer(!actionEmployeeDrawer)
                     }
+                    style={{ fontSize: 12 }}
                   >
                     <span>
                       <svg
@@ -841,29 +868,6 @@ function EmployeeManagementPage() {
                     {/* text */}
                     Add Employee
                   </button>
-                </div>
-
-                {/* search filter */}
-                <div className="searchFilterContainer mobileView">
-                  {/* search filter dropdown */}
-                  <div className="searchFilterDropdown">
-                    <SearchDropdownWithInput
-                      dropdownList={employeeManagementSearchList}
-                      // dropdown text select
-                      setSelectedDropdownFilterText={
-                        setSelectedDropdownFilterText
-                      }
-                      selectDropdownFilterText={selectDropdownFilterText}
-                      // search input text
-                      setInputFields={setInputFields}
-                      inputFields={inputFields}
-                      // error message
-                      setError={setError}
-                      error={error}
-                      // form submit
-                      handleSearch={handleSearch}
-                    />
-                  </div>
                 </div>
               </div>
             </div>
@@ -940,8 +944,8 @@ function EmployeeManagementPage() {
               minHeight: paginationItems
                 ? "calc(100vh - 260px)"
                 : searchResultsItems.length === 0
-                ? "calc(100vh - 280px)"
-                : "calc(100vh - 320px)",
+                  ? "calc(100vh - 280px)"
+                  : "calc(100vh - 320px)",
               maxHeight:
                 searchResultsItems.length === 0
                   ? "calc(100vh - 280px)"
@@ -975,12 +979,32 @@ function EmployeeManagementPage() {
               setTableViewDrawer={setTableViewDrawer}
             />
           </div>
+          {/* mobile view table contents */}
+          <MileHRMobileViewTable
+            tableBody={visibleTableData}
+            // tableBody={filteredData}
+            // inputFields={inputFields}
+            // selectDropdownFilterText={selectDropdownFilterText}
+            // tableBody={filteredData}
+            // filteredEmployees={filteredEmployees}
+            // tableHead={mileTableHead}
+            emptyTableData={emptyTableData}
+            // Drawer Open state
+            viewTableDataDrawer={viewTableDataDrawer}
+            setViewTableDataDrawer={setViewTableDataDrawer}
+            // Emplo data state
+            setEmployeeDrawerData={setEmployeeDrawerData}
+            // drawer select data
+            setSelectTableView={setSelectTableView}
+            // View Drawer open
+            tableViewDrawer={tableViewDrawer}
+            setTableViewDrawer={setTableViewDrawer}
+          />
         </div>
         {/* pagination */}
         <div
-          className={`paginationContainer ${
-            theme === "light" ? "light" : "dark"
-          }`}
+          className={`paginationContainer ${theme === "light" ? "light" : "dark"
+            }`}
           style={{
             backgroundColor: theme === "light" ? "#ffffff" : "#0B0B0C",
           }}
@@ -1014,9 +1038,8 @@ function EmployeeManagementPage() {
               type="button"
               className={`btn ${currentPage === 1 && "disabledBtn"}`}
               style={{
-                border: `1px solid ${
-                  theme === "light" ? "#b5b5b6" : "#232324"
-                }`,
+                border: `1px solid ${theme === "light" ? "#b5b5b6" : "#232324"
+                  }`,
               }}
               onClick={prevPageHandler}
               disabled={currentPage === 1}
@@ -1049,8 +1072,8 @@ function EmployeeManagementPage() {
                     currentPage === ele
                       ? "#FF3E5B"
                       : theme === "light"
-                      ? "#b5b5b6"
-                      : "#232324",
+                        ? "#b5b5b6"
+                        : "#232324",
                   color: currentPage === ele && "#FF3E5B",
                   // backgroundColor:
                   // 	currentPage === ele && '#d7d7d7'
@@ -1062,13 +1085,11 @@ function EmployeeManagementPage() {
             {/* right btn */}
             <button
               type="button"
-              className={`btn ${
-                numOfTotalPages === currentPage && "disabledBtn"
-              }`}
+              className={`btn ${numOfTotalPages === currentPage && "disabledBtn"
+                }`}
               style={{
-                border: `1px solid ${
-                  theme === "light" ? "#b5b5b6" : "#232324"
-                }`,
+                border: `1px solid ${theme === "light" ? "#b5b5b6" : "#232324"
+                  }`,
               }}
               onClick={nextPageHandler}
               disabled={numOfTotalPages === currentPage}

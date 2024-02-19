@@ -1,0 +1,185 @@
+.loginPage {
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  overflow: hidden;
+  padding: 30px 20px;
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.loginPage .logoImg {
+  height: 40px;
+  width: 220px;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.loginPage .logoImg img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  -o-object-position: right;
+     object-position: right;
+}
+.loginPage .loginForm {
+  max-width: 420px;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.loginPage .loginForm .robinLogoContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+}
+.loginPage .loginForm .robinLogoContainer img {
+  width: 100%;
+  height: 50px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.loginPage .loginForm .formContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.loginPage .loginForm .formContainer .title {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+.loginPage .loginForm .formContainer form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border-radius: 10px;
+  padding: 30px 40px;
+  background: #232226;
+  box-shadow: 0px 2px 4px 0px rgba(255, 255, 255, 0.15);
+}
+.loginPage .loginForm .formContainer form .formTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 30px;
+}
+.loginPage .loginForm .formContainer form .fields {
+  width: 100%;
+  padding-left: 30px;
+  position: relative;
+  border: 1px solid;
+  border-radius: 4px;
+  padding: 5px 12px;
+}
+.loginPage .loginForm .formContainer form .fields .inputs {
+  padding-left: 28px;
+  position: relative;
+}
+.loginPage .loginForm .formContainer form .fields .inputs .passwordIcons {
+  position: absolute;
+  right: -2px;
+  top: 1px;
+  cursor: pointer;
+}
+.loginPage .loginForm .formContainer form .fields .icons {
+  position: absolute;
+  left: 12px;
+  bottom: 7px;
+}
+.loginPage .loginForm .formContainer form .errors {
+  color: #ed302d;
+  font-size: 12px;
+  width: 100%;
+  text-align: left;
+  margin-top: 4px;
+}
+.loginPage .loginForm .formContainer .forgetPassword {
+  text-align: right;
+  font-weight: 700;
+  color: #ff3e5b;
+  margin-top: 5px;
+  margin-left: auto;
+}
+.loginPage .loginForm .formContainer .btn {
+  width: 100%;
+  height: 100%;
+  min-height: 45px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 700;
+  background-color: #ff3e5b;
+  color: white;
+  letter-spacing: 0.6px;
+  cursor: pointer;
+  margin: 21px 0;
+}
+.loginPage .loginForm .formContainer .m_login {
+  color: #ff3e5b;
+  font-size: 14px;
+  font-weight: 700;
+}
+.loginPage .loginPage_footer {
+  text-align: center;
+}
+.loginPage .loginPage_footer span {
+  font-size: 10px;
+  color: #858585;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 1280px) {
+  .loginPage .loginPage_footer {
+    margin-top: 14px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .loginPage .logoImg {
+    margin: 0 auto;
+    width: 100%;
+  }
+  .loginPage .logoImg img {
+    -o-object-position: center;
+       object-position: center;
+  }
+  .loginPage .loginForm .robinLogoContainer img {
+    height: 32px;
+  }
+  .loginPage .loginForm .formContainer .title {
+    font-size: 22px;
+  }
+  .loginPage .loginForm .formContainer form .formTitle h1 {
+    font-size: 28px;
+  }
+  .loginPage .loginForm .formContainer form .formTitle p {
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .loginPage .loginForm .formContainer .title {
+    font-size: 16px;
+  }
+  .loginPage .loginForm .formContainer form {
+    padding: 20px 30px;
+  }
+  .loginPage .loginForm .formContainer form .formTitle h1 {
+    font-size: 18px;
+  }
+}/*# sourceMappingURL=styles.css.map */

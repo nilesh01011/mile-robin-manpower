@@ -1,0 +1,102 @@
+.checkboxDropdown {
+  width: 100%;
+  position: relative;
+}
+.checkboxDropdown .optionsContainer {
+  width: 100%;
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 12px;
+  max-height: 36px;
+  min-height: 36px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.checkboxDropdown .optionsContainer .selectedItems {
+  font-size: 14px;
+  text-transform: capitalize;
+}
+.checkboxDropdown .optionsContainer .icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.checkboxDropdown .errors {
+  font-size: 12px;
+  color: #ed302d;
+}
+.checkboxDropdown .dropdownMenuList {
+  position: absolute;
+  top: 125%;
+  width: 100%;
+  height: -moz-fit-content;
+  height: fit-content;
+  max-height: 100px;
+  overflow: auto;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.checkboxDropdown .dropdownMenuList::-webkit-scrollbar {
+  width: 5px;
+}
+.checkboxDropdown .dropdownMenuList::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+.checkboxDropdown .dropdownMenuList.lightTheme::-webkit-scrollbar-track {
+  background: #f0efef;
+}
+.checkboxDropdown .dropdownMenuList.darkTheme::-webkit-scrollbar-track {
+  background: #0B0B0C;
+}
+.checkboxDropdown .dropdownMenuList::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+}
+.checkboxDropdown .dropdownMenuList.lightTheme::-webkit-scrollbar-thumb {
+  background: #b5b5b6;
+}
+.checkboxDropdown .dropdownMenuList.darkTheme::-webkit-scrollbar-thumb {
+  background: #545454;
+}
+.checkboxDropdown .dropdownMenuList .listChild {
+  cursor: pointer;
+  font-size: 14px;
+  padding: 5px 0;
+  border-radius: 2px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.checkboxDropdown .dropdownMenuList .listChild.lightTheme:hover {
+  background: #f2f2f2;
+}
+.checkboxDropdown .dropdownMenuList .listChild.darkTheme:hover {
+  background: #232324;
+}
+.checkboxDropdown .dropdownMenuList .listChild p {
+  border-radius: 4px;
+  border: 1px solid;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 992px) {
+  .dropdownIndividualContainer {
+    margin-top: 6px;
+  }
+}/*# sourceMappingURL=styles.css.map */

@@ -1,0 +1,73 @@
+.modelContainer {
+  width: -moz-max-content;
+  width: max-content;
+  height: -moz-max-content;
+  height: max-content;
+  z-index: 99999;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.changePasswordContainer {
+  width: 100%;
+  min-width: 316px;
+  height: -moz-max-content;
+  height: max-content;
+  border-radius: 10px;
+  padding: 20px;
+  width: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.changePasswordContainer .heads {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.changePasswordContainer .divider {
+  width: 100%;
+  height: 1px;
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 13px;
+  margin-bottom: 24px;
+}
+.changePasswordContainer .formContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.changePasswordContainer .formContainer .btns {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.changePasswordContainer button {
+  text-transform: capitalize;
+  padding: 8px 16px;
+  border-radius: 5px;
+  background-color: #FF3E5B;
+  color: white;
+  height: 40px;
+}
+
+@media screen and (max-width: 576px) {
+  .changePasswordContainer {
+    width: 380px;
+    margin: 0 auto;
+  }
+}
+@media screen and (max-width: 480px) {
+  .changePasswordContainer {
+    width: 100%;
+    margin: 0 auto;
+  }
+}/*# sourceMappingURL=styles.css.map */

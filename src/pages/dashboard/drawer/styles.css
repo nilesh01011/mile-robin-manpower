@@ -1,0 +1,111 @@
+.drawerContainer {
+  width: 520px;
+  height: 100%;
+  position: fixed;
+  right: -150%;
+  top: 0;
+  bottom: 0;
+  z-index: 99999;
+  transition: 0.6s cubic-bezier(0.46, 0.03, 0.52, 0.96);
+}
+.drawerContainer::-webkit-scrollbar {
+  width: 5px;
+}
+.drawerContainer.light::-webkit-scrollbar-track {
+  background: #f0efef;
+}
+.drawerContainer.dark::-webkit-scrollbar-track {
+  background: #1c1c1c;
+}
+.drawerContainer::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+}
+.drawerContainer.light::-webkit-scrollbar-thumb {
+  background: #8a8a8a;
+}
+.drawerContainer.dark::-webkit-scrollbar-thumb {
+  background: #545454;
+}
+.drawerContainer .title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid;
+  position: sticky;
+  top: 0;
+  bottom: 0;
+  z-index: 99999;
+  transition: 0.4s cubic-bezier(0.46, 0.03, 0.52, 0.96);
+}
+.drawerContainer .title .mobileViewCloseIcons {
+  display: none;
+}
+.drawerContainer .contents {
+  width: 100%;
+}
+.drawerContainer .contents.latestNewsDiv {
+  padding-left: 35px;
+  padding-right: 35px;
+  padding-top: 20px;
+}
+.drawerContainer .contents h5 {
+  font-size: 16px;
+}
+.drawerContainer .contents .newsHeading {
+  margin-bottom: 8px;
+}
+.drawerContainer .contents .newsHeading .date {
+  padding: 4px 8px;
+  font-size: 12px;
+  border: 1px solid;
+  border-radius: 2px;
+  width: -moz-max-content;
+  width: max-content;
+  margin-top: 5px;
+}
+.drawerContainer .contents img {
+  margin: 15px 0;
+  width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.drawerContainer .contents p {
+  line-height: 23px;
+}
+
+@media screen and (max-width: 992px) {
+  .drawerContainer .contents.latestNewsDiv {
+    padding-right: 25px;
+  }
+  .drawerContainer .contents .ItemsList {
+    padding-left: 44px;
+  }
+}
+@media screen and (max-width: 660px) {
+  .drawerContainer {
+    width: 100%;
+  }
+  .drawerContainer .title {
+    justify-content: center;
+  }
+  .drawerContainer .title .desktopViewCloseIcons {
+    display: none;
+  }
+  .drawerContainer .title .mobileViewCloseIcons {
+    display: block;
+    position: absolute;
+    top: 16px;
+    left: 20px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .drawerContainer .contents p {
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .newsDrawerContainer {
+    width: 90%;
+  }
+}/*# sourceMappingURL=styles.css.map */

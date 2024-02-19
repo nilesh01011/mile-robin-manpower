@@ -1,0 +1,126 @@
+.addEmployeeDetails {
+  width: 100%;
+  height: 100%;
+  max-height: calc(100vh - 150px);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 20px;
+  overflow-y: scroll;
+}
+.addEmployeeDetails::-webkit-scrollbar {
+  width: 5px;
+}
+.addEmployeeDetails .addEmployeeAccordionContainer {
+  width: 100%;
+  height: -moz-max-content;
+  height: max-content;
+  padding: 20px 30px;
+  border: 1px solid;
+  border-radius: 4px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.addEmployeeDetails .addEmployeeAccordionContainer .accordionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.addEmployeeDetails .addEmployeeAccordionContainer .accordionHeader .addButtonTable {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.addEmployeeDetails .addEmployeeAccordionContainer .accordionHeader .addButtonTable button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.addEmployeeDetails .addEmployeeAccordionContainer .accordionHeader .addButtonTable button span {
+  font-weight: 700;
+}
+.addEmployeeDetails .addEmployeeAccordionContainer .accordionHeader h5 {
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+.addEmployeeDetails .addEmployeeAccordionContainer .accordionHeader span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.addEmployeeDetails .addEmployeeAccordionContainer .accordionContainerBody {
+  width: 100%;
+}
+.addEmployeeDetails .addEmployeeAccordionContainer .accordionContainerBody .divider {
+  margin: 20px 0;
+  width: 100%;
+  height: 1px;
+  display: block;
+}
+.addEmployeeDetails .addEmployeeAccordionContainer .accordionContainerBody .grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  gap: 20px 24px;
+}
+.addEmployeeDetails .addEmployeeAccordionContainer .accordionContainerBody .gridItems {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.addEmployeeDetails .addEmployeeAccordionContainer .accordionContainerBody .gridItems label {
+  text-transform: capitalize;
+  font-size: 14px;
+}
+.addEmployeeDetails .addEmployeeAccordionContainer .accordionContainerBody .flex {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.addEmployeeDetails .addEmployeeAccordionContainer .accordionContainerBody .table {
+  border-radius: 4px;
+}
+.addEmployeeDetails .addEmployeeAccordionContainer .accordionContainerBody .table table thead {
+  border-radius: 4px;
+}
+.addEmployeeDetails .addEmployeeAccordionContainer .accordionContainerBody .table table th {
+  font-weight: 500;
+}
+.addEmployeeDetails .addEmployeeAccordionContainer .accordionContainerBody .table table td {
+  font-weight: 400;
+  max-width: 141px;
+}
+.addEmployeeDetails .addEmployeeAccordionContainer .accordionContainerBody .table table th, .addEmployeeDetails .addEmployeeAccordionContainer .accordionContainerBody .table table td {
+  padding: 12px 20px;
+  font-size: 14px;
+  white-space: wrap;
+}
+.addEmployeeDetails .addEmployeeAccordionContainer .accordionContainerBody .table table .actionBtns {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+@media screen and (max-width: 1280px) {
+  .addEmployeeDetails .addEmployeeAccordionContainer .accordionContainerBody .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media screen and (max-width: 992px) {
+  .addEmployeeDetails .addEmployeeAccordionContainer .accordionContainerBody .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (max-width: 660px) {
+  .addEmployeeDetails .addEmployeeAccordionContainer .accordionContainerBody .grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .addEmployeeDetails .addEmployeeAccordionContainer .accordionContainerBody .flex {
+    flex-direction: column;
+  }
+}/*# sourceMappingURL=styles.css.map */

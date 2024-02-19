@@ -1,0 +1,35 @@
+.ItemsList {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 10px 16px;
+  padding-left: 34px;
+  font-size: 14px;
+}
+.ItemsList:not(:last-child) {
+  border-bottom: 1px solid;
+}
+.ItemsList .leftSide {
+  position: relative;
+}
+.ItemsList .leftSide .status {
+  position: absolute;
+  left: -18px;
+  top: 4px;
+  width: 8px;
+  height: 8px;
+  background-color: #ff3e5b;
+  border-radius: 50%;
+}
+.ItemsList .leftSide .subTest {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+.ItemsList .leftSide .subTest .divider {
+  width: 1px;
+  height: 10px;
+}/*# sourceMappingURL=styles.css.map */

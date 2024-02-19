@@ -84,9 +84,9 @@ function TableData({
                   }
                 >
                   {ele.label}
-                  {/* icons */}
+                  {/* filter icons */}
                   {index === 5 && (
-                    <span>
+                    <span style={{ cursor: "pointer" }}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="14"
@@ -107,7 +107,7 @@ function TableData({
                     </span>
                   )}
                   {index === 7 && (
-                    <span>
+                    <span style={{ cursor: "pointer" }}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="14"
@@ -127,6 +127,7 @@ function TableData({
                       </svg>
                     </span>
                   )}
+                  {/* filter icons end */}
                 </th>
               );
             }
@@ -157,7 +158,7 @@ function TableData({
                   color: theme === "light" ? "#545454" : "#a3a3a3",
                 }}
               >
-                {ele.employeeCode}
+                {ele.employeeCode ? ele.employeeCode : "--"}
               </td>
               <td
                 style={{
@@ -167,7 +168,7 @@ function TableData({
                 }}
               >
                 {/* {wordSlice(ele.employeeName)} */}
-                {ele.employeeName}
+                {ele.employeeName ? ele.employeeName : "--"}
               </td>
               <td
                 style={{
@@ -175,7 +176,7 @@ function TableData({
                   color: theme === "light" ? "#545454" : "#a3a3a3",
                 }}
               >
-                {ele.employeeBusinessName}
+                {ele.bussinessName ? ele.bussinessName : "--"}
               </td>
               <td
                 style={{
@@ -183,7 +184,7 @@ function TableData({
                   color: theme === "light" ? "#545454" : "#a3a3a3",
                 }}
               >
-                {ele.employeeDesignation}
+                {ele.designation ? ele.designation : "--"}
               </td>
               <td
                 style={{
@@ -191,9 +192,9 @@ function TableData({
                   color: theme === "light" ? "#545454" : "#a3a3a3",
                 }}
               >
-                {ele.employeeApprovalStatus
-                  ? "Pending for ASM Approval"
-                  : "Approval"}
+                {ele.approvalStatus === true
+                  ? "Approval"
+                  : "Pending for ASM Approval"}
               </td>
 
               <td
@@ -202,7 +203,7 @@ function TableData({
                   color: theme === "light" ? "#545454" : "#a3a3a3",
                 }}
               >
-                {ele.employeeLocation}
+                {ele.location ? ele.location : "--"}
               </td>
 
               <td
@@ -223,7 +224,7 @@ function TableData({
                       : "disactiveDark"
                   } status`}
                 >
-                  {ele.employeeStatus ? "Active" : "Non-Active"}
+                  {ele.employeeStatus ? "Active" : "Inctive"}
                 </span>
               </td>
 

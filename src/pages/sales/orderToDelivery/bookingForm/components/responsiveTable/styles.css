@@ -1,0 +1,48 @@
+.responsiveTable {
+  height: 100%;
+}
+.responsiveTable .responsiveTableHeaders {
+  width: 100%;
+  border-radius: 4px 4px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  position: sticky;
+  left: 0;
+  top: 0;
+  z-index: 3;
+}
+.responsiveTable .responsiveTableHeaders p {
+  font-size: 14px;
+  font-weight: 500;
+}
+.responsiveTable .responsiveTableContents {
+  overflow-y: scroll;
+  max-height: calc(100vh - 420px);
+}
+.responsiveTable .responsiveTableContents::-webkit-scrollbar {
+  width: 5px;
+  opacity: 0;
+}
+.responsiveTable .responsiveTableContents.active::-webkit-scrollbar {
+  opacity: 1;
+}
+.responsiveTable .responsiveTableContents.active::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+}
+.responsiveTable .responsiveTableContents.active.light::-webkit-scrollbar-thumb {
+  background: #B5B5B6;
+}
+.responsiveTable .responsiveTableContents.active.dark::-webkit-scrollbar-thumb {
+  background: #545454;
+}
+
+@media screen and (max-width: 480px) {
+  .responsiveTable {
+    max-height: 800px;
+  }
+  .responsiveTable .responsiveTableContents {
+    max-height: calc(100vh - 520px);
+  }
+}/*# sourceMappingURL=styles.css.map */
