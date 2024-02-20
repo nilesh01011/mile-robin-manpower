@@ -705,7 +705,7 @@ function UserDetailsFieldShow({
                   />
                 </div>
 
-                <div className="gridItems">
+                {/* <div className="gridItems">
                   <label style={{ color: "#545454" }}>bank branch</label>
                   <InputField
                     types="text"
@@ -717,7 +717,7 @@ function UserDetailsFieldShow({
                   // touched={touched.first_name}
                   // handleChange={handleChange}
                   />
-                </div>
+                </div> */}
 
                 <div className="gridItems">
                   <label style={{ color: "#545454" }}>Bank Address</label>
@@ -733,7 +733,7 @@ function UserDetailsFieldShow({
                   />
                 </div>
 
-                <div className="gridItems">
+                {/* <div className="gridItems">
                   <label style={{ color: "#545454" }}>Branch PIN code</label>
                   <InputField
                     types="text"
@@ -745,7 +745,7 @@ function UserDetailsFieldShow({
                   // touched={touched.first_name}
                   // handleChange={handleChange}
                   />
-                </div>
+                </div> */}
 
                 <div className="gridItems">
                   <label style={{ color: "#545454" }}>Bank Account No.</label>
@@ -949,7 +949,7 @@ function UserDetailsFieldShow({
                   />
                 </div>
 
-                <div className="gridItems">
+                {/* <div className="gridItems">
                   <label style={{ color: "#545454" }}>sub skills</label>
                   <Dropdown
                     items={skills}
@@ -959,7 +959,7 @@ function UserDetailsFieldShow({
                   // touched={touched.gender}
                   // errors={errors.gender}
                   />
-                </div>
+                </div> */}
 
                 <div className="gridItems">
                   <label style={{ color: "#545454" }}>

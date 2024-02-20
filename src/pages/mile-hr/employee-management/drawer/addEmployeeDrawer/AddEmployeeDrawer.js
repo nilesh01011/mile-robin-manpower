@@ -215,7 +215,6 @@ function ActionEmployeeDrawer({
                   submitData={submitData}
                 />
               )}
-
               {/* submit animation show */}
               {submitData && (
                 <MileIDGenerate
@@ -228,109 +227,7 @@ function ActionEmployeeDrawer({
               )}
             </>
           )}
-
-          {/* resultShow */}
         </div>
-        {/* footer */}
-        {/* <div
-          className="actionEmployeeFooter"
-          style={{
-            boxShadow:
-              theme === "light"
-                ? "0px -2px 4px 0px rgba(0, 0, 0, 0.15)"
-                : "rgb(255 255 255 / 15%) 0px -1px 1px 0px",
-            backgroundColor: theme === "light" ? "#FFFFFF" : "#0B0B0C",
-          }}
-        >
-          user validates footer
-          left btns
-          <button
-            className="btns outlineBtn"
-            type="reset"
-            onClick={() => {
-              handleDrawerClosed();
-            }}
-          >
-            same Cancel btn
-          </button>
-          right btns
-          {userExistsWithActive ? (
-            <button
-              className="btns primaryBtn"
-              type="button"
-              aria-label="button"
-              onClick={() => handleRegignationSubmit()}
-            >
-              Send Notification
-            </button>
-          ) : resultShow ? (
-            <button
-              className="btns primaryBtn"
-              type="button"
-              aria-label="button"
-              onClick={() => {
-                setAddEmployeeDetailsShow(!addEmployeeDetailsShow);
-                setResultShow(!resultShow);
-              }}
-            >
-              Add Employee user not exists
-            </button>
-          ) : addEmployeeDetailsShow ? (
-            submitData === false && (
-              <button
-                className="btns primaryBtn"
-                type="button"
-                aria-label="button"
-                onClick={() => setSubmitData(!submitData)}
-              >
-                submit
-              </button>
-            )
-          ) : (
-            <button
-              className="btns primaryBtn"
-              type="submit"
-              aria-label="submit"
-            >
-              Validate
-            </button>
-          )}
-
-          {resultShow ? (
-            userNotExists ? (
-              <button
-                className="btns primaryBtn"
-                type="button"
-                aria-label="button"
-                onClick={() => {
-                  setAddEmployeeDetailsShow(!addEmployeeDetailsShow);
-                  setResultShow(!resultShow);
-                }}
-              >
-                Add Employee
-              </button>
-            ) : (
-              "submit"
-            )
-          ) : userExistsWithActive ? (
-            <button
-              className="btns primaryBtn"
-              type="submit"
-              aria-label="submit"
-              onClick={() => handleRegignationSubmit()}
-            >
-              Send Notification
-            </button>
-          ) : (
-            <button
-              className="btns primaryBtn"
-              type="submit"
-              aria-label="submit"
-            >
-              Validate
-            </button>
-          )}
-        </div> */}
       </div>
     </>
   );

@@ -171,6 +171,7 @@ body.dark::-webkit-scrollbar-thumb {
     & .btn {
       width: 28px;
       height: 28px;
+      min-width: fit-content;
       padding: 3px 7px;
       border-radius: 4px;
       display: flex;
@@ -179,8 +180,14 @@ body.dark::-webkit-scrollbar-thumb {
       color: #858585;
       border: 1px solid;
 
+      & span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
       &:hover {
-        color: #ff3e5b;
+        color: #ff3e5b !important;
         border-color: #ff3e5b !important;
       }
 
@@ -246,11 +253,12 @@ body.dark::-webkit-scrollbar-thumb {
   left: 0;
   right: 0;
   bottom: 0;
-  top: 43px;
+  top: 0;
+  // top: 43px;
   width: 100%;
   max-width: 350px;
   margin: 0 auto;
-  height: 100%;
+  height: calc(100vh - 260px);
   min-height: 260px;
   display: flex;
   align-items: center;

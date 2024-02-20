@@ -42,15 +42,6 @@ function MileHRMobileViewTable({
             </div> */}
             {/* 1 */}
             <div className="employeeData">
-              {/* employee name */}
-              <p>
-                <span
-                  style={{ color: theme === "light" ? "#8c8c8c" : "#8c8c8c" }}
-                >
-                  Employee name:
-                </span>
-                <span>{ele.employeeName}</span>
-              </p>
               {/* employee code */}
               <p>
                 <span
@@ -60,19 +51,37 @@ function MileHRMobileViewTable({
                 </span>
                 <span>{ele.employeeCode}</span>
               </p>
-              {/* designation */}
+              {/* employee name */}
               <p>
+                <span
+                  style={{ color: theme === "light" ? "#8c8c8c" : "#8c8c8c" }}
+                >
+                  Employee name:
+                </span>
+                <span>{ele.employeeName}</span>
+              </p>
+              {/* employee status */}
+              <p>
+                <span
+                  style={{ color: theme === "light" ? "#8c8c8c" : "#8c8c8c" }}
+                >
+                  Employee Status:
+                </span>
+                <span className={`status ${ele.employeeStatus?theme==="light"?"activeLight":"activeDark":theme==="light"?"disactiveLight":"disactiveDark"}`}>{ele.employeeStatus ? "Active" : "Inctive"}</span>
+              </p>
+              {/* designation */}
+              {/* <p>
                 <span
                   style={{ color: theme === "light" ? "#8c8c8c" : "#8c8c8c" }}
                 >
                   Designation:
                 </span>
                 <span>{ele.designation ? ele.designation : "--"}</span>
-              </p>
+              </p> */}
             </div>
             {/* 2 */}
-            <div className="employeeData">
-              {/* employee name */}
+            {/* <div className="employeeData">
+              employee name
               <p>
                 <span
                   style={{ color: theme === "light" ? "#8c8c8c" : "#8c8c8c" }}
@@ -81,7 +90,7 @@ function MileHRMobileViewTable({
                 </span>
                 <span>{ele.employeeName}</span>
               </p>
-              {/* employee code */}
+              employee code
               <p>
                 <span
                   style={{ color: theme === "light" ? "#8c8c8c" : "#8c8c8c" }}
@@ -95,7 +104,7 @@ function MileHRMobileViewTable({
                     : "Pending for ASM Approval"}
                 </span>
               </p>
-              {/* designation */}
+              designation
               <p>
                 <span
                   style={{ color: theme === "light" ? "#8c8c8c" : "#8c8c8c" }}
@@ -104,12 +113,13 @@ function MileHRMobileViewTable({
                 </span>
                 <span>{ele.employeeStatus ? "Active" : "Inctive"}</span>
               </p>
-            </div>
+            </div> */}
             {/* actions */}
             <div
               className="mileHRMobileViewTableBodyAction"
               style={{
                 backgroundColor: theme === "light" ? "#fff" : "#0B0B0C",
+                borderColor: theme === "light" ? "#e6e6e6" : "#232324",
               }}
             >
               {/* view data */}

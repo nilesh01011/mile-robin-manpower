@@ -1,0 +1,85 @@
+.editWorkModelBox {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  z-index: 999997;
+
+  & .overlay_2 {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 999998;
+    cursor: pointer;
+  }
+
+  //   contents
+  & .editWorkExperienceContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & .boxModel {
+      min-height: 144px;
+      min-width: 368px;
+      border-radius: 4px;
+      box-sizing: border-box;
+      z-index: 999999;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      & .modelHeaders {
+        width: 100%;
+
+        & .headTitle {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        & h4 {
+          font-weight: 700;
+          font-size: 16px;
+        }
+
+        & .divider {
+          width: 100%;
+          height: 1px;
+          margin-top: 10px;
+        }
+      }
+
+      & p {
+        font-size: 16px;
+        font-weight: 400;
+      }
+
+      & .footerBtn {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        & button {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 6px 16px;
+        }
+      }
+    }
+  }
+}

@@ -6,7 +6,7 @@ import moment from "moment";
 import InputField from "../../../../../components/inputField/InputField";
 import Dropdown from "../../../../../components/dropdown/Dropdown";
 import CalendarInput from "../../../../../components/calendarInput";
-import EditWorkExperience from "./drawer";
+import EditWorkExperience from "./editWorkExperience";
 import { ConfigProvider } from "antd";
 import SingleDatePicker from "../../../../../components/date/singleDatePicker/SingleDatePicker";
 import CheckBoxSelectDropdown from "../../../../../components/checkBoxSelectDropdown/CheckBoxSelectDropdown";
@@ -223,7 +223,7 @@ function ViewTableData({
         } actionEmployeeDrawer`}
         style={{
           backgroundColor: theme === "light" ? "#FFF" : "#0B0B0C",
-          width: "93%",
+          // width: "93%",
           right: viewTableDataDrawer ? 0 : "-150%",
         }}
       >
@@ -680,7 +680,7 @@ function ViewTableData({
                         {editData ? (
                           <InputField
                             types="text"
-                            placeholder="Enter"
+                            placeholder="Enter pan no. e.g. (AAAAA8888A)"
                             inputTypes="password"
                             // text={values.first_name}
                             name="pancard"
@@ -737,13 +737,13 @@ function ViewTableData({
 
                       <div className="gridItems">
                         <label style={{ color: "#545454" }}>
-                          Monthly Salary
+                          Monthly Salary (INR)
                           {editData && <span style={{ color: "red" }}>*</span>}
                         </label>
                         {editData ? (
                           <InputField
                             types="text"
-                            placeholder="Monthyl Salary in INR"
+                            placeholder="Enter Amount"
                             inputTypes="text"
                             // text={values.first_name}
                             name="monthlysalary"
@@ -1063,7 +1063,7 @@ function ViewTableData({
                         )}
                       </div>
 
-                      <div className="gridItems">
+                      {/* <div className="gridItems">
                         <label style={{ color: "#545454" }}>Bank branch</label>
                         {editData2 ? (
                           <InputField
@@ -1079,7 +1079,7 @@ function ViewTableData({
                         ) : (
                           <span>Biijnath Branch</span>
                         )}
-                      </div>
+                      </div> */}
 
                       <div className="gridItems">
                         <label style={{ color: "#545454" }}>Bank Address</label>
@@ -1099,7 +1099,7 @@ function ViewTableData({
                         )}
                       </div>
 
-                      <div className="gridItems">
+                      {/* <div className="gridItems">
                         <label style={{ color: "#545454" }}>
                           Branch PIN code
                         </label>
@@ -1117,7 +1117,7 @@ function ViewTableData({
                         ) : (
                           <span>88200</span>
                         )}
-                      </div>
+                      </div> */}
 
                       <div className="gridItems">
                         <label style={{ color: "#545454" }}>
@@ -1405,7 +1405,7 @@ function ViewTableData({
                         )}
                       </div>
 
-                      <div className="gridItems">
+                      {/* <div className="gridItems">
                         <label style={{ color: "#545454" }}>Sub Skills</label>
                         {editData3 ? (
                           <Dropdown
@@ -1419,7 +1419,7 @@ function ViewTableData({
                         ) : (
                           <span>Marketing</span>
                         )}
-                      </div>
+                      </div> */}
 
                       <div className="gridItems">
                         <label style={{ color: "#545454" }}>
@@ -1817,12 +1817,12 @@ function ViewTableData({
         </div>
       </div>
       {/* Edit Work Experience Drawer */}
-      {/* {editWorkExperienceDrawer && (
+      {editWorkExperienceDrawer && (
         <EditWorkExperience
           editWorkExperienceDrawer={editWorkExperienceDrawer}
           setEditWorkExperienceDrawer={setEditWorkExperienceDrawer}
         />
-      )} */}
+      )}
     </>
   );
 }

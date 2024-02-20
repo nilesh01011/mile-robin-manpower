@@ -56,81 +56,81 @@ function UserValidate({
 
       // fetching to this setTimeout function
       try {
-        const response = await axios.get("/mile-user-exists.json");
+        // const response = await axios.get("/mile-user-exists.json");
 
-        const filterUserExists = response.data.filter((user) => {
-          let firstNameExists = user.first_name
-            .toLowerCase()
-            .includes(values.first_name.toLowerCase());
+        // const filterUserExists = response.data.filter((user) => {
+        //   let firstNameExists = user.first_name
+        //     .toLowerCase()
+        //     .includes(values.first_name.toLowerCase());
 
-          let lastNameExists = user.last_name
-            .toLowerCase()
-            .includes(values.last_name.toLowerCase());
+        //   let lastNameExists = user.last_name
+        //     .toLowerCase()
+        //     .includes(values.last_name.toLowerCase());
 
-          let motherNameExists = user.mother_name
-            .toLowerCase()
-            .includes(values.mother_name.toLowerCase());
+        //   let motherNameExists = user.mother_name
+        //     .toLowerCase()
+        //     .includes(values.mother_name.toLowerCase());
 
-          let date_birthExists = user.date_birth
-            .toLowerCase()
-            .includes(values.date_birth.toLowerCase());
+        //   let date_birthExists = user.date_birth
+        //     .toLowerCase()
+        //     .includes(values.date_birth.toLowerCase());
 
-          let genderExists = user.gender
-            .toLowerCase()
-            .includes(values.gender.toLowerCase());
+        //   let genderExists = user.gender
+        //     .toLowerCase()
+        //     .includes(values.gender.toLowerCase());
 
-          let businessNameExists = user.businessName
-            .toLowerCase()
-            .includes(values.businessName.toLowerCase());
+        //   let businessNameExists = user.businessName
+        //     .toLowerCase()
+        //     .includes(values.businessName.toLowerCase());
 
-          return (
-            firstNameExists &&
-            lastNameExists &&
-            motherNameExists &&
-            date_birthExists &&
-            genderExists &&
-            businessNameExists
-          );
-        });
+        //   return (
+        //     firstNameExists &&
+        //     lastNameExists &&
+        //     motherNameExists &&
+        //     date_birthExists &&
+        //     genderExists &&
+        //     businessNameExists
+        //   );
+        // });
 
-        // console.log("Filtered user exists:", filterUserExists);
+        // // console.log("Filtered user exists:", filterUserExists);
 
-        setResultShow(true);
+        // setResultShow(true);
 
-        setUserValidate(false);
+        // setUserValidate(false);
 
-        if (filterUserExists.length > 0) {
-          // user found check it's active or inactive
-          if (!filterUserExists[0].employeeStatus) {
-            // console.log("user found but is inactive:", filterUserExists);
-            setUserExistsButInActive(true);
+        // if (filterUserExists.length > 0) {
+        //   // user found check it's active or inactive
+        //   if (!filterUserExists[0].employeeStatus) {
+        //     // console.log("user found but is inactive:", filterUserExists);
+        //     setUserExistsButInActive(true);
 
-            setResultValues(filterUserExists);
-          }
+        //     setResultValues(filterUserExists);
+        //   }
 
-          // user exists with active
-          if (filterUserExists[0].employeeStatus) {
-            setUserExistsWithActive(true);
+        //   // user exists with active
+        //   if (filterUserExists[0].employeeStatus) {
+        //     setUserExistsWithActive(true);
 
-            setUserExistsButInActive(false);
+        //     setUserExistsButInActive(false);
 
-            setUserNotExists(false); // false
+        //     setUserNotExists(false); // false
 
-            setResultValues(filterUserExists);
-          }
-        }
+        //     setResultValues(filterUserExists);
+        //   }
+        // }
 
-        // user not exists
-        if (filterUserExists.length === 0) {
-          // console.log("user not found:", values);
-          setUserNotExists(!userNotExists); // true
+        // // user not exists
+        // if (filterUserExists.length === 0) {
+        //   // console.log("user not found:", values);
+        //   setUserNotExists(!userNotExists); // true
 
-          setUserExistsWithActive(false);
+        //   setUserExistsWithActive(false);
 
-          setUserExistsButInActive(false);
+        //   setUserExistsButInActive(false);
 
-          setResultValues([values]);
-        }
+        //   setResultValues([values]);
+        // }
 
         action.resetForm();
       } catch (error) {

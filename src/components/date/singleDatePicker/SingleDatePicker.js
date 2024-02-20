@@ -140,7 +140,7 @@ function SingleDatePicker({
                 : "#545454",
           }}
           onChange={handleChangedCalendar}
-          placeholder="DD-MM-YYYY"
+          placeholder="DD/MM/YYYY"
         />
       )}
     </>

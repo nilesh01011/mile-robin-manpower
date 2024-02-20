@@ -1,6 +1,29 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import "../styles.scss";
+
+let useClickOutSide = (handler) => {
+  let domNode = useRef();
+
+  useEffect(() => {
+    if (!domNode.current) {
+      return;
+    }
+    const handlerEvent = (e) => {
+      if (!domNode.current.contains(e.target)) {
+        handler();
+      }
+    };
+
+    document.addEventListener("mousedown", handlerEvent);
+
+    return () => {
+      document.removeEventListener("mousedown", handlerEvent);
+    };
+  }, [handler]);
+
+  return domNode;
+};
 
 function TableData({
   tableHead,
@@ -18,35 +41,81 @@ function TableData({
   // view drawer open
   tableViewDrawer,
   setTableViewDrawer,
+  // paginationNumber
+  paginationNumber,
 }) {
   const theme = useSelector((state) => state.theme);
 
-  // const [tabelScrollbar, setTabelScrollbar] = useState(false);
-  // const [textTrucat, setTextTrucat] = useState(false);
-
-  // const splitTextToNumber = Number(selected.split(" ")[0]);
-
-  //   const filterData = tableBody.filter((item) => {
-  //     return inputFields.toLowerCase() === ""
-  //       ? item
-  //       : item.one.toLowerCase().includes(inputFields) ||
-  //           item.two.toLowerCase().includes(inputFields) ||
-  //           item.three.toLowerCase().includes(inputFields) ||
-  //           item.four.toLowerCase().includes(inputFields);
-  //   });
-
-  // const wordSlice = (word) => {
-  //   if (word === undefined) {
-  //     return;
-  //   }
-  //   if (word.length > 15) {
-  //     return word.slice(0, 15) + '...';
-  //   } else {
-  //     return word;
-  //   }
-  // };
-
   const borderColor = theme === "light" ? "#e6e6e6" : "#232324";
+
+  // approval status box
+  const [approvalStatus, setApprovalStatus] = useState(false);
+  // approval box text
+  const [approvalStatusText, setApprovalStatusText] = useState("");
+
+  const filterApprovalStatus = [
+    {
+      name: "Pending for ASM Approval",
+    },
+    {
+      name: "Pending for RSM Approval",
+    },
+  ];
+
+  // employee status box
+  const [employeeStatus, setEmployeeStatus] = useState(false);
+  // approval box text
+  const [employeeStatusText, setEmployeeStatusText] = useState("");
+
+  const filterEmployeeStatus = [
+    {
+      name: "Active",
+    },
+    {
+      name: "Inactive",
+    },
+  ];
+
+  let domNode = useClickOutSide(() => {
+    setApprovalStatus(false);
+    setEmployeeStatus(false);
+  });
+
+  const handleSelectApprovalText = (text) => {
+    if (text === approvalStatusText) {
+      setApprovalStatusText("");
+    } else {
+      setApprovalStatusText(text);
+    }
+  };
+
+  const handleSelectEmployeeApprovalText = (text) => {
+    if (text === employeeStatusText) {
+      setEmployeeStatusText("");
+    } else {
+      setEmployeeStatusText(text);
+    }
+  };
+
+  // filters
+  const filterData = tableBody.filter((item) => {
+    const approvalFilter =
+      approvalStatusText === ""
+        ? item
+        : item.approvalStatus
+        ? "Pending for ASM Approval" === approvalStatusText
+        : "Pending for RSM Approval" === approvalStatusText;
+
+    const employeeFilter =
+      employeeStatusText === ""
+        ? item
+        : item.employeeStatus
+        ? "Active" === employeeStatusText
+        : "Inactive" === employeeStatusText;
+
+    return approvalFilter && employeeFilter;
+  });
+
   return (
     <table>
       {/* table heading */}
@@ -86,7 +155,10 @@ function TableData({
                   {ele.label}
                   {/* filter icons */}
                   {index === 5 && (
-                    <span style={{ cursor: "pointer" }}>
+                    <span
+                      style={{ cursor: "pointer" }}
+                      onClick={() => setApprovalStatus(!approvalStatus)}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="14"
@@ -106,8 +178,62 @@ function TableData({
                       </svg>
                     </span>
                   )}
+                  {/* filter of approval status */}
+                  {index === 5 && approvalStatus && (
+                    <div
+                      className="filterApprovalStatus"
+                      style={{
+                        borderColor: theme === "light" ? "#0B0B0C" : "white",
+                        backgroundColor: theme === "light" ? "#fff" : "#0B0B0C",
+                      }}
+                      ref={domNode}
+                    >
+                      {filterApprovalStatus.map((e, i) => (
+                        <div
+                          className={`selectApprovalText ${
+                            theme === "light" ? "lightTheme" : "darkTheme"
+                          }`}
+                          key={i}
+                          onClick={() => handleSelectApprovalText(e.name)}
+                        >
+                          <p
+                            style={{
+                              borderColor:
+                                theme === "light" ? "#0B0B0C" : "white",
+                            }}
+                          >
+                            {approvalStatusText === e.name && (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="9"
+                                height="7"
+                                viewBox="0 0 9 7"
+                                fill="none"
+                              >
+                                <path
+                                  d="M3.23158 6.1272C3.09084 6.12783 2.95552 6.07293 2.85499 5.97443L1.09804 4.21748C1.04207 4.16955 0.996603 4.11056 0.964507 4.04422C0.932411 3.97788 0.914376 3.90562 0.911531 3.83198C0.908687 3.75833 0.921095 3.6849 0.947978 3.61628C0.974861 3.54766 1.01564 3.48534 1.06775 3.43323C1.11986 3.38112 1.18218 3.34034 1.2508 3.31346C1.31942 3.28658 1.39285 3.27417 1.46649 3.27701C1.54013 3.27986 1.61239 3.29789 1.67873 3.32999C1.74507 3.36209 1.80406 3.40755 1.852 3.46352L3.22242 4.83394L7.32526 0.78533C7.37457 0.735466 7.43327 0.695878 7.49798 0.66886C7.56269 0.641842 7.63212 0.62793 7.70224 0.62793C7.77237 0.62793 7.84179 0.641842 7.9065 0.66886C7.97121 0.695878 8.02992 0.735466 8.07922 0.78533C8.17881 0.885517 8.23471 1.02104 8.23471 1.16231C8.23471 1.30357 8.17881 1.4391 8.07922 1.53929L3.59978 5.96526C3.55272 6.01597 3.49577 6.0565 3.43245 6.08435C3.36912 6.1122 3.30076 6.12679 3.23158 6.1272Z"
+                                  fill="#FF3E5B"
+                                />
+                              </svg>
+                            )}
+                          </p>
+                          <span
+                            style={{
+                              color: approvalStatusText === e.name && "#FF3E5B",
+                            }}
+                          >
+                            {e.name}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {/* employee status filter */}
                   {index === 7 && (
-                    <span style={{ cursor: "pointer" }}>
+                    <span
+                      style={{ cursor: "pointer" }}
+                      onClick={() => setEmployeeStatus(!employeeStatus)}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="14"
@@ -127,7 +253,63 @@ function TableData({
                       </svg>
                     </span>
                   )}
-                  {/* filter icons end */}
+                  {/* filter of employee status */}
+                  {index === 7 && employeeStatus && (
+                    <div
+                      className="filterApprovalStatus"
+                      style={{
+                        borderColor: theme === "light" ? "#0B0B0C" : "white",
+                        backgroundColor: theme === "light" ? "#fff" : "#0B0B0C",
+                      }}
+                      ref={domNode}
+                    >
+                      {filterEmployeeStatus.map((e, i) => (
+                        <div
+                          className={`selectApprovalText ${
+                            theme === "light" ? "lightTheme" : "darkTheme"
+                          }`}
+                          key={i}
+                          onClick={() =>
+                            handleSelectEmployeeApprovalText(e.name)
+                          }
+                        >
+                          <p
+                            style={{
+                              borderColor:
+                                theme === "light" ? "#0B0B0C" : "white",
+                            }}
+                          >
+                            {employeeStatusText === e.name && (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="9"
+                                height="7"
+                                viewBox="0 0 9 7"
+                                fill="none"
+                              >
+                                <path
+                                  d="M3.23158 6.1272C3.09084 6.12783 2.95552 6.07293 2.85499 5.97443L1.09804 4.21748C1.04207 4.16955 0.996603 4.11056 0.964507 4.04422C0.932411 3.97788 0.914376 3.90562 0.911531 3.83198C0.908687 3.75833 0.921095 3.6849 0.947978 3.61628C0.974861 3.54766 1.01564 3.48534 1.06775 3.43323C1.11986 3.38112 1.18218 3.34034 1.2508 3.31346C1.31942 3.28658 1.39285 3.27417 1.46649 3.27701C1.54013 3.27986 1.61239 3.29789 1.67873 3.32999C1.74507 3.36209 1.80406 3.40755 1.852 3.46352L3.22242 4.83394L7.32526 0.78533C7.37457 0.735466 7.43327 0.695878 7.49798 0.66886C7.56269 0.641842 7.63212 0.62793 7.70224 0.62793C7.77237 0.62793 7.84179 0.641842 7.9065 0.66886C7.97121 0.695878 8.02992 0.735466 8.07922 0.78533C8.17881 0.885517 8.23471 1.02104 8.23471 1.16231C8.23471 1.30357 8.17881 1.4391 8.07922 1.53929L3.59978 5.96526C3.55272 6.01597 3.49577 6.0565 3.43245 6.08435C3.36912 6.1122 3.30076 6.12679 3.23158 6.1272Z"
+                                  fill="#FF3E5B"
+                                />
+                              </svg>
+                            )}
+                          </p>
+                          <span
+                            style={{
+                              color:
+                                employeeStatusText === e.name
+                                  ? "#FF3E5B"
+                                  : theme === "light"
+                                  ? "#858585"
+                                  : "#a3a3a3",
+                            }}
+                          >
+                            {e.name}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </th>
               );
             }
@@ -135,11 +317,11 @@ function TableData({
         </tr>
       </thead>
       {/* table body */}
-      {tableBody.length === 0 ? (
+      {filterData.length === 0 ? (
         emptyTableData()
       ) : (
         <tbody>
-          {tableBody.map((ele, index) => (
+          {filterData.map((ele, index) => (
             <tr
               key={index}
               className={theme === "light" ? "lightHover" : "darkHover"}
@@ -193,8 +375,8 @@ function TableData({
                 }}
               >
                 {ele.approvalStatus === true
-                  ? "Approval"
-                  : "Pending for ASM Approval"}
+                  ? "Pending for ASM Approval"
+                  : "Pending for RSM Approval"}
               </td>
 
               <td

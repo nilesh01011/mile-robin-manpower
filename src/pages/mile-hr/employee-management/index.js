@@ -15,6 +15,7 @@ import ViewTableData from "./drawer/viewTableData/ViewTableData";
 import ViewDrawer from "./drawer/ViewDrawer";
 import TableData from "../../../components/table/mileHRTable";
 import MileHRMobileViewTable from "../../../components/table/mileHRTable/mobileViewTable.js/MileHRMobileViewtable";
+import _ from "lodash";
 
 function EmployeeManagementPage() {
   const theme = useSelector((state) => state.theme);
@@ -100,14 +101,24 @@ function EmployeeManagementPage() {
 
   // active page
   const [currentPage, setCurrentPage] = useState(1);
+
   // table data fetch
   useEffect(() => {
     const fetchDataTable = async () => {
+      // "https://apidev.mahindradealerrise.com/mile/employee?devisionCode=S&page=0"
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.AUTHORIZATION_TOKEN}`,
+          "Access-Token": process.env.ACCESS_TOKEN,
+        },
+      };
+
       const result = await axios
-        .get("/data.json")
+        .get("/data.json", config)
         .then((res) => {
           const { data } = res.data;
-          console.log("APIs Data:", data);
+          // console.log("APIs Data:", data);
           setTableData(data.data);
         })
         .catch((error) => console.log(error));
@@ -117,29 +128,110 @@ function EmployeeManagementPage() {
 
     fetchDataTable();
   }, []);
+  // =========================== New Paginations Logics =================================
 
-  // pages number
-  const [tableDataPerPage, setTableDataPerPage] = useState(10);
+  const [page, setPage] = useState(1);
+  const [limits, setLimits] = useState(10);
+  // total page
+  let totalPage = Math.ceil(tableData.length / limits);
 
-  // 200 / 10 = 20
-  const numOfTotalPages = Math.ceil(tableData.length / tableDataPerPage);
+  let pageNo;
 
-  const pages = [...Array(numOfTotalPages + 1).keys()].slice(1); // starting from 1 not to 0
+  if (page <= totalPage) {
+    pageNo = page;
+  } else {
+    setPage(totalPage);
+    pageNo = page;
+  }
 
-  const indexOfLastTodo = currentPage * tableDataPerPage; // 1 * 10 = 10
-  const indexOfFirstTodo = indexOfLastTodo - tableDataPerPage; // 10 - 10 = 0
-
-  const visibleTableData = tableData.slice(indexOfFirstTodo, indexOfLastTodo); // 200 slices 10, 0 = 190
-
-  // prev page
-  const prevPageHandler = () => {
-    if (currentPage !== 1) setCurrentPage(currentPage - 1);
+  const onPageChanged = (value) => {
+    if (value === "&laquo;" || value === "... ") {
+      setPage(1);
+    } else if (value === "&lsaquo;") {
+      if (page !== 1) {
+        setPage(page - 1);
+      }
+    } else if (value === "&rsaquo;") {
+      if (page !== totalPage) {
+        setPage(page + 1);
+      }
+    } else if (value === "&raquo;" || value === " ...") {
+      setPage(totalPage);
+    } else {
+      setPage(value);
+    }
   };
 
-  // next page
-  const nextPageHandler = () => {
-    if (currentPage !== numOfTotalPages) setCurrentPage(currentPage + 1);
+  // return pagination range
+  const returnPaginationRange = (totalPage, page, limit, siblings) => {
+    let totalPageNoInArray = 7 + siblings;
+    if (totalPageNoInArray >= totalPage) {
+      return _.range(1, totalPage + 1);
+    }
+
+    let leftSiblingsIndex = Math.max(page - siblings, 1);
+    let rightSiblingsIndex = Math.min(page + siblings, totalPage);
+
+    let showLeftDots = leftSiblingsIndex > 2;
+
+    let showRightDots = rightSiblingsIndex < totalPage - 2;
+
+    if (!showLeftDots && showRightDots) {
+      let leftItemsCount = 3 + 2 * siblings;
+      let leftRange = _.range(1, leftItemsCount + 1);
+      return [...leftRange, " ...", totalPage];
+    } else if (showLeftDots && !showRightDots) {
+      let rightItemsCount = 3 + 2 * siblings;
+      let rightRange = _.range(totalPage - rightItemsCount + 1, totalPage + 1);
+
+      return [1, "... ", ...rightRange];
+    } else {
+      let middleRange = _.range(leftSiblingsIndex, rightSiblingsIndex + 1);
+
+      return [1, "... ", ...middleRange, " ...", totalPage];
+    }
   };
+
+  let siblings = 1;
+
+  let array = returnPaginationRange(totalPage, page, limits, siblings);
+
+  // pagination filters
+  const getEmployeeTable = (page, limit) => {
+    let array = [];
+    let getPage = page === 0 ? 1 : page;
+    for (
+      let i = (getPage - 1) * limit;
+      i < getPage * limit && tableData[i];
+      i++
+    ) {
+      array.push(tableData[i]);
+    }
+    return array;
+  };
+
+  // // pages number
+  // const [tableDataPerPage, setTableDataPerPage] = useState(10);
+
+  // // 200 / 10 = 20
+  // const numOfTotalPages = Math.ceil(tableData.length / tableDataPerPage);
+
+  // const pages = [...Array(numOfTotalPages + 1).keys()].slice(1); // starting from 1 not to 0
+
+  // const indexOfLastTodo = currentPage * tableDataPerPage; // 1 * 10 = 10
+  // const indexOfFirstTodo = indexOfLastTodo - tableDataPerPage; // 10 - 10 = 0
+
+  // const visibleTableData = tableData.slice(indexOfFirstTodo, indexOfLastTodo); // 200 slices 10, 0 = 190
+
+  // // prev page
+  // const prevPageHandler = () => {
+  //   if (currentPage !== 1) setCurrentPage(currentPage - 1);
+  // };
+
+  // // next page
+  // const nextPageHandler = () => {
+  //   if (currentPage !== numOfTotalPages) setCurrentPage(currentPage + 1);
+  // };
 
   // // debounced
   const myDebounce = (cb, d) => {
@@ -180,12 +272,38 @@ function EmployeeManagementPage() {
 
     if (inputFields === "") {
       setError(true);
-      setCurrentPage(1);
+      // setCurrentPage(1);
+      setPage(1);
       return;
     } else {
       setSearchResultsItems([...searchResultsItems, { name: inputFields }]);
 
       // filteredEmployees(inputFields)
+
+      const filteredEmployees = tableData.filter((employee) => {
+        const searchTerm = inputFields.toLowerCase();
+        const filterOption = selectDropdownFilterText.toLowerCase();
+
+        if (filterOption === "mile id") {
+          return employee.employeeCode.toLowerCase().includes(searchTerm);
+        } else if (filterOption === "employee name") {
+          return employee.employeeName.toLowerCase().includes(searchTerm);
+        } else if (filterOption === "location name") {
+          return employee.bussinessName.toLowerCase().includes(searchTerm);
+        } else if (filterOption === "mobile number") {
+          return employee.designation.toLowerCase().includes(searchTerm);
+        } else if (searchTerm) {
+          const approvalASM = "Pending for ASM Approval";
+          const approvalRSM = "Pending for RSM Approval";
+          return employee.employeeStatus
+            ? approvalASM.toLowerCase() === searchTerm
+            : approvalRSM.toLocaleLowerCase() === searchTerm;
+        }
+      });
+
+      console.log(filteredEmployees)
+
+      // setTableData(filteredEmployees);
     }
   }, 500);
 
@@ -208,20 +326,20 @@ function EmployeeManagementPage() {
   //     const searchTerm = values.toLowerCase();
   //     const filterOption = selectDropdownFilterText.toLowerCase();
 
-  //     if (filterOption === 'mile id') {
-  //       return employee.employeeCode.toLowerCase().includes(searchTerm);
-  //     } else if (filterOption === 'employee name') {
-  //       return employee.employeeName.toLowerCase().includes(searchTerm);
-  //     } else if (filterOption === 'location name') {
-  //       return employee.employeeBusinessName.toLowerCase().includes(searchTerm);
-  //     } else if (filterOption === 'mobile number') {
-  //       return employee.employeeDesignation.toLowerCase().includes(searchTerm);
-  //     } else if (searchTerm) {
-  //       return employee.employeeStatus
-  //         .toString()
-  //         .toLowerCase()
-  //         .includes(searchTerm);
-  //     }
+  // if (filterOption === 'mile id') {
+  //   return employee.employeeCode.toLowerCase().includes(searchTerm);
+  // } else if (filterOption === 'employee name') {
+  //   return employee.employeeName.toLowerCase().includes(searchTerm);
+  // } else if (filterOption === 'location name') {
+  //   return employee.employeeBusinessName.toLowerCase().includes(searchTerm);
+  // } else if (filterOption === 'mobile number') {
+  //   return employee.employeeDesignation.toLowerCase().includes(searchTerm);
+  // } else if (searchTerm) {
+  //   return employee.employeeStatus
+  //     .toString()
+  //     .toLowerCase()
+  //     .includes(searchTerm);
+  // }
 
   //     // else if (filterOption === 'employee approval status') {
   //     //   return employee.employeeApprovalStatus
@@ -391,8 +509,9 @@ function EmployeeManagementPage() {
                   <div
                     className="tabs"
                     style={{
-                      border: `1px solid ${theme === "light" ? "#B5B5B6" : "#232324"
-                        }`,
+                      border: `1px solid ${
+                        theme === "light" ? "#B5B5B6" : "#232324"
+                      }`,
                     }}
                   >
                     {tabs.map((tab) => (
@@ -606,8 +725,9 @@ function EmployeeManagementPage() {
                   <div
                     className="tabs"
                     style={{
-                      border: `1px solid ${theme === "light" ? "#B5B5B6" : "#232324"
-                        }`,
+                      border: `1px solid ${
+                        theme === "light" ? "#B5B5B6" : "#232324"
+                      }`,
                     }}
                   >
                     {tabs.map((tab) => (
@@ -944,8 +1064,8 @@ function EmployeeManagementPage() {
               minHeight: paginationItems
                 ? "calc(100vh - 260px)"
                 : searchResultsItems.length === 0
-                  ? "calc(100vh - 280px)"
-                  : "calc(100vh - 320px)",
+                ? "calc(100vh - 280px)"
+                : "calc(100vh - 320px)",
               maxHeight:
                 searchResultsItems.length === 0
                   ? "calc(100vh - 280px)"
@@ -959,7 +1079,9 @@ function EmployeeManagementPage() {
               //     ? visibleTableData
               //     : filteredEmployeesTableData
               // }
-              tableBody={visibleTableData}
+              // tableBody={visibleTableData}
+              paginationNumber={array}
+              tableBody={getEmployeeTable(page, limits)}
               // tableBody={filteredData}
               inputFields={inputFields}
               // selectDropdownFilterText={selectDropdownFilterText}
@@ -980,7 +1102,7 @@ function EmployeeManagementPage() {
             />
           </div>
           {/* mobile view table contents */}
-          <MileHRMobileViewTable
+          {/* <MileHRMobileViewTable
             tableBody={visibleTableData}
             // tableBody={filteredData}
             // inputFields={inputFields}
@@ -999,12 +1121,13 @@ function EmployeeManagementPage() {
             // View Drawer open
             tableViewDrawer={tableViewDrawer}
             setTableViewDrawer={setTableViewDrawer}
-          />
+          /> */}
         </div>
         {/* pagination */}
         <div
-          className={`paginationContainer ${theme === "light" ? "light" : "dark"
-            }`}
+          className={`paginationContainer ${
+            theme === "light" ? "light" : "dark"
+          }`}
           style={{
             backgroundColor: theme === "light" ? "#ffffff" : "#0B0B0C",
           }}
@@ -1025,24 +1148,42 @@ function EmployeeManagementPage() {
                 items={paginationItems}
                 dropdownDirection="top"
                 padding="4px 12px"
-                selected={tableDataPerPage}
-                setSelected={setTableDataPerPage}
+                // selected={tableDataPerPage}
+                // setSelected={setTableDataPerPage}
+                selected={limits}
+                setSelected={setLimits}
                 width={84}
               />
             </div>
           </div>
           {/* right side */}
           <div className="rightSide">
+            {/* double clicks start */}
+            {/* <button
+              type="button"
+              className={`btn`}
+              style={{
+                border: `1px solid ${
+                  theme === "light" ? "#b5b5b6" : "#232324"
+                }`,
+              }}
+              onClick={() => onPageChanged("&laquo;")}
+            >
+              &laquo;
+            </button> */}
             {/* left pagination btn */}
             <button
               type="button"
-              className={`btn ${currentPage === 1 && "disabledBtn"}`}
+              className={`btn`}
+              // ${currentPage === 1 && "disabledBtn"}
               style={{
-                border: `1px solid ${theme === "light" ? "#b5b5b6" : "#232324"
-                  }`,
+                border: `1px solid ${
+                  theme === "light" ? "#b5b5b6" : "#858585"
+                }`,
               }}
-              onClick={prevPageHandler}
-              disabled={currentPage === 1}
+              onClick={() => onPageChanged("&lsaquo;")}
+              // onClick={prevPageHandler}
+              // disabled={currentPage === 1}
             >
               <span>
                 <svg
@@ -1062,7 +1203,7 @@ function EmployeeManagementPage() {
               </span>
             </button>
             {/* Middel table data end */}
-            {pages.map((ele, index) => (
+            {/* {pages.map((ele, index) => (
               <button
                 key={index}
                 className="btn paginationBtn"
@@ -1072,8 +1213,8 @@ function EmployeeManagementPage() {
                     currentPage === ele
                       ? "#FF3E5B"
                       : theme === "light"
-                        ? "#b5b5b6"
-                        : "#232324",
+                      ? "#b5b5b6"
+                      : "#232324",
                   color: currentPage === ele && "#FF3E5B",
                   // backgroundColor:
                   // 	currentPage === ele && '#d7d7d7'
@@ -1081,18 +1222,69 @@ function EmployeeManagementPage() {
               >
                 {ele}
               </button>
-            ))}
+            ))} */}
+            {/* start */}
+            {array.map((value, index) => {
+              const getPage = page === 0 ? 1 : page;
+              // active btns
+              if (value === " ..." || value === "... ") {
+                return (
+                  <button
+                    type="button"
+                    key={index}
+                    style={{
+                      color:
+                        value === getPage
+                          ? "#FF3E5B"
+                          : theme === "light"
+                          ? "#b5b5b6"
+                          : "#858585",
+                    }}
+                    onClick={() => onPageChanged(value)}
+                  >
+                    •••
+                  </button>
+                );
+              } else {
+                return (
+                  <button
+                    className="btn"
+                    key={index}
+                    style={{
+                      borderColor:
+                        value === getPage
+                          ? "#FF3E5B"
+                          : theme === "light"
+                          ? "#b5b5b6"
+                          : "#858585",
+                      color:
+                        value === getPage
+                          ? "#FF3E5B"
+                          : theme === "light"
+                          ? "#b5b5b6"
+                          : "#858585",
+                    }}
+                    onClick={() => onPageChanged(value)}
+                  >
+                    {value}
+                  </button>
+                );
+              }
+            })}
+            {/* end */}
             {/* right btn */}
             <button
               type="button"
-              className={`btn ${numOfTotalPages === currentPage && "disabledBtn"
-                }`}
+              className={`btn `}
+              // ${numOfTotalPages === currentPage && "disabledBtn"}
               style={{
-                border: `1px solid ${theme === "light" ? "#b5b5b6" : "#232324"
-                  }`,
+                border: `1px solid ${
+                  theme === "light" ? "#b5b5b6" : "#858585"
+                }`,
               }}
-              onClick={nextPageHandler}
-              disabled={numOfTotalPages === currentPage}
+              onClick={() => onPageChanged("&rsaquo;")}
+              // onClick={nextPageHandler}
+              // disabled={numOfTotalPages === currentPage}
             >
               <span>
                 <svg
@@ -1111,6 +1303,19 @@ function EmployeeManagementPage() {
                 </svg>
               </span>
             </button>
+            {/* double clicks end */}
+            {/* <button
+              type="button"
+              className={`btn`}
+              style={{
+                border: `1px solid ${
+                  theme === "light" ? "#b5b5b6" : "#232324"
+                }`,
+              }}
+              onClick={() => onPageChanged("&raquo;")}
+            >
+              &raquo;
+            </button> */}
           </div>
         </div>
       </div>

@@ -143,12 +143,20 @@
 }
 
 // media queries
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 1200px) {
   .actionEmployeeDrawer {
     width: 100%;
+  }
+}
+
+
+@media screen and (max-width: 992px) {
+  .actionEmployeeDrawer {
+
     // contents
     & .actionEmployeeContainer {
       padding: 30px 20px;
+
       & .actionEmployeeContents {
         grid-template-columns: repeat(3, 1fr);
       }
@@ -158,6 +166,7 @@
 
 @media screen and (max-width: 880px) {
   .actionEmployeeDrawer {
+
     // contents
     & .actionEmployeeContainer {
       & .actionEmployeeContents {
@@ -169,6 +178,7 @@
 
 @media screen and (max-width: 660px) {
   .actionEmployeeDrawer {
+
     // contents
     & .actionEmployeeContainer {
       & .actionEmployeeContents {
