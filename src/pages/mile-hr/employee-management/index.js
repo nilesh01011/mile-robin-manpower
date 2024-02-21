@@ -930,12 +930,6 @@ function EmployeeManagementPage() {
           {/* mobile view table contents */}
           <MileHRMobileViewTable
             tableBody={tableData}
-            // tableBody={filteredData}
-            // inputFields={inputFields}
-            // selectDropdownFilterText={selectDropdownFilterText}
-            // tableBody={filteredData}
-            // filteredEmployees={filteredEmployees}
-            // tableHead={mileTableHead}
             emptyTableData={emptyTableData}
             // Drawer Open state
             viewTableDataDrawer={viewTableDataDrawer}
