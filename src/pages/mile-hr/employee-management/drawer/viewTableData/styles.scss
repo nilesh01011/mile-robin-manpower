@@ -273,6 +273,12 @@
             width: 100%;
           }
 
+          & h5 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+          }
+
           & .grid {
             display: grid;
             align-items: center;

@@ -84,6 +84,18 @@
             font-size: 14px;
           }
         }
+
+        // addressContainer
+        & .addressContainer {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
+          & h5 {
+            font-size: 14px;
+            font-weight: 600;
+          }
+        }
   
         // flex
         & .flex {

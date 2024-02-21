@@ -494,14 +494,17 @@ function UserDetailsFieldShow({
                 }}
               />
               {/* flex design */}
+              <div className="addressContainer">
+                <h5>Address</h5>
+
               <div className="flex">
                 <div className="gridItems">
                   <label style={{ color: "#545454" }}>
-                    Address 1<span style={{ color: "red" }}>*</span>
+                    Address line 1<span style={{ color: "red" }}>*</span>
                   </label>
                   <InputField
                     types="text"
-                    placeholder="Enter"
+                    placeholder="Apartment, unit, building, floor, flat, etc"
                     inputTypes="text"
                     // text={values.first_name}
                     name="address1"
@@ -513,11 +516,11 @@ function UserDetailsFieldShow({
 
                 <div className="gridItems">
                   <label style={{ color: "#545454" }}>
-                    Address 2<span style={{ color: "red" }}>*</span>
+                    Address line 2<span style={{ color: "red" }}>*</span>
                   </label>
                   <InputField
                     types="text"
-                    placeholder="Enter"
+                    placeholder="Street name, landmark, area, etc"
                     inputTypes="text"
                     // text={values.first_name}
                     name="address2"
@@ -526,6 +529,7 @@ function UserDetailsFieldShow({
                   // handleChange={handleChange}
                   />
                 </div>
+              </div>
               </div>
 
               {/* grid */}

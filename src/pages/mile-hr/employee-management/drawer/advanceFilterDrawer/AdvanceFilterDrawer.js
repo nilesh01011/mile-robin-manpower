@@ -33,6 +33,24 @@ function AdvanceFilterDrawer({ advanceFilterSearch, setAdvancedFilterSearch }) {
     },
   ];
 
+  const employeeStatusDropdown = [
+    {
+      name: "Active",
+    },
+    {
+      name: "Inactive",
+    },
+  ];
+
+  const approvalStatusDropdown = [
+    {
+      name: "Pending for ASM Approval",
+    },
+    {
+      name: "Pending for RSM Approval",
+    },
+  ];
+
   const handleDatePickerChange = (dateString) => {
     // handleChange
     // handleChange("date_birth")(dateString);
@@ -64,7 +82,10 @@ function AdvanceFilterDrawer({ advanceFilterSearch, setAdvancedFilterSearch }) {
           {/* text */}
           <span className="drawerTitle">Advance Filters</span>
           {/* icons */}
-          <span style={{ cursor: "pointer" }} onClick={() => setAdvancedFilterSearch(!advanceFilterSearch)}>
+          <span
+            style={{ cursor: "pointer" }}
+            onClick={() => setAdvancedFilterSearch(!advanceFilterSearch)}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -95,12 +116,12 @@ function AdvanceFilterDrawer({ advanceFilterSearch, setAdvancedFilterSearch }) {
 
           <div className="gridItems">
             <label style={{ color: "#545454" }}>Employee Status</label>
-            <Dropdown items={businessTypeDropdown} />
+            <Dropdown items={employeeStatusDropdown} />
           </div>
 
           <div className="gridItems">
             <label style={{ color: "#545454" }}>Approval Status</label>
-            <Dropdown items={businessTypeDropdown} />
+            <Dropdown items={approvalStatusDropdown} />
           </div>
           {/* date */}
           <div className="gridItems">

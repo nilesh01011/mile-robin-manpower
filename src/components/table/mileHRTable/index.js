@@ -41,8 +41,6 @@ function TableData({
   // view drawer open
   tableViewDrawer,
   setTableViewDrawer,
-  // paginationNumber
-  paginationNumber,
 }) {
   const theme = useSelector((state) => state.theme);
 

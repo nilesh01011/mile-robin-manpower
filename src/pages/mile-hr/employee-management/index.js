@@ -20,7 +20,7 @@ import _ from "lodash";
 function EmployeeManagementPage() {
   const theme = useSelector((state) => state.theme);
   // tabs
-  const [isActiveTabs, setIsActiveTabs] = useState("sales");
+  const [isActiveTabs, setIsActiveTabs] = useState("S");
   // Search Filter inputs
   const [inputFields, setInputFields] = useState("");
   // Search results items
@@ -38,9 +38,6 @@ function EmployeeManagementPage() {
     setSearchResultsItems(deleteSearchResultItems);
   };
 
-  // table drawer select which one is open
-  // const [tableDataDrawer, setTableDataDrawer] = useState([]);
-
   // search dropdown text
   const [selectDropdownFilterText, setSelectedDropdownFilterText] =
     useState("");
@@ -49,14 +46,17 @@ function EmployeeManagementPage() {
     {
       id: 1,
       name: "sales",
+      tabs: "S",
     },
     {
       id: 2,
       name: "services",
+      tabs: "V",
     },
     {
       id: 3,
       name: "common",
+      tabs: "C",
     },
   ];
 
@@ -96,70 +96,51 @@ function EmployeeManagementPage() {
   const [tableViewDrawer, setTableViewDrawer] = useState(false);
   const [selectTableView, setSelectTableView] = useState([]);
 
+  // =========================== New Paginations Logics ================================
+
   // table pagination
   const [tableData, setTableData] = useState([]);
 
-  // active page
-  const [currentPage, setCurrentPage] = useState(1);
-
-  // table data fetch
-  useEffect(() => {
-    const fetchDataTable = async () => {
-      // "https://apidev.mahindradealerrise.com/mile/employee?devisionCode=S&page=0"
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.AUTHORIZATION_TOKEN}`,
-          "Access-Token": process.env.ACCESS_TOKEN,
-        },
-      };
-
-      const result = await axios
-        .get("/data.json", config)
-        .then((res) => {
-          const { data } = res.data;
-          // console.log("APIs Data:", data);
-          setTableData(data.data);
-        })
-        .catch((error) => console.log(error));
-
-      return result;
-    };
-
-    fetchDataTable();
-  }, []);
-  // =========================== New Paginations Logics =================================
-
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [limits, setLimits] = useState(10);
-  // total page
-  let totalPage = Math.ceil(tableData.length / limits);
+
+
+  const [totalDataLength, setTotalDataLength] = useState(0);
+
+  const [totalPages, setTotalPages] = useState(0);
 
   let pageNo;
 
-  if (page <= totalPage) {
+  if (page <= totalDataLength) {
     pageNo = page;
   } else {
-    setPage(totalPage);
+    setPage(totalDataLength);
     pageNo = page;
   }
 
-  const onPageChanged = (value) => {
+  const onPageChanged = async (value) => {
+    // console.log("onChange:", value);
+
+    let newPage;
+
     if (value === "&laquo;" || value === "... ") {
-      setPage(1);
+      newPage = 0;
     } else if (value === "&lsaquo;") {
-      if (page !== 1) {
-        setPage(page - 1);
-      }
+      newPage = page - 1;
     } else if (value === "&rsaquo;") {
-      if (page !== totalPage) {
-        setPage(page + 1);
-      }
+      newPage = page + 1;
     } else if (value === "&raquo;" || value === " ...") {
-      setPage(totalPage);
+      newPage = Math.ceil(totalDataLength / limits) - 1;
     } else {
-      setPage(value);
+      newPage = value - 1;
     }
+
+    // Fetch data for the new page
+    const newData = await fetchDataForPage(newPage);
+
+    // Set the new page and table data
+    setPage(newPage);
+    setTableData(newData);
   };
 
   // return pagination range
@@ -194,44 +175,55 @@ function EmployeeManagementPage() {
 
   let siblings = 1;
 
-  let array = returnPaginationRange(totalPage, page, limits, siblings);
+  let array = returnPaginationRange(totalPages, page, limits, siblings);
 
-  // pagination filters
-  const getEmployeeTable = (page, limit) => {
-    let array = [];
-    let getPage = page === 0 ? 1 : page;
-    for (
-      let i = (getPage - 1) * limit;
-      i < getPage * limit && tableData[i];
-      i++
-    ) {
-      array.push(tableData[i]);
+  const accessToken =
+    "eyJraWQiOiJMVndUWU1OOTg4eUZwbDkyMGxoVzIxQ2NYYWF6ckk0aE1ZYndpSDV5d1Q4PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI0MDAzOGU0My05NzhjLTQ2YWUtYmRiNy0wNTBlMDcxMDVlOTAiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuYXAtc291dGgtMS5hbWF6b25hd3MuY29tXC9hcC1zb3V0aC0xX0VKbWNiS1pyaiIsImNsaWVudF9pZCI6IjU4bTZxOGtucDE5Y2M5NGplZ2x1bnA0bXQ4Iiwib3JpZ2luX2p0aSI6Ijk2ZWJiNGY0LTQwZTctNGM2YS1hNmFiLWUyMGZjZjlmNTUwZiIsImV2ZW50X2lkIjoiODdiNzdjYTktYjU3OS00ZDk2LWJhNzktMjhmMmE4NGY4YzZlIiwidG9rZW5fdXNlIjoiYWNjZXNzIiwic2NvcGUiOiJhd3MuY29nbml0by5zaWduaW4udXNlci5hZG1pbiIsImF1dGhfdGltZSI6MTcwODUyNTE0NSwiZXhwIjoxNzA4NTI4NzQ1LCJpYXQiOjE3MDg1MjUxNDUsImp0aSI6Ijk1YTAxMzA2LTZjMDYtNDU2ZC05M2ZkLTEyZWNmZTY0YWIwOCIsInVzZXJuYW1lIjoicmVlbmEifQ.YpZVgzP3vY913GYgGIJLFJNngZ4jMPYhRoDZbOa1fieDWeQ8Flx8XdhUAqzre4thfv9zIVgWIfevxKMPCcFuw35RYwoP87PwqzVGZiUB2xzv9bTNNsSIDm6vA5DMsAVjLXZSBB0n7dwYECzp7QgOlGOTHhISiGX2soEIR9zm0squ__ELC-vxo0cS5BmzQU4RqWPKSs56pyoyOUHECktD6jIJ6KukWrUKpaiX3FUqlwQA5ScdJ3NR0g8LM7m_JSggyJ6sleK_GI5876xjqpbXfsbJ2JCI2UqMeYt4B4ii3KRHqM5TnA7GZ8sUJHN2O8Ycqbajk66qmgDtV9uJlZ6ICg";
+  const authorization =
+    "eyJraWQiOiJkR1lMQWhzS1JNK092SlwvMlRKRkdTYVJxcFVuN3RsZ0R2SkpTVkhhT3REND0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI0MDAzOGU0My05NzhjLTQ2YWUtYmRiNy0wNTBlMDcxMDVlOTAiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLmFwLXNvdXRoLTEuYW1hem9uYXdzLmNvbVwvYXAtc291dGgtMV9FSm1jYktacmoiLCJjb2duaXRvOnVzZXJuYW1lIjoicmVlbmEiLCJvcmlnaW5fanRpIjoiOTZlYmI0ZjQtNDBlNy00YzZhLWE2YWItZTIwZmNmOWY1NTBmIiwiYXVkIjoiNThtNnE4a25wMTljYzk0amVnbHVucDRtdDgiLCJldmVudF9pZCI6Ijg3Yjc3Y2E5LWI1NzktNGQ5Ni1iYTc5LTI4ZjJhODRmOGM2ZSIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNzA4NTI1MTQ1LCJleHAiOjE3MDg1Mjg3NDUsImlhdCI6MTcwODUyNTE0NSwianRpIjoiZWFiMGZhNmMtNWRlOC00ZGU5LTk5YmMtODkwMjMxZjlkN2M2IiwiZW1haWwiOiJhbmtpdGF5OTEyODhAZ21haWwuY29tIn0.bz2ulWD9GJ8WzfL2BMtq21OUkcJ5unenwLTXLpv0sLGz5WmPyG1otCNOZk7MughWFP0VA9VlVbYfXvicfpGrNX67_pwxyXGEdZZRKi5633dhZwHY6M9sF-rbXJFzQUPoFKenlQABXs-jGTiPZ764nKhcArzlZS6TR7HuU67uCUQfLwCt_WU2GRmh3TC4QZcG6d3KpcMpRyFUP5kUhrB5kPVcvalEoAQ2dnv_spCCn75yIN6VUew-aiGz_UZWXBwIN3tlDk8vweLgeeCqZe_O1EUPy9zZsU5Q0wDDDEukGqMlJAmbv4leWo7Ak1IQxSgr0Tj4h2zYq7Fyl-fHuzINVQ";
+
+  // table data fetch
+  const fetchDataForPage = async (newPage) => {
+    // console.log(newPage);
+
+    // const baseURL = `/data.json`;
+    const baseURL = `/mile/employee?devisionCode=${isActiveTabs}&page=${newPage}&size=${limits}`;
+
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authorization}`,
+          Accesstoken: accessToken,
+        },
+      };
+
+      const response = await axios.get(baseURL, config);
+      const { data } = response.data;
+      // console.log("APIs Data:", data);
+
+      setTotalDataLength(data.totalRecords);
+
+      setTotalPages(data.totalPages);
+
+      return data.data;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return [];
     }
-    return array;
   };
 
-  // // pages number
-  // const [tableDataPerPage, setTableDataPerPage] = useState(10);
+  useEffect(() => {
+    const fetchData = async () => {
+      const newData = await fetchDataForPage(page);
+      // console.log("Data Getting", newData);
+      if (!inputFields) {
+        setTableData(newData);
+      }
+    };
 
-  // // 200 / 10 = 20
-  // const numOfTotalPages = Math.ceil(tableData.length / tableDataPerPage);
-
-  // const pages = [...Array(numOfTotalPages + 1).keys()].slice(1); // starting from 1 not to 0
-
-  // const indexOfLastTodo = currentPage * tableDataPerPage; // 1 * 10 = 10
-  // const indexOfFirstTodo = indexOfLastTodo - tableDataPerPage; // 10 - 10 = 0
-
-  // const visibleTableData = tableData.slice(indexOfFirstTodo, indexOfLastTodo); // 200 slices 10, 0 = 190
-
-  // // prev page
-  // const prevPageHandler = () => {
-  //   if (currentPage !== 1) setCurrentPage(currentPage - 1);
-  // };
-
-  // // next page
-  // const nextPageHandler = () => {
-  //   if (currentPage !== numOfTotalPages) setCurrentPage(currentPage + 1);
-  // };
+    fetchData();
+  }, [page, limits, isActiveTabs, inputFields]);
 
   // // debounced
   const myDebounce = (cb, d) => {
@@ -244,126 +236,63 @@ function EmployeeManagementPage() {
     };
   };
 
-  // const [filteredData, setFilteredData] = useState([]);
-
-  // useEffect(() => {
-  //   if (tableData.length > 0 || !inputFields) {
-  //     const indexOfLastTodo = currentPage * tableDataPerPage;
-  //     const indexOfFirstTodo = indexOfLastTodo - tableDataPerPage;
-  //     const visibleTableData = tableData.slice(
-  //       indexOfFirstTodo,
-  //       indexOfLastTodo
-  //     );
-  //     setFilteredData(visibleTableData);
-  //   }
-  // }, [tableData, currentPage, tableDataPerPage, inputFields]);
-
   // searching
-  const handleSearch = myDebounce(() => {
+  const handleSearch = myDebounce(async () => {
     setError(false);
     // Fetch data based on selected option and search term
-    // console.log(
-    //   `Searching for "${inputFields}" with option "${selectDropdownFilterText}"`
-    // );
-
-    // empty search term
-    // setSelectedDropdownFilterText('');
-    // setInputFields('');
-
     if (inputFields === "") {
       setError(true);
-      // setCurrentPage(1);
-      setPage(1);
+      setPage(0);
       return;
     } else {
       setSearchResultsItems([...searchResultsItems, { name: inputFields }]);
 
-      // filteredEmployees(inputFields)
+      const filterRename = selectDropdownFilterText.toLowerCase();
+      let filterOption = "";
 
-      const filteredEmployees = tableData.filter((employee) => {
-        const searchTerm = inputFields.toLowerCase();
-        const filterOption = selectDropdownFilterText.toLowerCase();
+      const filterOptionsMap = {
+        "mile id": "mileId",
+        "employee name": "employeeName",
+        "location name": "location",
+        "mobile number": "mobileNumber",
+      };
 
-        if (filterOption === "mile id") {
-          return employee.employeeCode.toLowerCase().includes(searchTerm);
-        } else if (filterOption === "employee name") {
-          return employee.employeeName.toLowerCase().includes(searchTerm);
-        } else if (filterOption === "location name") {
-          return employee.bussinessName.toLowerCase().includes(searchTerm);
-        } else if (filterOption === "mobile number") {
-          return employee.designation.toLowerCase().includes(searchTerm);
-        } else if (searchTerm) {
-          const approvalASM = "Pending for ASM Approval";
-          const approvalRSM = "Pending for RSM Approval";
-          return employee.employeeStatus
-            ? approvalASM.toLowerCase() === searchTerm
-            : approvalRSM.toLocaleLowerCase() === searchTerm;
+      filterOption = filterOptionsMap[filterRename];
+
+      if (filterOption && inputFields !== "") {
+        console.log(filterOption);
+        // const baseURL = `/data.json`;
+        const baseURL = `/mile/employee?devisionCode=${isActiveTabs}&page=${page}&size=${limits}&${filterOption}=${inputFields}`;
+
+        try {
+          const config = {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${authorization}`,
+              Accesstoken: accessToken,
+            },
+          };
+
+          const response = await axios.get(baseURL, config);
+          const { data } = response.data;
+          console.log("APIs Data:", data);
+
+          setTotalDataLength(data.totalRecords);
+
+          setTotalPages(data.totalPages);
+
+          setPage(data.currentPage);
+
+          setTableData(data.data);
+
+          // return data.data;
+        } catch (error) {
+          console.error("Error fetching data:", error);
+          return [];
         }
-      });
-
-      console.log(filteredEmployees)
-
-      // setTableData(filteredEmployees);
+      }
     }
   }, 500);
-
-  // filter data fetching
-  // const filteredEmployees = (values) => {
-  //     // filter data based on input fields and selected dropdown filter text
-  //     const searchTerm = values.toLowerCase();
-
-  //     const filteredData = tableData.filter((item) =>
-  //       item.employeeName.toLowerCase().includes(searchTerm)
-  //     );
-
-  //     setFilteredData(filteredData);
-  // }
-
-  // const filteredEmployees = (values) => {
-  //   console.log(values);
-  //   // data fetch with json files
-  //   const filteredEmployees = visibleTableData.filter((employee) => {
-  //     const searchTerm = values.toLowerCase();
-  //     const filterOption = selectDropdownFilterText.toLowerCase();
-
-  // if (filterOption === 'mile id') {
-  //   return employee.employeeCode.toLowerCase().includes(searchTerm);
-  // } else if (filterOption === 'employee name') {
-  //   return employee.employeeName.toLowerCase().includes(searchTerm);
-  // } else if (filterOption === 'location name') {
-  //   return employee.employeeBusinessName.toLowerCase().includes(searchTerm);
-  // } else if (filterOption === 'mobile number') {
-  //   return employee.employeeDesignation.toLowerCase().includes(searchTerm);
-  // } else if (searchTerm) {
-  //   return employee.employeeStatus
-  //     .toString()
-  //     .toLowerCase()
-  //     .includes(searchTerm);
-  // }
-
-  //     // else if (filterOption === 'employee approval status') {
-  //     //   return employee.employeeApprovalStatus
-  //     //     .toLowerCase()
-  //     //     .includes(searchTerm);
-  //     // } else if (filterOption === 'employee location') {
-  //     //   return employee.employeeLocation.toLowerCase().includes(searchTerm);
-  //     // } else if (filterOption === 'employee status') {
-  //     //   return employee.employeeStatus
-  //     //     .toString()
-  //     //     .toLowerCase()
-  //     //     .includes(searchTerm);
-  //     // }
-
-  //     return false;
-  //   });
-
-  //   console.log(filteredEmployees);
-
-  //   // filter data fetching
-  //   // return filteredEmployees;
-  //   // setFilteredEmployeesTableData(filteredEmployees);
-  //   // setTableData(filteredEmployees);
-  // };
 
   // pagination items
   const paginationItems = [
@@ -463,7 +392,7 @@ function EmployeeManagementPage() {
   const handlePreviousDataFetching = (data) => {
     // filteredEmployees(data);
     // console.log(data);
-    // setInputFields(data);
+    setInputFields(data);
     // filteredEmployees(data);
   };
 
@@ -518,15 +447,15 @@ function EmployeeManagementPage() {
                       <button
                         key={tab.id}
                         type="button"
-                        onClick={() => setIsActiveTabs(tab.name)}
+                        onClick={() => setIsActiveTabs(tab.tabs)}
                         style={{
                           textTransform: "capitalize",
                           background:
-                            isActiveTabs === tab.name
+                            isActiveTabs === tab.tabs
                               ? "#FF3E5B"
                               : "transparent",
                           color:
-                            isActiveTabs === tab.name
+                            isActiveTabs === tab.tabs
                               ? "#fff"
                               : `${theme === "light" ? "black" : "white"}`,
                         }}
@@ -559,14 +488,7 @@ function EmployeeManagementPage() {
                     {/* Advanced filters drawer btn */}
                     <button
                       type="button"
-                      // className="advanceFilter"
                       className="btns primary"
-                      // style={{
-                      //   cursor: 'pointer',
-                      //   whiteSpace: 'nowrap',
-                      //   display: 'flex',
-                      //   alignItems: 'center',
-                      // }}
                       onClick={() =>
                         setAdvancedFilterSearch(!advanceFilterSearch)
                       }
@@ -648,7 +570,6 @@ function EmployeeManagementPage() {
                           fontSize: 14,
                           color: "#FF3E5B",
                           fontWeight: 700,
-                          // marginLeft: 6,
                         }}
                       >
                         Advanced Filters
@@ -734,15 +655,15 @@ function EmployeeManagementPage() {
                       <button
                         key={tab.id}
                         type="button"
-                        onClick={() => setIsActiveTabs(tab.name)}
+                        onClick={() => setIsActiveTabs(tab.tabs)}
                         style={{
                           textTransform: "capitalize",
                           background:
-                            isActiveTabs === tab.name
+                            isActiveTabs === tab.tabs
                               ? "#FF3E5B"
                               : "transparent",
                           color:
-                            isActiveTabs === tab.name
+                            isActiveTabs === tab.tabs
                               ? "#fff"
                               : `${theme === "light" ? "black" : "white"}`,
                         }}
@@ -751,96 +672,6 @@ function EmployeeManagementPage() {
                       </button>
                     ))}
                   </div>
-                  {/* right side advance filter box */}
-                  {/* <button
-                    type="button"
-                    className="btns primary"
-                    onClick={() =>
-                      setAdvancedFilterSearch(!advanceFilterSearch)
-                    }
-                  >
-                    icons
-                    <span
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="14"
-                        height="14"
-                        viewBox="0 0 14 14"
-                        fill="none"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M11.6667 8.89581C11.9084 8.89581 12.1042 9.09169 12.1042 9.33331V12.25C12.1042 12.4916 11.9084 12.6875 11.6667 12.6875C11.4251 12.6875 11.2292 12.4916 11.2292 12.25V9.33331C11.2292 9.09169 11.4251 8.89581 11.6667 8.89581Z"
-                          fill="#FF3E5B"
-                        />
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M9.47925 9.33331C9.47925 9.09169 9.67512 8.89581 9.91675 8.89581H13.4167C13.6584 8.89581 13.8542 9.09169 13.8542 9.33331C13.8542 9.57494 13.6584 9.77081 13.4167 9.77081H9.91675C9.67512 9.77081 9.47925 9.57494 9.47925 9.33331Z"
-                          fill="#FF3E5B"
-                        />
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M2.33325 7.72919C2.57488 7.72919 2.77075 7.92506 2.77075 8.16669V12.25C2.77075 12.4916 2.57488 12.6875 2.33325 12.6875C2.09163 12.6875 1.89575 12.4916 1.89575 12.25V8.16669C1.89575 7.92506 2.09163 7.72919 2.33325 7.72919Z"
-                          fill="#FF3E5B"
-                        />
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M0.145752 8.16669C0.145752 7.92506 0.341627 7.72919 0.583252 7.72919H4.08325C4.32488 7.72919 4.52075 7.92506 4.52075 8.16669C4.52075 8.40831 4.32488 8.60419 4.08325 8.60419H0.583252C0.341627 8.60419 0.145752 8.40831 0.145752 8.16669Z"
-                          fill="#FF3E5B"
-                        />
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M7 6.5625C7.24162 6.5625 7.4375 6.75838 7.4375 7V12.25C7.4375 12.4916 7.24162 12.6875 7 12.6875C6.75838 12.6875 6.5625 12.4916 6.5625 12.25V7C6.5625 6.75838 6.75838 6.5625 7 6.5625Z"
-                          fill="#FF3E5B"
-                        />
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M4.8125 4.66669C4.8125 4.42506 5.00838 4.22919 5.25 4.22919H8.75C8.99162 4.22919 9.1875 4.42506 9.1875 4.66669C9.1875 4.90831 8.99162 5.10419 8.75 5.10419H5.25C5.00838 5.10419 4.8125 4.90831 4.8125 4.66669Z"
-                          fill="#FF3E5B"
-                        />
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M11.6667 1.3125C11.9084 1.3125 12.1042 1.50838 12.1042 1.75V7C12.1042 7.24162 11.9084 7.4375 11.6667 7.4375C11.4251 7.4375 11.2292 7.24162 11.2292 7V1.75C11.2292 1.50838 11.4251 1.3125 11.6667 1.3125Z"
-                          fill="#FF3E5B"
-                        />
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M7 1.3125C7.24162 1.3125 7.4375 1.50838 7.4375 1.75V4.66667C7.4375 4.90829 7.24162 5.10417 7 5.10417C6.75838 5.10417 6.5625 4.90829 6.5625 4.66667V1.75C6.5625 1.50838 6.75838 1.3125 7 1.3125Z"
-                          fill="#FF3E5B"
-                        />
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M2.33325 1.3125C2.57488 1.3125 2.77075 1.50838 2.77075 1.75V5.83333C2.77075 6.07496 2.57488 6.27083 2.33325 6.27083C2.09163 6.27083 1.89575 6.07496 1.89575 5.83333V1.75C1.89575 1.50838 2.09163 1.3125 2.33325 1.3125Z"
-                          fill="#FF3E5B"
-                        />
-                      </svg>
-                    </span>
-                    text
-                    <span
-                      style={{
-                        fontSize: 14,
-                        color: "#FF3E5B",
-                        fontWeight: 700,
-                      }}
-                    >
-                      Advanced Filters
-                    </span>
-                  </button> */}
                 </div>
 
                 {/* search filter */}
@@ -1006,6 +837,7 @@ function EmployeeManagementPage() {
                   <div className="searchResultsLeftSide">
                     <p>Search Result :</p>
 
+                    {/* search result items */}
                     <div className="searchResultsList">
                       {searchResultsItems?.map((ele, index) => (
                         <span
@@ -1044,7 +876,16 @@ function EmployeeManagementPage() {
                       ))}
                     </div>
                   </div>
-                  <div className="searchResultsRightSide"></div>
+                  {/* clear buttons */}
+                  {/* setInputFields("") */}
+                  <button
+                    className="btns searchResultsRightSide"
+                    onClick={() => {
+                      setSearchResultsItems([]);
+                    }}
+                  >
+                    clear
+                  </button>
                 </div>
               </>
             )}
@@ -1054,39 +895,24 @@ function EmployeeManagementPage() {
             className="tableContainer"
             style={{
               borderColor: theme === "light" ? "#e6e6e6" : "#232324",
-              // minHeight: inputFields === ""
-              //   ? 'calc(100vh - 320px)'
-              //   : 'calc(100vh - 280px)',
-              // maxHeight: inputFields === ""
-              //   ? 'calc(100vh - 320px)'
-              //   : 'calc(100vh - 280px)',
               // pagination is there height increased
-              minHeight: paginationItems
-                ? "calc(100vh - 260px)"
-                : searchResultsItems.length === 0
-                ? "calc(100vh - 280px)"
-                : "calc(100vh - 320px)",
+              // searchResultsItems.length > 9 ? "calc(100vh - 360px)" :
+              // tableData.length > 9
+              // ? "calc(100vh - 260px)"
+              // :
+              minHeight:
+                searchResultsItems.length !== 0
+                  ? "calc(100vh - 290px)"
+                  : "calc(100vh - 260px)",
               maxHeight:
-                searchResultsItems.length === 0
-                  ? "calc(100vh - 280px)"
-                  : "calc(100vh - 320px)",
+                searchResultsItems.length !== 0
+                  ? "calc(100vh - 290px)"
+                  : "calc(100vh - 260px)",
             }}
           >
             <TableData
-              // tableBody={filteredEmployeesTableData}
-              // tableBody={
-              //   inputFields === ''
-              //     ? visibleTableData
-              //     : filteredEmployeesTableData
-              // }
-              // tableBody={visibleTableData}
-              paginationNumber={array}
-              tableBody={getEmployeeTable(page, limits)}
-              // tableBody={filteredData}
+              tableBody={tableData}
               inputFields={inputFields}
-              // selectDropdownFilterText={selectDropdownFilterText}
-              // tableBody={filteredData}
-              // filteredEmployees={filteredEmployees}
               tableHead={mileTableHead}
               emptyTableData={emptyTableData}
               // Drawer Open state
@@ -1102,8 +928,8 @@ function EmployeeManagementPage() {
             />
           </div>
           {/* mobile view table contents */}
-          {/* <MileHRMobileViewTable
-            tableBody={visibleTableData}
+          <MileHRMobileViewTable
+            tableBody={tableData}
             // tableBody={filteredData}
             // inputFields={inputFields}
             // selectDropdownFilterText={selectDropdownFilterText}
@@ -1121,45 +947,48 @@ function EmployeeManagementPage() {
             // View Drawer open
             tableViewDrawer={tableViewDrawer}
             setTableViewDrawer={setTableViewDrawer}
-          /> */}
+          />
         </div>
         {/* pagination */}
-        <div
-          className={`paginationContainer ${
-            theme === "light" ? "light" : "dark"
-          }`}
-          style={{
-            backgroundColor: theme === "light" ? "#ffffff" : "#0B0B0C",
-          }}
-        >
-          {/* left side */}
-          <div className="leftSide">
-            {/* total length of table data */}
-            <p style={{ color: "#858585", fontSize: 14, whiteSpace: "nowrap" }}>
-              Total{" "}
-              <span style={{ color: theme === "light" ? "black" : "white" }}>
-                {tableData.length}
-              </span>{" "}
-              items
-            </p>
-            {/* table data dropdown pagination limits */}
-            <div className="dropdownContainer">
-              <PaginationDropdown
-                items={paginationItems}
-                dropdownDirection="top"
-                padding="4px 12px"
-                // selected={tableDataPerPage}
-                // setSelected={setTableDataPerPage}
-                selected={limits}
-                setSelected={setLimits}
-                width={84}
-              />
+        {totalDataLength > 9 && (
+          <div
+            className={`paginationContainer ${
+              theme === "light" ? "light" : "dark"
+            }`}
+            style={{
+              backgroundColor: theme === "light" ? "#ffffff" : "#0B0B0C",
+            }}
+          >
+            {/* left side */}
+            <div className="leftSide">
+              {/* total length of table data */}
+              <p
+                style={{ color: "#858585", fontSize: 14, whiteSpace: "nowrap" }}
+              >
+                Total{" "}
+                <span style={{ color: theme === "light" ? "black" : "white" }}>
+                  {totalDataLength}
+                </span>{" "}
+                items
+              </p>
+              {/* table data dropdown pagination limits */}
+              <div className="dropdownContainer">
+                <PaginationDropdown
+                  items={paginationItems}
+                  dropdownDirection="top"
+                  padding="4px 12px"
+                  // selected={tableDataPerPage}
+                  // setSelected={setTableDataPerPage}
+                  selected={limits}
+                  setSelected={setLimits}
+                  width={84}
+                />
+              </div>
             </div>
-          </div>
-          {/* right side */}
-          <div className="rightSide">
-            {/* double clicks start */}
-            {/* <button
+            {/* right side */}
+            <div className="rightSide">
+              {/* double clicks start */}
+              {/* <button
               type="button"
               className={`btn`}
               style={{
@@ -1171,39 +1000,40 @@ function EmployeeManagementPage() {
             >
               &laquo;
             </button> */}
-            {/* left pagination btn */}
-            <button
-              type="button"
-              className={`btn`}
-              // ${currentPage === 1 && "disabledBtn"}
-              style={{
-                border: `1px solid ${
-                  theme === "light" ? "#b5b5b6" : "#858585"
-                }`,
-              }}
-              onClick={() => onPageChanged("&lsaquo;")}
-              // onClick={prevPageHandler}
-              // disabled={currentPage === 1}
-            >
-              <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 14 14"
-                  fill="none"
-                >
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M10.0552 1.51062C9.92303 1.3696 9.70154 1.36246 9.56052 1.49466L3.96052 6.74466C3.88995 6.81083 3.8499 6.90326 3.8499 7C3.8499 7.09675 3.88995 7.18917 3.96052 7.25534L9.56052 12.5053C9.70154 12.6375 9.92303 12.6304 10.0552 12.4894C10.1874 12.3484 10.1803 12.1269 10.0393 11.9947L4.71164 7L10.0393 2.00534C10.1803 1.87314 10.1874 1.65164 10.0552 1.51062Z"
-                    fill="currentColor"
-                  />
-                </svg>
-              </span>
-            </button>
-            {/* Middel table data end */}
-            {/* {pages.map((ele, index) => (
+              {/* left pagination btn */}
+              <button
+                type="button"
+                className={`btn`}
+                // ${currentPage === 1 && "disabledBtn"}
+                style={{
+                  border: `1px solid ${
+                    theme === "light" ? "#b5b5b6" : "#858585"
+                  }`,
+                  cursor: page === 0 ? "not-allowed" : "pointer",
+                }}
+                onClick={() => onPageChanged("&lsaquo;")}
+                // onClick={prevPageHandler}
+                disabled={page === 0}
+              >
+                <span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M10.0552 1.51062C9.92303 1.3696 9.70154 1.36246 9.56052 1.49466L3.96052 6.74466C3.88995 6.81083 3.8499 6.90326 3.8499 7C3.8499 7.09675 3.88995 7.18917 3.96052 7.25534L9.56052 12.5053C9.70154 12.6375 9.92303 12.6304 10.0552 12.4894C10.1874 12.3484 10.1803 12.1269 10.0393 11.9947L4.71164 7L10.0393 2.00534C10.1803 1.87314 10.1874 1.65164 10.0552 1.51062Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </span>
+              </button>
+              {/* Middel table data end */}
+              {/* {pages.map((ele, index) => (
               <button
                 key={index}
                 className="btn paginationBtn"
@@ -1223,88 +1053,91 @@ function EmployeeManagementPage() {
                 {ele}
               </button>
             ))} */}
-            {/* start */}
-            {array.map((value, index) => {
-              const getPage = page === 0 ? 1 : page;
-              // active btns
-              if (value === " ..." || value === "... ") {
-                return (
-                  <button
-                    type="button"
-                    key={index}
-                    style={{
-                      color:
-                        value === getPage
-                          ? "#FF3E5B"
-                          : theme === "light"
-                          ? "#b5b5b6"
-                          : "#858585",
-                    }}
-                    onClick={() => onPageChanged(value)}
+              {/* start */}
+              {array.map((value, index) => {
+                // const getPage = page;
+                const getPage = page;
+
+                // active btns
+                if (value === " ..." || value === "... ") {
+                  return (
+                    <button
+                      type="button"
+                      key={index}
+                      style={{
+                        color:
+                          value === getPage + 1
+                            ? "#FF3E5B"
+                            : theme === "light"
+                            ? "#b5b5b6"
+                            : "#858585",
+                      }}
+                      onClick={() => onPageChanged(value)}
+                    >
+                      •••
+                    </button>
+                  );
+                } else {
+                  return (
+                    <button
+                      className="btn"
+                      key={index}
+                      style={{
+                        borderColor:
+                          value === getPage + 1
+                            ? "#FF3E5B"
+                            : theme === "light"
+                            ? "#b5b5b6"
+                            : "#858585",
+                        color:
+                          value === getPage + 1
+                            ? "#FF3E5B"
+                            : theme === "light"
+                            ? "#b5b5b6"
+                            : "#858585",
+                      }}
+                      onClick={() => onPageChanged(value)}
+                    >
+                      {value}
+                    </button>
+                  );
+                }
+              })}
+              {/* end */}
+              {/* right btn */}
+              <button
+                type="button"
+                className={`btn `}
+                // ${numOfTotalPages === currentPage && "disabledBtn"}
+                style={{
+                  border: `1px solid ${
+                    theme === "light" ? "#b5b5b6" : "#858585"
+                  }`,
+                  cursor: totalDataLength === page ? "not-allowed" : "pointer",
+                }}
+                onClick={() => onPageChanged("&rsaquo;")}
+                // onClick={nextPageHandler}
+                disabled={totalDataLength === page}
+              >
+                <span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 14 14"
+                    fill="none"
                   >
-                    •••
-                  </button>
-                );
-              } else {
-                return (
-                  <button
-                    className="btn"
-                    key={index}
-                    style={{
-                      borderColor:
-                        value === getPage
-                          ? "#FF3E5B"
-                          : theme === "light"
-                          ? "#b5b5b6"
-                          : "#858585",
-                      color:
-                        value === getPage
-                          ? "#FF3E5B"
-                          : theme === "light"
-                          ? "#b5b5b6"
-                          : "#858585",
-                    }}
-                    onClick={() => onPageChanged(value)}
-                  >
-                    {value}
-                  </button>
-                );
-              }
-            })}
-            {/* end */}
-            {/* right btn */}
-            <button
-              type="button"
-              className={`btn `}
-              // ${numOfTotalPages === currentPage && "disabledBtn"}
-              style={{
-                border: `1px solid ${
-                  theme === "light" ? "#b5b5b6" : "#858585"
-                }`,
-              }}
-              onClick={() => onPageChanged("&rsaquo;")}
-              // onClick={nextPageHandler}
-              // disabled={numOfTotalPages === currentPage}
-            >
-              <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 14 14"
-                  fill="none"
-                >
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M3.94476 1.51062C4.07697 1.3696 4.29846 1.36246 4.43948 1.49466L10.0395 6.74466C10.1101 6.81083 10.1501 6.90326 10.1501 7C10.1501 7.09675 10.1101 7.18917 10.0395 7.25534L4.43948 12.5053C4.29846 12.6375 4.07697 12.6304 3.94476 12.4894C3.81256 12.3484 3.8197 12.1269 3.96072 11.9947L9.28836 7L3.96072 2.00534C3.8197 1.87314 3.81256 1.65164 3.94476 1.51062Z"
-                    fill="currentColor"
-                  />
-                </svg>
-              </span>
-            </button>
-            {/* double clicks end */}
-            {/* <button
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M3.94476 1.51062C4.07697 1.3696 4.29846 1.36246 4.43948 1.49466L10.0395 6.74466C10.1101 6.81083 10.1501 6.90326 10.1501 7C10.1501 7.09675 10.1101 7.18917 10.0395 7.25534L4.43948 12.5053C4.29846 12.6375 4.07697 12.6304 3.94476 12.4894C3.81256 12.3484 3.8197 12.1269 3.96072 11.9947L9.28836 7L3.96072 2.00534C3.8197 1.87314 3.81256 1.65164 3.94476 1.51062Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </span>
+              </button>
+              {/* double clicks end */}
+              {/* <button
               type="button"
               className={`btn`}
               style={{
@@ -1316,8 +1149,9 @@ function EmployeeManagementPage() {
             >
               &raquo;
             </button> */}
+            </div>
           </div>
-        </div>
+        )}
       </div>
       {/* footers */}
       {!paginationItems && (

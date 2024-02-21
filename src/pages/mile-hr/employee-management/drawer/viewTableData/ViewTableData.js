@@ -799,17 +799,18 @@ function ViewTableData({
                         backgroundColor: theme === "light" ? "#E6E6E6" : "",
                       }}
                     />
+                    <h5>Address</h5>
                     {/* grid design */}
                     <div className="grid">
                       <div className="gridItems">
                         <label style={{ color: "#545454" }}>
-                          Address 1
+                          Address line 1
                           {editData && <span style={{ color: "red" }}>*</span>}
                         </label>
                         {editData ? (
                           <InputField
                             types="text"
-                            placeholder="Enter"
+                            placeholder="Apartment, unit, building, floor, flat, etc"
                             inputTypes="text"
                             name="employeeName"
                             // errors={errors.first_name}
@@ -827,13 +828,13 @@ function ViewTableData({
 
                       <div className="gridItems">
                         <label style={{ color: "#545454" }}>
-                          Address 2
+                          Address line 2
                           {editData && <span style={{ color: "red" }}>*</span>}
                         </label>
                         {editData ? (
                           <InputField
                             types="text"
-                            placeholder="Enter"
+                            placeholder="Street name, landmark, area, etc"
                             inputTypes="text"
                             name="employeeName"
                             // errors={errors.first_name}

@@ -104,7 +104,7 @@
             align-items: center;
             justify-content: space-between;
             gap: 6px;
-            
+
             & .tabs {
               width: 100%;
 
@@ -135,6 +135,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        gap:10px;
 
         & .searchResultsLeftSide {
           display: flex;
@@ -170,6 +171,12 @@
               justify-content: center;
             }
           }
+        }
+
+        // clear buttons
+        & .searchResultsRightSide {
+          color: #ff3e5b;
+          padding: 0;
         }
       }
     }

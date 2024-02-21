@@ -69,51 +69,7 @@ function MileHRMobileViewTable({
                 </span>
                 <span className={`status ${ele.employeeStatus?theme==="light"?"activeLight":"activeDark":theme==="light"?"disactiveLight":"disactiveDark"}`}>{ele.employeeStatus ? "Active" : "Inctive"}</span>
               </p>
-              {/* designation */}
-              {/* <p>
-                <span
-                  style={{ color: theme === "light" ? "#8c8c8c" : "#8c8c8c" }}
-                >
-                  Designation:
-                </span>
-                <span>{ele.designation ? ele.designation : "--"}</span>
-              </p> */}
             </div>
-            {/* 2 */}
-            {/* <div className="employeeData">
-              employee name
-              <p>
-                <span
-                  style={{ color: theme === "light" ? "#8c8c8c" : "#8c8c8c" }}
-                >
-                  business name:
-                </span>
-                <span>{ele.employeeName}</span>
-              </p>
-              employee code
-              <p>
-                <span
-                  style={{ color: theme === "light" ? "#8c8c8c" : "#8c8c8c" }}
-                >
-                  Approval Status:
-                </span>
-                <span>
-                  {" "}
-                  {ele.approvalStatus === true
-                    ? "Approval"
-                    : "Pending for ASM Approval"}
-                </span>
-              </p>
-              designation
-              <p>
-                <span
-                  style={{ color: theme === "light" ? "#8c8c8c" : "#8c8c8c" }}
-                >
-                  Employee Status:
-                </span>
-                <span>{ele.employeeStatus ? "Active" : "Inctive"}</span>
-              </p>
-            </div> */}
             {/* actions */}
             <div
               className="mileHRMobileViewTableBodyAction"
