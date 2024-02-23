@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./styles.scss";
-import CalendarInput from "../../../../../../../components/calendarInput";
 import Dropdown from "../../../../../../../components/dropdown/Dropdown";
 import { useSelector } from "react-redux";
 import InputField from "../../../../../../../components/inputField/InputField";
@@ -35,21 +34,6 @@ function UserDetailsFieldShow({
     },
     {
       name: "other",
-    },
-  ];
-
-  const state = [
-    {
-      name: "Maharashtra",
-    },
-    {
-      name: "Gujarat",
-    },
-    {
-      name: "Pune",
-    },
-    {
-      name: "Kolkata",
     },
   ];
 
@@ -104,18 +88,6 @@ function UserDetailsFieldShow({
     },
   ];
 
-  const skills = [
-    {
-      name: "Skills 1",
-    },
-    {
-      name: "Skills 2",
-    },
-    {
-      name: "Skills 3",
-    },
-  ];
-
   const reportManager = [
     {
       name: "Report Manager 1",
@@ -153,7 +125,7 @@ function UserDetailsFieldShow({
       name: "Auto OEM",
     },
     {
-      name: "Auto OEM 2",
+      name: "Non Auto OEM",
     },
   ];
 
@@ -199,32 +171,74 @@ function UserDetailsFieldShow({
   // const [firstName, setFirstName] = useState("");
 
   // PIN Code
-  const [pinCodeValue, setPinCodeValue] = useState("");
+  const [pincode, setPincode] = useState("");
 
-  const handlePinCodeFetch = async (pincode) => {
-    // console.log(pincode);
-    if (Number(pincode)) {
+  const [state, setState] = useState([]);
+
+  const [city, setCity] = useState([]);
+
+  const [district, setDistrict] = useState([]);
+
+  const [pinCodeError, setPinCodeError] = useState("");
+
+  const accessToken =
+  "eyJraWQiOiJMVndUWU1OOTg4eUZwbDkyMGxoVzIxQ2NYYWF6ckk0aE1ZYndpSDV5d1Q4PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI0MDAzOGU0My05NzhjLTQ2YWUtYmRiNy0wNTBlMDcxMDVlOTAiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuYXAtc291dGgtMS5hbWF6b25hd3MuY29tXC9hcC1zb3V0aC0xX0VKbWNiS1pyaiIsImNsaWVudF9pZCI6IjU4bTZxOGtucDE5Y2M5NGplZ2x1bnA0bXQ4Iiwib3JpZ2luX2p0aSI6IjY4NzE5ODljLTcyMTgtNGEyOC1iMDdiLTM3ODZjMThlYjcwYyIsImV2ZW50X2lkIjoiMzZlNTdmNzMtZWQxOS00MWJlLWFkZGUtYmUyYjU1OWQ4YTcxIiwidG9rZW5fdXNlIjoiYWNjZXNzIiwic2NvcGUiOiJhd3MuY29nbml0by5zaWduaW4udXNlci5hZG1pbiIsImF1dGhfdGltZSI6MTcwODY2MDU4OCwiZXhwIjoxNzA4NjY0MTg4LCJpYXQiOjE3MDg2NjA1ODgsImp0aSI6IjczYmU3ZjBmLTAxNzItNDFhYy04NzFiLTNhZjg5MGFlM2Y5NCIsInVzZXJuYW1lIjoicmVlbmEifQ.lhcIsuRyN50ZJsqAIZ4mT_fTGVJObIg8cVlkLRg3QIUjcuRA9ZrMWp7ba9aGHYSVEOVbDfnsgT_YVQfQMAJIRTNCIMHF3to_mlIImGkbWCywRpCOr9ItBYhB94pI7Vd8p6eWgTGkAnw6eoK9P6vWn18ET-FFltfByPctQ-AB0Yie2P7XS_49w5pePpAl76RuDa4cpqgqfLrhUftYKWBYCbvk-GqUJ_eiwmeYSBaXdSTsWJ0bU9qdEzlpNi-IpXls0Gn48RRidFgJZEEpIxhu6Du5W4fuKLoT4Z-Ny5mihSYY3R6GZbTkm5U_Y8QUlOa-Tb2jgDQuyLyJR2bh0XplUw";
+const authorization =
+  "eyJraWQiOiJkR1lMQWhzS1JNK092SlwvMlRKRkdTYVJxcFVuN3RsZ0R2SkpTVkhhT3REND0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI0MDAzOGU0My05NzhjLTQ2YWUtYmRiNy0wNTBlMDcxMDVlOTAiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLmFwLXNvdXRoLTEuYW1hem9uYXdzLmNvbVwvYXAtc291dGgtMV9FSm1jYktacmoiLCJjb2duaXRvOnVzZXJuYW1lIjoicmVlbmEiLCJvcmlnaW5fanRpIjoiNjg3MTk4OWMtNzIxOC00YTI4LWIwN2ItMzc4NmMxOGViNzBjIiwiYXVkIjoiNThtNnE4a25wMTljYzk0amVnbHVucDRtdDgiLCJldmVudF9pZCI6IjM2ZTU3ZjczLWVkMTktNDFiZS1hZGRlLWJlMmI1NTlkOGE3MSIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNzA4NjYwNTg4LCJleHAiOjE3MDg2NjQxODgsImlhdCI6MTcwODY2MDU4OCwianRpIjoiMjcwMGI1NzAtODkyYy00MGFkLThiN2ItMDVjZDFhYmFkMDg0IiwiZW1haWwiOiJhbmtpdGF5OTEyODhAZ21haWwuY29tIn0.GhJkeR3AzZLcwRtwAnFRytSC1M72rrYnY1DgOF1LkNlzqEGzM9IVdN5WtiecTsgSA9noTtHOWBfk2kv_8BNb3gIzrCDZjvzOeRQiIZh4FMKgWrY-VCG7K66otUkkFtvpr1rIQf-pDWUoaHngGncoRKPfwXgz4OAGLIUdml50JEiHGI22julh81D8xnngDgZ7Z-Gc_Vd5gjhEZW26oWCQltJXl9RSBPp9akOS5UxpOcnDsRR2Fmi0s1K-YNiI1KvwEeonKpEqQlYBQVnJO5iD-__nBL5VOTgdPkeNKBrewxO4mtTT7iJzF3n1k9UDsbCh57I48scym4KOsel5YfRwqg";
+
+  // debounced
+  const myDebounce = (cb, d) => {
+    let timer;
+    return function (...args) {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => {
+        cb(...args);
+      }, d);
+    };
+  };
+
+  const handlePinCodeChanged = myDebounce(async () => {
+    if (pincode !== "") {
       try {
-        const accessToken = process.env.PUBLIC_PINCODE_APIS_TOKEN;
+        const baseURL = `https://apidev.mahindradealerrise.com/geography/pincodes?pincode=${pincode}`;
+
         const config = {
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${accessToken}`, // add the access token and bearer token here
-            "Access-Token": process.env.PUBLIC_PINCODE_APIS_ACCESS_TOKEN,
+            Authorization: `Bearer ${authorization}`,
+            Accesstoken: accessToken,
           },
         };
 
-        const res = await axios.get(
-          `/apidev.mahindradealerrise.com/geography/pincodes?pincode=${pincode}`,
-          config
-        );
-        console.log(res);
+        const response = await axios.get(baseURL, config);
 
+        const { data } = response.data;
+
+        if (response.data.statusCode === 200) {
+          const stateList = data.pinCodeDetails[0]?.stateName;
+
+          const cityList = data.pinCodeDetails[0]?.cityName;
+
+          const districtList = data.pinCodeDetails[0]?.districtName;
+
+          setState([{ name: stateList }]);
+
+          setCity([{ name: cityList }]);
+
+          setDistrict([{ name: districtList }]);
+        }
+
+        if (response.data.statusCode === 400) {
+          setPinCodeError(response.data.errors);
+        }
       } catch (error) {
-        console.log(error);
+        console.log("pincode fetch error:", error);
       }
     }
-  };
+  }, 500);
+
+  // address checks
+  const [isSameAsPermanent, setIsSameAsPermanent] = useState(false);
 
   return (
     <>
@@ -290,7 +304,7 @@ function UserDetailsFieldShow({
               {/* grid design */}
               <div className="grid">
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
                     First Name<span style={{ color: "red" }}>*</span>
                   </label>
                   <InputField
@@ -299,15 +313,15 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     text={values[0]?.first_name}
                     name="first_name"
-                  // defaultValue={values[0]?.first_name}
-                  // errors={errors.first_name}
-                  // touched={touched.first_name}
-                  // handleChange={handleChange}
+                    // defaultValue={values[0]?.first_name}
+                    // errors={errors.first_name}
+                    // touched={touched.first_name}
+                    // handleChange={handleChange}
                   />
                 </div>
 
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
                     Last Name<span style={{ color: "red" }}>*</span>
                   </label>
                   <InputField
@@ -316,15 +330,15 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     text={values[0]?.last_name}
                     name="last_name"
-                  // defaultValue={values[0]?.last_name}
-                  // errors={errors.first_name}
-                  // touched={touched.first_name}
-                  // handleChange={handleChange}
+                    // defaultValue={values[0]?.last_name}
+                    // errors={errors.first_name}
+                    // touched={touched.first_name}
+                    // handleChange={handleChange}
                   />
                 </div>
 
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
                     Mother's Name<span style={{ color: "red" }}>*</span>
                   </label>
                   <InputField
@@ -333,24 +347,17 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     text={values[0]?.mother_name}
                     name="mother_name"
-                  // defaultValue={values[0]?.mother_name}
-                  // errors={errors.first_name}
-                  // touched={touched.first_name}
-                  // handleChange={handleChange}
+                    // defaultValue={values[0]?.mother_name}
+                    // errors={errors.first_name}
+                    // touched={touched.first_name}
+                    // handleChange={handleChange}
                   />
                 </div>
 
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
                     Date of Birth<span style={{ color: "red" }}>*</span>
                   </label>
-                  {/* <CalendarInput
-                    text={values[0]?.date_birth}
-                    name="dateBirth"
-                    // errors={errors.date_birth}
-                    // handleChange={(value) => handleChange("date_birth")(value)}
-                    // touched={touched.date_birth}
-                  /> */}
                   <ConfigProvider>
                     <SingleDatePicker
                       handleChange={handleDatePickerChange}
@@ -367,7 +374,7 @@ function UserDetailsFieldShow({
                 </div>
 
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
                     Gender<span style={{ color: "red" }}>*</span>
                   </label>
                   <Dropdown
@@ -375,13 +382,13 @@ function UserDetailsFieldShow({
                     selectedText={values[0]?.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="gender"
-                  // touched={touched.gender}
-                  // errors={errors.gender}
+                    // touched={touched.gender}
+                    // errors={errors.gender}
                   />
                 </div>
 
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
                     Aadhaar Card no.<span style={{ color: "red" }}>*</span>
                   </label>
                   <InputField
@@ -390,14 +397,14 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     // text={values.first_name}
                     name="mother_name"
-                  // errors={errors.first_name}
-                  // touched={touched.first_name}
-                  // handleChange={handleChange}
+                    // errors={errors.first_name}
+                    // touched={touched.first_name}
+                    // handleChange={handleChange}
                   />
                 </div>
 
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
                     PAN Card no.<span style={{ color: "red" }}>*</span>
                   </label>
                   <InputField
@@ -406,14 +413,14 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     // text={values.first_name}
                     name="mother_name"
-                  // errors={errors.first_name}
-                  // touched={touched.first_name}
-                  // handleChange={handleChange}
+                    // errors={errors.first_name}
+                    // touched={touched.first_name}
+                    // handleChange={handleChange}
                   />
                 </div>
 
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
                     Mobile Number<span style={{ color: "red" }}>*</span>
                   </label>
                   <InputField
@@ -422,14 +429,14 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     // text={values.first_name}
                     name="mother_name"
-                  // errors={errors.first_name}
-                  // touched={touched.first_name}
-                  // handleChange={handleChange}
+                    // errors={errors.first_name}
+                    // touched={touched.first_name}
+                    // handleChange={handleChange}
                   />
                 </div>
 
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
                     Email Address<span style={{ color: "red" }}>*</span>
                   </label>
                   <InputField
@@ -438,14 +445,14 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     // text={values.first_name}
                     name="email_address"
-                  // errors={errors.first_name}
-                  // touched={touched.first_name}
-                  // handleChange={handleChange}
+                    // errors={errors.first_name}
+                    // touched={touched.first_name}
+                    // handleChange={handleChange}
                   />
                 </div>
 
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
                     Monthlt Salary<span style={{ color: "red" }}>*</span>
                   </label>
                   <InputField
@@ -454,23 +461,16 @@ function UserDetailsFieldShow({
                     inputTypes="text"
                     // text={values.first_name}
                     name="monthly_salary"
-                  // errors={errors.first_name}
-                  // touched={touched.first_name}
-                  // handleChange={handleChange}
+                    // errors={errors.first_name}
+                    // touched={touched.first_name}
+                    // handleChange={handleChange}
                   />
                 </div>
 
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
                     Date of Joining<span style={{ color: "red" }}>*</span>
                   </label>
-                  {/* <CalendarInput
-                    // text={values.date_birth}
-                    name="dateBirth"
-                    // errors={errors.date_birth}
-                    // handleChange={(value) => handleChange("date_birth")(value)}
-                    // touched={touched.date_birth}
-                  /> */}
                   <ConfigProvider>
                     <SingleDatePicker
                       handleChange={handleDatePickerChange}
@@ -495,86 +495,221 @@ function UserDetailsFieldShow({
               />
               {/* flex design */}
               <div className="addressContainer">
-                <h5>Address</h5>
+                <h5>Permanent Address</h5>
+                <div className="flex">
+                  <div className="gridItems">
+                    <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
+                      Permanent Address Line 1
+                      <span style={{ color: "red" }}>*</span>
+                    </label>
+                    <InputField
+                      types="text"
+                      placeholder="House/Flat/Block No./Apartment Name"
+                      inputTypes="text"
+                      // text={values.first_name}
+                      name="address1"
+                      // errors={errors.first_name}
+                      // touched={touched.first_name}
+                      // handleChange={handleChange}
+                    />
+                  </div>
 
-              <div className="flex">
-                <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
-                    Address line 1<span style={{ color: "red" }}>*</span>
-                  </label>
-                  <InputField
-                    types="text"
-                    placeholder="Apartment, unit, building, floor, flat, etc"
-                    inputTypes="text"
-                    // text={values.first_name}
-                    name="address1"
-                  // errors={errors.first_name}
-                  // touched={touched.first_name}
-                  // handleChange={handleChange}
-                  />
+                  <div className="gridItems">
+                    <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
+                      Permanent Address Line 2
+                      <span style={{ color: "red" }}>*</span>
+                    </label>
+                    <InputField
+                      types="text"
+                      placeholder="Road/Area/Landmark"
+                      inputTypes="text"
+                      // text={values.first_name}
+                      name="address2"
+                      // errors={errors.first_name}
+                      // touched={touched.first_name}
+                      // handleChange={handleChange}
+                    />
+                  </div>
+                </div>
+                {/* divider */}
+                <div
+                  className="divider"
+                  style={{
+                    backgroundColor: theme === "light" ? "#E6E6E6" : "",
+                  }}
+                />
+                {/* residential address */}
+                <div className="residentialAddress">
+                  <h5>Residential Address</h5>
+                  {/* same as Permanent */}
+
+                  <div
+                    className="checkBoxPermanent"
+                    onClick={() => setIsSameAsPermanent(!isSameAsPermanent)}
+                  >
+                    <span className="checkbox">
+                      {isSameAsPermanent && (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="9"
+                          height="7"
+                          viewBox="0 0 9 7"
+                          fill="none"
+                        >
+                          <path
+                            d="M3.23158 6.1272C3.09084 6.12783 2.95552 6.07293 2.85499 5.97443L1.09804 4.21748C1.04207 4.16955 0.996603 4.11056 0.964507 4.04422C0.932411 3.97788 0.914376 3.90562 0.911531 3.83198C0.908687 3.75833 0.921095 3.6849 0.947978 3.61628C0.974861 3.54766 1.01564 3.48534 1.06775 3.43323C1.11986 3.38112 1.18218 3.34034 1.2508 3.31346C1.31942 3.28658 1.39285 3.27417 1.46649 3.27701C1.54013 3.27986 1.61239 3.29789 1.67873 3.32999C1.74507 3.36209 1.80406 3.40755 1.852 3.46352L3.22242 4.83394L7.32526 0.78533C7.37457 0.735466 7.43327 0.695878 7.49798 0.66886C7.56269 0.641842 7.63212 0.62793 7.70224 0.62793C7.77237 0.62793 7.84179 0.641842 7.9065 0.66886C7.97121 0.695878 8.02992 0.735466 8.07922 0.78533C8.17881 0.885517 8.23471 1.02104 8.23471 1.16231C8.23471 1.30357 8.17881 1.4391 8.07922 1.53929L3.59978 5.96526C3.55272 6.01597 3.49577 6.0565 3.43245 6.08435C3.36912 6.1122 3.30076 6.12679 3.23158 6.1272Z"
+                            fill="#FF3E5B"
+                          ></path>
+                        </svg>
+                      )}
+                    </span>
+                    <span
+                      style={{
+                        color: isSameAsPermanent
+                          ? "#FF3E5B"
+                          : theme === "light"
+                          ? "#858585"
+                          : "#858585",
+                      }}
+                    >
+                      Same as permanent address
+                    </span>
+                  </div>
                 </div>
 
-                <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
-                    Address line 2<span style={{ color: "red" }}>*</span>
-                  </label>
-                  <InputField
-                    types="text"
-                    placeholder="Street name, landmark, area, etc"
-                    inputTypes="text"
-                    // text={values.first_name}
-                    name="address2"
-                  // errors={errors.first_name}
-                  // touched={touched.first_name}
-                  // handleChange={handleChange}
-                  />
+                <div className="flex">
+                  <div className="gridItems">
+                    <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
+                      Permanent Address Line 1
+                      <span style={{ color: "red" }}>*</span>
+                    </label>
+                    <InputField
+                      types="text"
+                      placeholder="House/Flat/Block No./Apartment Name"
+                      inputTypes="text"
+                      // text={values.first_name}
+                      name="address1"
+                      // errors={errors.first_name}
+                      // touched={touched.first_name}
+                      // handleChange={handleChange}
+                    />
+                  </div>
+
+                  <div className="gridItems">
+                    <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
+                      Permanent Address Line 1
+                      <span style={{ color: "red" }}>*</span>
+                    </label>
+                    <InputField
+                      types="text"
+                      placeholder="House/Flat/Block No./Apartment Name"
+                      inputTypes="text"
+                      // text={values.first_name}
+                      name="address1"
+                      // errors={errors.first_name}
+                      // touched={touched.first_name}
+                      // handleChange={handleChange}
+                    />
+                  </div>
                 </div>
               </div>
-              </div>
+
+              {/* divider */}
+              <div
+                className="divider"
+                style={{
+                  backgroundColor: theme === "light" ? "#E6E6E6" : "",
+                }}
+              />
 
               {/* grid */}
               <div className="grid" style={{ marginTop: 20 }}>
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
                     PIN Code<span style={{ color: "red" }}>*</span>
                   </label>
-                  <InputField
-                    // types is if input field is text or disabled
-                    types="text"
-                    placeholder="PIN Code"
-                    inputTypes="tel"
-                    maxLength={6}
-                    text={pinCodeValue}
-                    handleChange={setPinCodeValue}
-                    name="pinCode"
-                    icons={true}
-                    // pincode search function
-                    handlePinCodeFetch={handlePinCodeFetch}
-                  // <svg
-                  //   width="20"
-                  //   height="20"
-                  //   viewBox="0 0 20 20"
-                  //   fill="none"
-                  //   xmlns="http://www.w3.org/2000/svg"
-                  // >
-                  //   <path
-                  //     fillRule="evenodd"
-                  //     clipRule="evenodd"
-                  //     d="M8.43469 0.400024C3.9972 0.400024 0.399902 3.99732 0.399902 8.43481C0.399902 12.8723 3.9972 16.4696 8.43469 16.4696C10.4375 16.4696 12.2691 15.7368 13.6761 14.5248L18.5756 19.4243C18.8099 19.6586 19.1898 19.6586 19.4242 19.4243C19.6585 19.19 19.6585 18.8101 19.4242 18.5758L14.5246 13.6762C15.7367 12.2692 16.4695 10.4376 16.4695 8.43481C16.4695 3.99732 12.8722 0.400024 8.43469 0.400024ZM1.5999 8.43481C1.5999 4.66006 4.65994 1.60002 8.43469 1.60002C12.2094 1.60002 15.2695 4.66006 15.2695 8.43481C15.2695 12.2096 12.2094 15.2696 8.43469 15.2696C4.65994 15.2696 1.5999 12.2096 1.5999 8.43481Z"
-                  //     fill="#FF3E5B"
-                  //   ></path>
-                  // </svg>
-                  // errors={errors.first_name}
-                  // touched={touched.first_name}
-                  />
-                  {/* error
-                  {touched.date_birth && errors.date_birth ? (
-                    <p className="errors">{errors.date_birth}</p>
-                  ) : null} */}
+                  {/* input */}
+                  <div className="pincodeSearchInputs">
+                    <InputField
+                      types="text"
+                      placeholder="Enter"
+                      inputTypes="tel"
+                      name="pincode"
+                      maxLength={6}
+                      text={pincode && pincode}
+                      errors={pinCodeError}
+                      // touched={touched.first_name}
+                      handleChange={setPincode}
+                    />
+                    {pincode && (
+                      <>
+                        {/* empty pincode text */}
+                        <span
+                          onClick={() => {
+                            setPincode("");
+                            setDistrict([]);
+                            setCity([]);
+                            setState([]);
+                            setPinCodeError("");
+                          }}
+                          className="emptyPincode"
+                        >
+                          <svg
+                            role="presentation"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="12"
+                            height="12"
+                            viewBox="0 0 12 12"
+                            fill="none"
+                          >
+                            <circle
+                              cx="6"
+                              cy="6.00098"
+                              r="6"
+                              fill="#0B0B0C"
+                            ></circle>
+                            <path
+                              fillRule="evenodd"
+                              clipRule="evenodd"
+                              d="M8.79465 3.13888C9.055 3.39923 9.01279 3.86356 8.70037 4.17597L4.17488 8.70146C3.86246 9.01388 3.39814 9.05609 3.13779 8.79574C2.87744 8.53539 2.91965 8.07107 3.23207 7.75865L7.75756 3.23317C8.06998 2.92075 8.5343 2.87854 8.79465 3.13888Z"
+                              fill="white"
+                            ></path>
+                            <path
+                              fillRule="evenodd"
+                              clipRule="evenodd"
+                              d="M3.18582 3.13888C3.44617 2.87854 3.91049 2.92075 4.22291 3.23317L8.7484 7.75865C9.06081 8.07107 9.10303 8.53539 8.84268 8.79574C8.58233 9.05609 8.11801 9.01388 7.80559 8.70146L3.2801 4.17597C2.96768 3.86356 2.92547 3.39923 3.18582 3.13888Z"
+                              fill="white"
+                            ></path>
+                          </svg>
+                        </span>
+
+                        {/* search icons */}
+                        <span
+                          className="searchIcons"
+                          onClick={() => handlePinCodeChanged()}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 20 20"
+                            fill="none"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              clipRule="evenodd"
+                              d="M8.69565 2C4.99775 2 2 4.99775 2 8.69565C2 12.3936 4.99775 15.3913 8.69565 15.3913C10.3646 15.3913 11.891 14.7807 13.0635 13.7706L17.1464 17.8536C17.3417 18.0488 17.6583 18.0488 17.8536 17.8536C18.0488 17.6583 18.0488 17.3417 17.8536 17.1464L13.7706 13.0635C14.7807 11.891 15.3913 10.3646 15.3913 8.69565C15.3913 4.99775 12.3936 2 8.69565 2ZM3 8.69565C3 5.55003 5.55003 3 8.69565 3C11.8413 3 14.3913 5.55003 14.3913 8.69565C14.3913 11.8413 11.8413 14.3913 8.69565 14.3913C5.55003 14.3913 3 11.8413 3 8.69565Z"
+                              fill="#FF3E5B"
+                            />
+                          </svg>
+                        </span>
+                      </>
+                    )}
+                  </div>
                 </div>
 
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
                     State<span style={{ color: "red" }}>*</span>
                   </label>
                   <Dropdown
@@ -582,36 +717,39 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="state"
-                  // touched={touched.gender}
-                  // errors={errors.gender}
+                    // touched={touched.gender}
+                    // errors={errors.gender}
+                    disabled={!city.length}
                   />
                 </div>
 
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
                     District<span style={{ color: "red" }}>*</span>
                   </label>
                   <Dropdown
-                    items={state}
+                    items={district}
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
-                    name="state"
-                  // touched={touched.gender}
-                  // errors={errors.gender}
+                    name="district"
+                    // touched={touched.gender}
+                    // errors={errors.gender}
+                    disabled={!district.length}
                   />
                 </div>
 
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
                     City<span style={{ color: "red" }}>*</span>
                   </label>
                   <Dropdown
-                    items={state}
+                    items={city}
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="state"
-                  // touched={touched.gender}
-                  // errors={errors.gender}
+                    // touched={touched.gender}
+                    // errors={errors.gender}
+                    disabled={!city.length}
                   />
                 </div>
               </div>
@@ -696,16 +834,16 @@ function UserDetailsFieldShow({
               {/* grid design */}
               <div className="grid">
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>bank Name</label>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>bank Name</label>
                   <InputField
                     types="text"
                     placeholder="Enter"
                     inputTypes="text"
                     // text={values.first_name}
                     name="bank_name"
-                  // errors={errors.first_name}
-                  // touched={touched.first_name}
-                  // handleChange={handleChange}
+                    // errors={errors.first_name}
+                    // touched={touched.first_name}
+                    // handleChange={handleChange}
                   />
                 </div>
 
@@ -724,72 +862,58 @@ function UserDetailsFieldShow({
                 </div> */}
 
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>Bank Address</label>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>Bank Address</label>
                   <InputField
                     types="text"
                     placeholder="Enter"
                     inputTypes="text"
                     // text={values.first_name}
                     name="bank_address"
-                  // errors={errors.first_name}
-                  // touched={touched.first_name}
-                  // handleChange={handleChange}
+                    // errors={errors.first_name}
+                    // touched={touched.first_name}
+                    // handleChange={handleChange}
                   />
                 </div>
 
-                {/* <div className="gridItems">
-                  <label style={{ color: "#545454" }}>Branch PIN code</label>
-                  <InputField
-                    types="text"
-                    placeholder="Enter"
-                    inputTypes="text"
-                    // text={values.first_name}
-                    name="bank_pincode"
-                  // errors={errors.first_name}
-                  // touched={touched.first_name}
-                  // handleChange={handleChange}
-                  />
-                </div> */}
-
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>Bank Account No.</label>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>Bank Account No.</label>
                   <InputField
                     types="text"
                     placeholder="Enter"
                     inputTypes="text"
                     // text={values.first_name}
                     name="bank_account_number"
-                  // errors={errors.first_name}
-                  // touched={touched.first_name}
-                  // handleChange={handleChange}
+                    // errors={errors.first_name}
+                    // touched={touched.first_name}
+                    // handleChange={handleChange}
                   />
                 </div>
 
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>IFSC code</label>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>IFSC code</label>
                   <InputField
                     types="text"
                     placeholder="Enter"
                     inputTypes="text"
                     // text={values.first_name}
                     name="bank_ifsc_code"
-                  // errors={errors.first_name}
-                  // touched={touched.first_name}
-                  // handleChange={handleChange}
+                    // errors={errors.first_name}
+                    // touched={touched.first_name}
+                    // handleChange={handleChange}
                   />
                 </div>
 
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>MICR No.</label>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>MICR No.</label>
                   <InputField
                     types="text"
                     placeholder="Enter"
                     inputTypes="text"
                     // text={values.first_name}
                     name="bank_micr_code"
-                  // errors={errors.first_name}
-                  // touched={touched.first_name}
-                  // handleChange={handleChange}
+                    // errors={errors.first_name}
+                    // touched={touched.first_name}
+                    // handleChange={handleChange}
                   />
                 </div>
               </div>
@@ -874,7 +998,7 @@ function UserDetailsFieldShow({
               {/* grid design */}
               <div className="grid">
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
                     Dealer Operations<span style={{ color: "red" }}>*</span>
                   </label>
                   <Dropdown
@@ -882,13 +1006,13 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="dealer_operations"
-                  // touched={touched.gender}
-                  // errors={errors.gender}
+                    // touched={touched.gender}
+                    // errors={errors.gender}
                   />
                 </div>
 
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
                     department<span style={{ color: "red" }}>*</span>
                   </label>
                   <Dropdown
@@ -896,13 +1020,13 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="department"
-                  // touched={touched.gender}
-                  // errors={errors.gender}
+                    // touched={touched.gender}
+                    // errors={errors.gender}
                   />
                 </div>
 
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
                     role<span style={{ color: "red" }}>*</span>
                   </label>
                   <Dropdown
@@ -910,13 +1034,13 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="department"
-                  // touched={touched.gender}
-                  // errors={errors.gender}
+                    // touched={touched.gender}
+                    // errors={errors.gender}
                   />
                 </div>
 
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
                     designation<span style={{ color: "red" }}>*</span>
                   </label>
                   <Dropdown
@@ -924,49 +1048,25 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="designation"
-                  // touched={touched.gender}
-                  // errors={errors.gender}
+                    // touched={touched.gender}
+                    // errors={errors.gender}
                   />
                 </div>
 
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>Qualifications</label>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>Qualifications</label>
                   <Dropdown
                     items={qualifications}
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="qualifications"
-                  // touched={touched.gender}
-                  // errors={errors.gender}
+                    // touched={touched.gender}
+                    // errors={errors.gender}
                   />
                 </div>
 
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>skills</label>
-                  <Dropdown
-                    items={skills}
-                    // selectedText={values.gender}
-                    // handleChange={(value) => handleChange("gender")(value)}
-                    name="skills"
-                  // touched={touched.gender}
-                  // errors={errors.gender}
-                  />
-                </div>
-
-                {/* <div className="gridItems">
-                  <label style={{ color: "#545454" }}>sub skills</label>
-                  <Dropdown
-                    items={skills}
-                    // selectedText={values.gender}
-                    // handleChange={(value) => handleChange("gender")(value)}
-                    name="sub_skills"
-                  // touched={touched.gender}
-                  // errors={errors.gender}
-                  />
-                </div> */}
-
-                <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
                     report Manager<span style={{ color: "red" }}>*</span>
                   </label>
                   <Dropdown
@@ -974,13 +1074,13 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="reportManager"
-                  // touched={touched.gender}
-                  // errors={errors.gender}
+                    // touched={touched.gender}
+                    // errors={errors.gender}
                   />
                 </div>
 
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
                     Employee Type<span style={{ color: "red" }}>*</span>
                   </label>
                   <Dropdown
@@ -988,13 +1088,13 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="reportManager"
-                  // touched={touched.gender}
-                  // errors={errors.gender}
+                    // touched={touched.gender}
+                    // errors={errors.gender}
                   />
                 </div>
 
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
                     Common Employee<span style={{ color: "red" }}>*</span>
                   </label>
                   <Dropdown
@@ -1002,13 +1102,13 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="common_employee"
-                  // touched={touched.gender}
-                  // errors={errors.gender}
+                    // touched={touched.gender}
+                    // errors={errors.gender}
                   />
                 </div>
 
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
                     Dealer Location<span style={{ color: "red" }}>*</span>
                   </label>
                   <Dropdown
@@ -1016,8 +1116,8 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="dealerLocation"
-                  // touched={touched.gender}
-                  // errors={errors.gender}
+                    // touched={touched.gender}
+                    // errors={errors.gender}
                   />
                 </div>
               </div>
@@ -1055,7 +1155,10 @@ function UserDetailsFieldShow({
               {/* title */}
               <h5>Work Experience details</h5>
               {/* button */}
-              <button type="button" onClick={() => setAddTableData(true)}>
+              <button
+                type="button"
+                onClick={() => setAddTableData(!addTableData)}
+              >
                 <span
                   style={{
                     color: addTableData === false ? "#FF3E5B" : "#B5B5B6",
@@ -1134,7 +1237,7 @@ function UserDetailsFieldShow({
               {/* grid design */}
               <div className="grid">
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
                     Industry<span style={{ color: "red" }}>*</span>
                   </label>
                   <Dropdown
@@ -1142,8 +1245,8 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="dealer_operations"
-                  // touched={touched.gender}
-                  // errors={errors.gender}
+                    // touched={touched.gender}
+                    // errors={errors.gender}
                   />
                 </div>
               </div>
@@ -1156,13 +1259,13 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="role"
-                  // touched={touched.gender}
-                  // errors={errors.gender}
+                    // touched={touched.gender}
+                    // errors={errors.gender}
                   />
                 </div>
 
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>
                     Mahindra Dealer Name
                   </label>
                   <Dropdown
@@ -1170,34 +1273,13 @@ function UserDetailsFieldShow({
                     // selectedText={values.gender}
                     // handleChange={(value) => handleChange("gender")(value)}
                     name="role"
-                  // touched={touched.gender}
-                  // errors={errors.gender}
+                    // touched={touched.gender}
+                    // errors={errors.gender}
                   />
                 </div>
 
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>
-                    Dealer For (Non Mahindra OEM)
-                  </label>
-                  <Dropdown
-                    items={dealerName}
-                    // selectedText={values.gender}
-                    // handleChange={(value) => handleChange("gender")(value)}
-                    name="role"
-                  // touched={touched.gender}
-                  // errors={errors.gender}
-                  />
-                </div>
-
-                <div className="gridItems">
-                  <label style={{ color: "#545454" }}>From Date</label>
-                  {/* <CalendarInput
-                    // text={values.date_birth}
-                    name="fromDate"
-                    // errors={errors.date_birth}
-                    // handleChange={(value) => handleChange("date_birth")(value)}
-                    // touched={touched.date_birth}
-                  /> */}
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>From Date</label>
                   <ConfigProvider>
                     <SingleDatePicker
                       handleChange={handleDatePickerChange}
@@ -1214,14 +1296,7 @@ function UserDetailsFieldShow({
                 </div>
 
                 <div className="gridItems">
-                  <label style={{ color: "#545454" }}>To Date</label>
-                  {/* <CalendarInput
-                    // text={values.date_birth}
-                    name="toDate"
-                    // errors={errors.date_birth}
-                    // handleChange={(value) => handleChange("date_birth")(value)}
-                    // touched={touched.date_birth}
-                  /> */}
+                  <label style={{ color: theme === "light" ? "#545454" : "#858585" }}>To Date</label>
                   <ConfigProvider>
                     <SingleDatePicker
                       handleChange={handleDatePickerChange}

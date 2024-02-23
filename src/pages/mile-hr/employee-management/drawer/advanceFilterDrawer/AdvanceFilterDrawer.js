@@ -3,7 +3,6 @@ import "./styles.scss";
 import { useSelector } from "react-redux";
 import Overlay from "../../../../../components/overlay/Overlay";
 import Dropdown from "../../../../../components/dropdown/Dropdown";
-import CalendarInput from "../../../../../components/calendarInput";
 import { ConfigProvider } from "antd";
 import SingleDatePicker from "../../../../../components/date/singleDatePicker/SingleDatePicker";
 
@@ -126,7 +125,6 @@ function AdvanceFilterDrawer({ advanceFilterSearch, setAdvancedFilterSearch }) {
           {/* date */}
           <div className="gridItems">
             <label style={{ color: "#545454" }}>From Date</label>
-            {/* <CalendarInput /> */}
             <ConfigProvider>
               <SingleDatePicker
                 // onChange={handleDatePickerChange}
@@ -144,7 +142,6 @@ function AdvanceFilterDrawer({ advanceFilterSearch, setAdvancedFilterSearch }) {
 
           <div className="gridItems">
             <label style={{ color: "#545454" }}>To Date</label>
-            {/* <CalendarInput /> */}
             <ConfigProvider>
               <SingleDatePicker
                 // onChange={handleDatePickerChange}

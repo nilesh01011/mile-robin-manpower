@@ -51,7 +51,6 @@ function Dropdown({ items, minWidth, dropdownMenWidth, defaultSelected }) {
       onClick={() => setCollapsed(!collapsed)}
     >
       <div
-        //   onClick={(e) => handleClicksFinalYearListDropdown(e)}
         className="dropdown-header"
       >
         <p
@@ -84,7 +83,6 @@ function Dropdown({ items, minWidth, dropdownMenWidth, defaultSelected }) {
               xmlns="http://www.w3.org/2000/svg"
               style={{
                 transform: collapsed && "rotate(180deg)",
-                // transition: "transform 0.3s ease-in-out",
               }}
               width="12"
               height="12"

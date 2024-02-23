@@ -31,7 +31,6 @@
 
     & .cancelButton {
       display: none;
-      // right: 5px;
     }
 
     &:hover .dateIcons {
@@ -80,25 +79,15 @@
 // ========================================
 
 .ant-picker-input input {
-  // color: red;
 
   &::placeholder {
     color: #a3a3a3 !important;
   }
 }
 
-.anticon.anticon-swap-right svg {
-  color: #ff3e5b !important;
-}
-
-.anticon.anticon-calendar svg {
-  color: #ff3e5b !important;
-}
-
-.ant-picker-clear .anticon.anticon-close-circle svg {
-  color: #ff3e5b !important;
-}
-
+.anticon.anticon-swap-right svg,
+.anticon.anticon-calendar svg,
+.ant-picker-clear .anticon.anticon-close-circle svg,
 .ant-picker-suffix {
   & span.anticon.anticon-calendar {
     color: #ff3e5b !important;
@@ -157,7 +146,6 @@
 }
 
 // dark theme layout
-
 .dark :where(.css-1xg9z9n).ant-picker .ant-picker-input > input,
 .dark
   :where(.css-dev-only-do-not-override-1xg9z9n).ant-picker
@@ -183,10 +171,7 @@
 }
 
 .dark :where(.css-dev-only-do-not-override-1bw14ii).ant-picker-outlined,
-.dark :where(.css-dev-only-do-not-override-pwpnrm).ant-picker-outlined {
-  background: #1c1c1c;
-}
-
+.dark :where(.css-dev-only-do-not-override-pwpnrm).ant-picker-outlined,
 .dark :where(.css-1xg9z9n).ant-picker-dropdown .ant-picker-panel-container,
 .dark
   :where(.css-dev-only-do-not-override-1xg9z9n).ant-picker-dropdown
@@ -198,6 +183,32 @@
   :where(.css-dev-only-do-not-override-pwpnrm).ant-picker-dropdown
   .ant-picker-panel-container {
   background: #1c1c1c;
+}
+
+.dark :where(.css-1xg9z9n).ant-picker-dropdown .ant-picker-header,
+.dark
+  :where(.css-dev-only-do-not-override-1xg9z9n).ant-picker-dropdown
+  .ant-picker-header
+  button,
+.dark
+  :where(.css-dev-only-do-not-override-1bw14ii).ant-picker-dropdown
+  .ant-picker-header
+  button,
+.dark
+  :where(.css-dev-only-do-not-override-pwpnrm).ant-picker-dropdown
+  .ant-picker-header
+  button,
+.dark :where(.css-1xg9z9n).ant-picker-dropdown .ant-picker-cell,
+.dark
+  :where(.css-dev-only-do-not-override-1xg9z9n).ant-picker-dropdown
+  .ant-picker-cell,
+.dark
+  :where(.css-dev-only-do-not-override-1bw14ii).ant-picker-dropdown
+  .ant-picker-cell,
+.dark
+  :where(.css-dev-only-do-not-override-pwpnrm).ant-picker-dropdown
+  .ant-picker-cell {
+  color: #545454;
 }
 
 .dark
@@ -218,26 +229,7 @@
   :where(.css-dev-only-do-not-override-pwpnrm).ant-picker-dropdown
   .ant-picker-header
   .ant-picker-header-view
-  button {
-  color: #fff;
-}
-
-.dark :where(.css-1xg9z9n).ant-picker-dropdown .ant-picker-header,
-.dark
-  :where(.css-dev-only-do-not-override-1xg9z9n).ant-picker-dropdown
-  .ant-picker-header
   button,
-.dark
-  :where(.css-dev-only-do-not-override-1bw14ii).ant-picker-dropdown
-  .ant-picker-header
-  button,
-.dark
-  :where(.css-dev-only-do-not-override-pwpnrm).ant-picker-dropdown
-  .ant-picker-header
-  button {
-  color: #545454;
-}
-
 .dark :where(.css-1xg9z9n).ant-picker-dropdown .ant-picker-content th,
 .dark
   :where(.css-dev-only-do-not-override-1xg9z9n).ant-picker-dropdown
@@ -250,23 +242,7 @@
 .dark
   :where(.css-dev-only-do-not-override-pwpnrm).ant-picker-dropdown
   .ant-picker-content
-  th {
-  color: #fff;
-}
-
-.dark :where(.css-1xg9z9n).ant-picker-dropdown .ant-picker-cell,
-.dark
-  :where(.css-dev-only-do-not-override-1xg9z9n).ant-picker-dropdown
-  .ant-picker-cell,
-.dark
-  :where(.css-dev-only-do-not-override-1bw14ii).ant-picker-dropdown
-  .ant-picker-cell,
-.dark
-  :where(.css-dev-only-do-not-override-pwpnrm).ant-picker-dropdown
-  .ant-picker-cell {
-  color: #545454;
-}
-
+  th,
 .dark :where(.css-1xg9z9n).ant-picker-dropdown .ant-picker-cell-in-view,
 .dark
   :where(.css-dev-only-do-not-override-1xg9z9n).ant-picker-dropdown
@@ -276,10 +252,7 @@
   .ant-picker-cell-in-view,
 .dark
   :where(.css-dev-only-do-not-override-pwpnrm).ant-picker-dropdown
-  .ant-picker-cell-in-view {
-  color: #fff;
-}
-
+  .ant-picker-cell-in-view,
 .dark :where(.css-dev-only-do-not-override-1xg9z9n) a,
 .dark :where(.css-dev-only-do-not-override-1bw14ii) a,
 .dark :where(.css-dev-only-do-not-override-pwpnrm) a {

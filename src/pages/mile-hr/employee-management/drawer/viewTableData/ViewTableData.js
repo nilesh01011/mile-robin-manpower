@@ -5,11 +5,11 @@ import "./styles.scss";
 import moment from "moment";
 import InputField from "../../../../../components/inputField/InputField";
 import Dropdown from "../../../../../components/dropdown/Dropdown";
-import CalendarInput from "../../../../../components/calendarInput";
 import EditWorkExperience from "./editWorkExperience";
 import { ConfigProvider } from "antd";
 import SingleDatePicker from "../../../../../components/date/singleDatePicker/SingleDatePicker";
 import CheckBoxSelectDropdown from "../../../../../components/checkBoxSelectDropdown/CheckBoxSelectDropdown";
+import axios from "axios";
 
 function ViewTableData({
   viewTableDataDrawer,
@@ -43,42 +43,6 @@ function ViewTableData({
     },
     {
       name: "female",
-    },
-  ];
-
-  const city = [
-    {
-      name: "Maharashtra",
-    },
-    {
-      name: "Maharashtra 1",
-    },
-    {
-      name: "Maharashtra 2",
-    },
-  ];
-
-  const state = [
-    {
-      name: "Maharashtra",
-    },
-    {
-      name: "Maharashtra 1",
-    },
-    {
-      name: "Maharashtra 2",
-    },
-  ];
-
-  const district = [
-    {
-      name: "Maharashtra",
-    },
-    {
-      name: "Maharashtra 1",
-    },
-    {
-      name: "Maharashtra 2",
     },
   ];
 
@@ -131,18 +95,6 @@ function ViewTableData({
     },
     {
       name: "Qualifications 2",
-    },
-  ];
-
-  const skills = [
-    {
-      name: "Skills 1",
-    },
-    {
-      name: "Skills 2",
-    },
-    {
-      name: "Skills 3",
     },
   ];
 
@@ -208,6 +160,76 @@ function ViewTableData({
 
   // role based
   const [isCommonEmployee, setIsCommonEmployee] = useState("Yes");
+
+  // address checks
+  const [isSameAsPermanent, setIsSameAsPermanent] = useState(false);
+
+  const accessToken =
+    "eyJraWQiOiJMVndUWU1OOTg4eUZwbDkyMGxoVzIxQ2NYYWF6ckk0aE1ZYndpSDV5d1Q4PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI0MDAzOGU0My05NzhjLTQ2YWUtYmRiNy0wNTBlMDcxMDVlOTAiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuYXAtc291dGgtMS5hbWF6b25hd3MuY29tXC9hcC1zb3V0aC0xX0VKbWNiS1pyaiIsImNsaWVudF9pZCI6IjU4bTZxOGtucDE5Y2M5NGplZ2x1bnA0bXQ4Iiwib3JpZ2luX2p0aSI6IjY4NzE5ODljLTcyMTgtNGEyOC1iMDdiLTM3ODZjMThlYjcwYyIsImV2ZW50X2lkIjoiMzZlNTdmNzMtZWQxOS00MWJlLWFkZGUtYmUyYjU1OWQ4YTcxIiwidG9rZW5fdXNlIjoiYWNjZXNzIiwic2NvcGUiOiJhd3MuY29nbml0by5zaWduaW4udXNlci5hZG1pbiIsImF1dGhfdGltZSI6MTcwODY2MDU4OCwiZXhwIjoxNzA4NjY0MTg4LCJpYXQiOjE3MDg2NjA1ODgsImp0aSI6IjczYmU3ZjBmLTAxNzItNDFhYy04NzFiLTNhZjg5MGFlM2Y5NCIsInVzZXJuYW1lIjoicmVlbmEifQ.lhcIsuRyN50ZJsqAIZ4mT_fTGVJObIg8cVlkLRg3QIUjcuRA9ZrMWp7ba9aGHYSVEOVbDfnsgT_YVQfQMAJIRTNCIMHF3to_mlIImGkbWCywRpCOr9ItBYhB94pI7Vd8p6eWgTGkAnw6eoK9P6vWn18ET-FFltfByPctQ-AB0Yie2P7XS_49w5pePpAl76RuDa4cpqgqfLrhUftYKWBYCbvk-GqUJ_eiwmeYSBaXdSTsWJ0bU9qdEzlpNi-IpXls0Gn48RRidFgJZEEpIxhu6Du5W4fuKLoT4Z-Ny5mihSYY3R6GZbTkm5U_Y8QUlOa-Tb2jgDQuyLyJR2bh0XplUw";
+  const authorization =
+    "eyJraWQiOiJkR1lMQWhzS1JNK092SlwvMlRKRkdTYVJxcFVuN3RsZ0R2SkpTVkhhT3REND0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI0MDAzOGU0My05NzhjLTQ2YWUtYmRiNy0wNTBlMDcxMDVlOTAiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLmFwLXNvdXRoLTEuYW1hem9uYXdzLmNvbVwvYXAtc291dGgtMV9FSm1jYktacmoiLCJjb2duaXRvOnVzZXJuYW1lIjoicmVlbmEiLCJvcmlnaW5fanRpIjoiNjg3MTk4OWMtNzIxOC00YTI4LWIwN2ItMzc4NmMxOGViNzBjIiwiYXVkIjoiNThtNnE4a25wMTljYzk0amVnbHVucDRtdDgiLCJldmVudF9pZCI6IjM2ZTU3ZjczLWVkMTktNDFiZS1hZGRlLWJlMmI1NTlkOGE3MSIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNzA4NjYwNTg4LCJleHAiOjE3MDg2NjQxODgsImlhdCI6MTcwODY2MDU4OCwianRpIjoiMjcwMGI1NzAtODkyYy00MGFkLThiN2ItMDVjZDFhYmFkMDg0IiwiZW1haWwiOiJhbmtpdGF5OTEyODhAZ21haWwuY29tIn0.GhJkeR3AzZLcwRtwAnFRytSC1M72rrYnY1DgOF1LkNlzqEGzM9IVdN5WtiecTsgSA9noTtHOWBfk2kv_8BNb3gIzrCDZjvzOeRQiIZh4FMKgWrY-VCG7K66otUkkFtvpr1rIQf-pDWUoaHngGncoRKPfwXgz4OAGLIUdml50JEiHGI22julh81D8xnngDgZ7Z-Gc_Vd5gjhEZW26oWCQltJXl9RSBPp9akOS5UxpOcnDsRR2Fmi0s1K-YNiI1KvwEeonKpEqQlYBQVnJO5iD-__nBL5VOTgdPkeNKBrewxO4mtTT7iJzF3n1k9UDsbCh57I48scym4KOsel5YfRwqg";
+
+  // debounced
+  const myDebounce = (cb, d) => {
+    let timer;
+    return function (...args) {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => {
+        cb(...args);
+      }, d);
+    };
+  };
+
+  const [pincode, setPincode] = useState("");
+
+  const [state, setState] = useState([]);
+  const [city, setCity] = useState([]);
+
+  const [district, setDistrict] = useState([]);
+
+  const [pinCodeError, setPinCodeError] = useState("");
+
+  const handlePinCodeChanged = myDebounce(async () => {
+    if (pincode !== "") {
+      try {
+        const baseURL = `https://apidev.mahindradealerrise.com/geography/pincodes?pincode=${pincode}`;
+
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authorization}`,
+            Accesstoken: accessToken,
+          },
+        };
+
+        const response = await axios.get(baseURL, config);
+
+        const { data } = response.data;
+
+        console.log(data);
+
+        if (response.data.statusCode === 200) {
+          const stateList = data.pinCodeDetails[0]?.stateName;
+
+          const cityList = data.pinCodeDetails[0]?.cityName;
+
+          const districtList = data.pinCodeDetails[0]?.districtName;
+
+          setState([{ name: stateList }]);
+
+          setCity([{ name: cityList }]);
+
+          setDistrict([{ name: districtList }]);
+        }
+
+        if (response.data.statusCode === 400) {
+          setPinCodeError(response.data.errors);
+        }
+      } catch (error) {
+        console.log("pincode fetch error:", error);
+      }
+    }
+  }, 500);
 
   return (
     <>
@@ -376,7 +398,9 @@ function ViewTableData({
                     Location Name:
                   </span>
                   <span className="rightText">
-                    {employeeDrawerData?.employeeLocation}
+                    {employeeDrawerData?.location
+                      ? employeeDrawerData.location
+                      : "--"}
                   </span>
                 </p>
                 {/* divider */}
@@ -617,15 +641,6 @@ function ViewTableData({
                           <p className="errors">{errors.date_birth}</p>
                         ) : null} */}
                             </ConfigProvider>
-
-                            {/* <CalendarInput
-                       // text={values[0]?.date_birth}
-                       name="dateBirth"
-                       placeholder="DD/MM/YYYY"
-                       // errors={errors.date_birth}
-                       // handleChange={(value) => handleChange("date_birth")(value)}
-                       // touched={touched.date_birth}
-                     /> */}
                           </>
                         ) : (
                           <span>09 Sep 1982</span>
@@ -702,7 +717,9 @@ function ViewTableData({
                           <InputField
                             types="text"
                             placeholder="Enter 10 Digits Number"
-                            inputTypes="password"
+                            inputTypes="tel"
+                            maxLength={10}
+                            text="9987577635"
                             // text={values.first_name}
                             name="mobilenumber"
                             // errors={errors.first_name}
@@ -710,7 +727,7 @@ function ViewTableData({
                             // handleChange={handleChange}
                           />
                         ) : (
-                          <span>+91-9987577635</span>
+                          <span>+91 9987577635</span>
                         )}
                       </div>
 
@@ -777,15 +794,6 @@ function ViewTableData({
                                 <p className="errors">{errors.date_birth}</p>
                               ) : null} */}
                             </ConfigProvider>
-
-                            {/* <CalendarInput
-                             // text={values[0]?.date_birth}
-                             name="dateBirth"
-                             placeholder="DD/MM/YYYY"
-                             // errors={errors.date_birth}
-                             // handleChange={(value) => handleChange("date_birth")(value)}
-                             // touched={touched.date_birth}
-                           /> */}
                           </>
                         ) : (
                           <span>20/01/2024</span>
@@ -799,133 +807,329 @@ function ViewTableData({
                         backgroundColor: theme === "light" ? "#E6E6E6" : "",
                       }}
                     />
-                    <h5>Address</h5>
+
+                    {/* Permanent address */}
+                    <h5>Permanent Address</h5>
+                    <div className="flex">
+                      <div className="gridItems">
+                        <label style={{ color: "#545454" }}>
+                          Permanent Address Line 1
+                          {editData && <span style={{ color: "red" }}>*</span>}
+                        </label>
+                        {editData ? (
+                          <InputField
+                            types="text"
+                            placeholder="House/Flat/Block No./Apartment Name"
+                            inputTypes="text"
+                            name="employeeName"
+                            // errors={errors.first_name}
+                            // touched={touched.first_name}
+                            // handleChange={handleChange}
+                          />
+                        ) : (
+                          <span>
+                            {employeeDrawerData?.employeeLocation
+                              ? employeeDrawerData?.employeeLocation
+                              : "--"}
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="gridItems">
+                        <label style={{ color: "#545454" }}>
+                          Permanent Address Line 2
+                          {editData && <span style={{ color: "red" }}>*</span>}
+                        </label>
+                        {editData ? (
+                          <InputField
+                            types="text"
+                            placeholder="Road/Area/Landmark"
+                            inputTypes="text"
+                            name="employeeName"
+                            // errors={errors.first_name}
+                            // touched={touched.first_name}
+                            // handleChange={handleChange}
+                          />
+                        ) : (
+                          <span>
+                            {employeeDrawerData?.employeeLocation
+                              ? employeeDrawerData?.employeeLocation
+                              : "--"}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* divider */}
+                    <div
+                      className="divider"
+                      style={{
+                        backgroundColor: theme === "light" ? "#E6E6E6" : "",
+                      }}
+                    />
+
+                    {/* residential address */}
+                    <div className="residentialAddress">
+                      <h5>Residential Address</h5>
+                      {/* same as Permanent */}
+                      {editData && (
+                        <div
+                          className="checkBoxPermanent"
+                          onClick={() =>
+                            setIsSameAsPermanent(!isSameAsPermanent)
+                          }
+                        >
+                          <span className="checkbox">
+                            {isSameAsPermanent && (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="9"
+                                height="7"
+                                viewBox="0 0 9 7"
+                                fill="none"
+                              >
+                                <path
+                                  d="M3.23158 6.1272C3.09084 6.12783 2.95552 6.07293 2.85499 5.97443L1.09804 4.21748C1.04207 4.16955 0.996603 4.11056 0.964507 4.04422C0.932411 3.97788 0.914376 3.90562 0.911531 3.83198C0.908687 3.75833 0.921095 3.6849 0.947978 3.61628C0.974861 3.54766 1.01564 3.48534 1.06775 3.43323C1.11986 3.38112 1.18218 3.34034 1.2508 3.31346C1.31942 3.28658 1.39285 3.27417 1.46649 3.27701C1.54013 3.27986 1.61239 3.29789 1.67873 3.32999C1.74507 3.36209 1.80406 3.40755 1.852 3.46352L3.22242 4.83394L7.32526 0.78533C7.37457 0.735466 7.43327 0.695878 7.49798 0.66886C7.56269 0.641842 7.63212 0.62793 7.70224 0.62793C7.77237 0.62793 7.84179 0.641842 7.9065 0.66886C7.97121 0.695878 8.02992 0.735466 8.07922 0.78533C8.17881 0.885517 8.23471 1.02104 8.23471 1.16231C8.23471 1.30357 8.17881 1.4391 8.07922 1.53929L3.59978 5.96526C3.55272 6.01597 3.49577 6.0565 3.43245 6.08435C3.36912 6.1122 3.30076 6.12679 3.23158 6.1272Z"
+                                  fill="#FF3E5B"
+                                ></path>
+                              </svg>
+                            )}
+                          </span>
+                          <span
+                            style={{
+                              color: isSameAsPermanent
+                                ? "#FF3E5B"
+                                : theme === "light"
+                                ? "#858585"
+                                : "#858585",
+                            }}
+                          >
+                            Same as permanent address
+                          </span>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="flex">
+                      <div className="gridItems">
+                        <label style={{ color: "#545454" }}>
+                          Residential Address Line 1
+                          {editData && <span style={{ color: "red" }}>*</span>}
+                        </label>
+                        {editData ? (
+                          <InputField
+                            types="text"
+                            placeholder="House/Flat/Block No./Apartment Name"
+                            inputTypes="text"
+                            name="employeeName"
+                            // errors={errors.first_name}
+                            // touched={touched.first_name}
+                            // handleChange={handleChange}
+                          />
+                        ) : (
+                          <span>
+                            {employeeDrawerData?.employeeLocation
+                              ? employeeDrawerData?.employeeLocation
+                              : "--"}
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="gridItems">
+                        <label style={{ color: "#545454" }}>
+                          Residential Address Line 2
+                          {editData && <span style={{ color: "red" }}>*</span>}
+                        </label>
+                        {editData ? (
+                          <InputField
+                            types="text"
+                            placeholder="Road/Area/Landmark"
+                            inputTypes="text"
+                            name="employeeName"
+                            // errors={errors.first_name}
+                            // touched={touched.first_name}
+                            // handleChange={handleChange}
+                          />
+                        ) : (
+                          <span>
+                            {employeeDrawerData?.employeeLocation
+                              ? employeeDrawerData?.employeeLocation
+                              : "--"}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* divider */}
+                    <div
+                      className="divider"
+                      style={{
+                        backgroundColor: theme === "light" ? "#E6E6E6" : "",
+                      }}
+                    />
+
                     {/* grid design */}
                     <div className="grid">
-                      <div className="gridItems">
-                        <label style={{ color: "#545454" }}>
-                          Address line 1
-                          {editData && <span style={{ color: "red" }}>*</span>}
-                        </label>
-                        {editData ? (
-                          <InputField
-                            types="text"
-                            placeholder="Apartment, unit, building, floor, flat, etc"
-                            inputTypes="text"
-                            name="employeeName"
-                            // errors={errors.first_name}
-                            // touched={touched.first_name}
-                            // handleChange={handleChange}
-                          />
-                        ) : (
-                          <span>
-                            {employeeDrawerData?.employeeLocation
-                              ? employeeDrawerData?.employeeLocation
-                              : "--"}
-                          </span>
-                        )}
-                      </div>
-
-                      <div className="gridItems">
-                        <label style={{ color: "#545454" }}>
-                          Address line 2
-                          {editData && <span style={{ color: "red" }}>*</span>}
-                        </label>
-                        {editData ? (
-                          <InputField
-                            types="text"
-                            placeholder="Street name, landmark, area, etc"
-                            inputTypes="text"
-                            name="employeeName"
-                            // errors={errors.first_name}
-                            // touched={touched.first_name}
-                            // handleChange={handleChange}
-                          />
-                        ) : (
-                          <span>
-                            {employeeDrawerData?.employeeLocation
-                              ? employeeDrawerData?.employeeLocation
-                              : "--"}
-                          </span>
-                        )}
-                      </div>
-
                       <div className="gridItems">
                         <label style={{ color: "#545454" }}>
                           PIN Code
                           {editData && <span style={{ color: "red" }}>*</span>}
                         </label>
                         {editData ? (
-                          <InputField
-                            types="text"
-                            placeholder="Enter"
-                            inputTypes="tel"
-                            name="pincode"
-                            // errors={errors.first_name}
-                            // touched={touched.first_name}
-                            // handleChange={handleChange}
-                          />
+                          <div className="pincodeSearchInputs">
+                            <InputField
+                              types="text"
+                              placeholder="Enter"
+                              inputTypes="tel"
+                              name="pincode"
+                              maxLength={6}
+                              text={pincode && pincode}
+                              errors={pinCodeError}
+                              // touched={touched.first_name}
+                              handleChange={setPincode}
+                            />
+                            {pincode && (
+                              <>
+                                {/* empty pincode text */}
+                                <span
+                                  onClick={() => {
+                                    setPincode("");
+                                    setDistrict([]);
+                                    setCity([]);
+                                    setState([]);
+                                    setPinCodeError("");
+                                  }}
+                                  className="emptyPincode"
+                                >
+                                  <svg
+                                    role="presentation"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="12"
+                                    height="12"
+                                    viewBox="0 0 12 12"
+                                    fill="none"
+                                  >
+                                    <circle
+                                      cx="6"
+                                      cy="6.00098"
+                                      r="6"
+                                      fill="#0B0B0C"
+                                    ></circle>
+                                    <path
+                                      fillRule="evenodd"
+                                      clipRule="evenodd"
+                                      d="M8.79465 3.13888C9.055 3.39923 9.01279 3.86356 8.70037 4.17597L4.17488 8.70146C3.86246 9.01388 3.39814 9.05609 3.13779 8.79574C2.87744 8.53539 2.91965 8.07107 3.23207 7.75865L7.75756 3.23317C8.06998 2.92075 8.5343 2.87854 8.79465 3.13888Z"
+                                      fill="white"
+                                    ></path>
+                                    <path
+                                      fillRule="evenodd"
+                                      clipRule="evenodd"
+                                      d="M3.18582 3.13888C3.44617 2.87854 3.91049 2.92075 4.22291 3.23317L8.7484 7.75865C9.06081 8.07107 9.10303 8.53539 8.84268 8.79574C8.58233 9.05609 8.11801 9.01388 7.80559 8.70146L3.2801 4.17597C2.96768 3.86356 2.92547 3.39923 3.18582 3.13888Z"
+                                      fill="white"
+                                    ></path>
+                                  </svg>
+                                </span>
+
+                                {/* search icons */}
+                                <span
+                                  className="searchIcons"
+                                  onClick={() => handlePinCodeChanged()}
+                                >
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="20"
+                                    height="20"
+                                    viewBox="0 0 20 20"
+                                    fill="none"
+                                  >
+                                    <path
+                                      fillRule="evenodd"
+                                      clipRule="evenodd"
+                                      d="M8.69565 2C4.99775 2 2 4.99775 2 8.69565C2 12.3936 4.99775 15.3913 8.69565 15.3913C10.3646 15.3913 11.891 14.7807 13.0635 13.7706L17.1464 17.8536C17.3417 18.0488 17.6583 18.0488 17.8536 17.8536C18.0488 17.6583 18.0488 17.3417 17.8536 17.1464L13.7706 13.0635C14.7807 11.891 15.3913 10.3646 15.3913 8.69565C15.3913 4.99775 12.3936 2 8.69565 2ZM3 8.69565C3 5.55003 5.55003 3 8.69565 3C11.8413 3 14.3913 5.55003 14.3913 8.69565C14.3913 11.8413 11.8413 14.3913 8.69565 14.3913C5.55003 14.3913 3 11.8413 3 8.69565Z"
+                                      fill="#FF3E5B"
+                                    />
+                                  </svg>
+                                </span>
+                              </>
+                            )}
+                          </div>
                         ) : (
-                          <span>401303</span>
+                          <span>{pincode ? pincode : "--"}</span>
+                        )}
+                        {/* error */}
+                        {pinCodeError && (
+                          <p className="errors">{pinCodeError}</p>
                         )}
                       </div>
 
-                      <div className="gridItems">
-                        <label style={{ color: "#545454" }}>
-                          State
-                          {editData && <span style={{ color: "red" }}>*</span>}
-                        </label>
-                        {editData ? (
-                          <Dropdown
-                            items={state}
-                            selectedText=""
-                            // handleChange={(value) => handleChange("gender")(value)}
-                            name="state"
-                            // touched={touched.gender}
-                            // errors={errors.gender}
-                          />
-                        ) : (
-                          <span>Maharashtra</span>
-                        )}
-                      </div>
+                      {state.length !== 0 && pincode !== "" && (
+                        <div className="gridItems">
+                          <label style={{ color: "#545454" }}>
+                            State
+                            {editData && (
+                              <span style={{ color: "red" }}>*</span>
+                            )}
+                          </label>
+                          {editData ? (
+                            <Dropdown
+                              items={state}
+                              selectedText={state[0].name}
+                              // handleChange={(value) => handleChange("gender")(value)}
+                              name="state"
+                              // touched={touched.gender}
+                              // errors={errors.gender}
+                            />
+                          ) : (
+                            <span>Maharashtra</span>
+                          )}
+                        </div>
+                      )}
 
-                      <div className="gridItems">
-                        <label style={{ color: "#545454" }}>
-                          District
-                          {editData && <span style={{ color: "red" }}>*</span>}
-                        </label>
-                        {editData ? (
-                          <Dropdown
-                            items={district}
-                            selectedText=""
-                            // handleChange={(value) => handleChange("gender")(value)}
-                            name="district"
-                            // touched={touched.gender}
-                            // errors={errors.gender}
-                          />
-                        ) : (
-                          <span>Palghar</span>
-                        )}
-                      </div>
+                      {district.length !== 0 && pincode !== "" && (
+                        <div className="gridItems">
+                          <label style={{ color: "#545454" }}>
+                            District
+                            {editData && (
+                              <span style={{ color: "red" }}>*</span>
+                            )}
+                          </label>
+                          {editData ? (
+                            <Dropdown
+                              items={district}
+                              selectedText={district[0].name}
+                              // handleChange={(value) => handleChange("gender")(value)}
+                              name="district"
+                              // touched={touched.gender}
+                              // errors={errors.gender}
+                            />
+                          ) : (
+                            <span>Palghar</span>
+                          )}
+                        </div>
+                      )}
 
-                      <div className="gridItems">
-                        <label style={{ color: "#545454" }}>
-                          City
-                          {editData && <span style={{ color: "red" }}>*</span>}
-                        </label>
-                        {editData ? (
-                          <Dropdown
-                            items={city}
-                            selectedText=""
-                            // handleChange={(value) => handleChange("gender")(value)}
-                            name="city"
-                            // touched={touched.gender}
-                            // errors={errors.gender}
-                          />
-                        ) : (
-                          <span>Virar</span>
-                        )}
-                      </div>
+                      {city.length !== 0 && pincode !== "" && (
+                        <div className="gridItems">
+                          <label style={{ color: "#545454" }}>
+                            City
+                            {editData && (
+                              <span style={{ color: "red" }}>*</span>
+                            )}
+                          </label>
+                          {editData ? (
+                            <Dropdown
+                              items={city}
+                              selectedText={city[0].name}
+                              // handleChange={(value) => handleChange("gender")(value)}
+                              name="city"
+                              // touched={touched.gender}
+                              // errors={errors.gender}
+                            />
+                          ) : (
+                            <span>Virar</span>
+                          )}
+                        </div>
+                      )}
                     </div>
 
                     {editData && (
@@ -1390,7 +1594,7 @@ function ViewTableData({
                         )}
                       </div>
 
-                      <div className="gridItems">
+                      {/* <div className="gridItems">
                         <label style={{ color: "#545454" }}>Skills</label>
                         {editData3 ? (
                           <Dropdown
@@ -1398,22 +1602,6 @@ function ViewTableData({
                             // selectedText={values.gender}
                             // handleChange={(value) => handleChange("gender")(value)}
                             name="skills"
-                            // touched={touched.gender}
-                            // errors={errors.gender}
-                          />
-                        ) : (
-                          <span>Marketing</span>
-                        )}
-                      </div>
-
-                      {/* <div className="gridItems">
-                        <label style={{ color: "#545454" }}>Sub Skills</label>
-                        {editData3 ? (
-                          <Dropdown
-                            items={skills}
-                            // selectedText={values.gender}
-                            // handleChange={(value) => handleChange("gender")(value)}
-                            name="sub_skills"
                             // touched={touched.gender}
                             // errors={errors.gender}
                           />
@@ -1487,13 +1675,14 @@ function ViewTableData({
                             Dealer Location
                             <span style={{ color: "red" }}>*</span>
                           </label>
-                          {
-                            editData3 ?
+                          {editData3 ? (
                             <CheckBoxSelectDropdown
                               items={dealerLocation}
                               name="dealerLocation"
-                            /> : <span>{isCommonEmployee}</span>
-                          }
+                            />
+                          ) : (
+                            <span>{isCommonEmployee}</span>
+                          )}
                         </div>
                       )}
                     </div>

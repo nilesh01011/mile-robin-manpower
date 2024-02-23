@@ -39,7 +39,17 @@ function InputField({
   handlePinCodeFetch,
   maxLength,
 }) {
-  const [inputText, setInputText] = useState(text ? text : "");
+  const [inputText, setInputText] = useState("");
+  // const [inputText, setInputText] = useState(text ? text : "");
+
+  useEffect(()=>{
+    if(text !== undefined){
+      setInputText(text);
+    } else {
+      setInputText(inputText);
+    }
+  },[text])
+
   const theme = useSelector((state) => state.theme);
   const [isClicked, setIsClicked] = useState(false);
 
@@ -81,7 +91,6 @@ function InputField({
     >
       <input
         type={inputTypes}
-        // maxLength={inputTypes === "tel" ? 10 : null}
         maxLength={maxLength&&maxLength}
         value={inputText}
         onChange={handleChangedText}

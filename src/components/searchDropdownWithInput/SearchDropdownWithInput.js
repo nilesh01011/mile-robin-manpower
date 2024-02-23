@@ -106,15 +106,6 @@ function SearchDropdownWithInput({
                     : selectDropdownFilterText}
                 </p>
 
-                {/* <p
-                  style={{ color: theme === 'light' ? 'black' : '#A3A3A3' }}
-                  className="selectFields mobileView"
-                >
-                  {selectDropdownFilterText === ""
-                    ? dropdownList[0].name
-                    : selectDropdownFilterText}
-                </p> */}
-
                 {/* icons */}
                 <div
                   style={{

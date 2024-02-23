@@ -1,183 +1,248 @@
 .addEmployeeDetails {
+  width: 100%;
+  height: 100%;
+  max-height: calc(100vh - 150px);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 20px;
+  // padding-bottom: 130px !important;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  & .addEmployeeAccordionContainer {
     width: 100%;
-    height: 100%;
-    max-height: calc(100vh - 150px);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding-bottom: 20px;
-    // padding-bottom: 130px !important;
-    overflow-y: scroll;
-  
-    &::-webkit-scrollbar {
-      width: 5px;
-    }
-  
-    & .addEmployeeAccordionContainer {
-      width: 100%;
-      height: max-content;
-      padding: 20px 30px;
-      border: 1px solid;
-      border-radius: 4px;
-      user-select: none;
-  
-      & .accordionHeader {
+    height: max-content;
+    padding: 20px 30px;
+    border: 1px solid;
+    border-radius: 4px;
+    user-select: none;
+
+    & .accordionHeader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      & .addButtonTable {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-  
-        & .addButtonTable {
+        gap: 20px;
+
+        & button {
           display: flex;
           align-items: center;
-          gap: 20px;
-  
-          & button {
+          gap: 6px;
+
+          & span {
+            font-weight: 700;
+          }
+        }
+      }
+
+      & h5 {
+        font-size: 16px;
+        font-weight: 700;
+        text-transform: capitalize;
+      }
+
+      & span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+    }
+
+    & .accordionContainerBody {
+      width: 100%;
+
+      & .divider {
+        margin: 20px 0;
+        width: 100%;
+        height: 1px;
+        display: block;
+      }
+
+      & .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        align-items: center;
+        gap: 20px 24px;
+      }
+
+      & .gridItems {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        & label {
+          text-transform: capitalize;
+          font-size: 14px;
+        }
+
+        & .pincodeSearchInputs {
+          position: relative;
+          
+          & .searchIcons,
+          & .emptyPincode {
+            position: absolute;
+            top: 8px;
+            cursor: pointer;
+          }
+          
+          & .emptyPincode {
+            right: 38px;
+          }
+
+          & .searchIcons {
+            right: 12px;
+          }
+        }
+      }
+
+      & h5 {
+        font-size: 16px;
+        font-weight: 700;
+        white-space: nowrap;
+        margin-bottom: 20px;
+      }
+
+      // addressContainer
+      // & .addressContainer {
+      //   display: flex;
+      //   flex-direction: column;
+
+        // & h5 {
+        //   font-size: 16px;
+        //   font-weight: 700;
+        // }
+      // }
+
+      & .residentialAddress {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 20px;
+
+        & h5 {
+          margin-bottom: 0;
+        }
+
+        // checkBoxPermanent
+        & .checkBoxPermanent {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          cursor: pointer;
+          user-select: none;
+
+          & span {
+            font-size: 14px;
+          }
+
+          & .checkbox {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            border: 1px solid;
             display: flex;
             align-items: center;
-            gap: 6px;
-  
-            & span {
-              font-weight: 700;
-            }
+            justify-content: center;
           }
         }
-  
-        & h5 {
-          font-size: 16px;
-          font-weight: 700;
-          text-transform: capitalize;
-        }
-  
-        & span {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-        }
       }
-  
-      & .accordionContainerBody {
+
+      // gapTop
+      // & .gapTop {
+      //   margin-top: 20px;
+      // }
+
+      // flex
+      & .flex {
         width: 100%;
-  
-        & .divider {
-          margin: 20px 0;
-          width: 100%;
-          height: 1px;
-          display: block;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+      }
+
+      & .table {
+        border-radius: 4px;
+
+        & table {
+          & thead {
+            border-radius: 4px;
+          }
+
+          & th {
+            font-weight: 500;
+          }
+
+          & td {
+            font-weight: 400;
+            max-width: 141px;
+          }
+
+          & th,
+          & td {
+            padding: 12px 20px;
+            font-size: 14px;
+            white-space: wrap;
+          }
+
+          & .actionBtns {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+          }
         }
-  
+      }
+    }
+  }
+}
+
+// media queries
+
+@media screen and (max-width: 1280px) {
+  .addEmployeeDetails {
+    & .addEmployeeAccordionContainer {
+      & .accordionContainerBody {
         & .grid {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          align-items: center;
-          gap: 20px 24px;
+          grid-template-columns: repeat(3, 1fr);
         }
-  
-        & .gridItems {
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          gap: 6px;
-  
-          & label {
-            text-transform: capitalize;
-            font-size: 14px;
-          }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .addEmployeeDetails {
+    & .addEmployeeAccordionContainer {
+      & .accordionContainerBody {
+        & .grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .addEmployeeDetails {
+    & .addEmployeeAccordionContainer {
+      & .accordionContainerBody {
+        & .grid {
+          grid-template-columns: repeat(1, 1fr);
         }
 
-        // addressContainer
-        & .addressContainer {
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-
-          & h5 {
-            font-size: 14px;
-            font-weight: 600;
-          }
-        }
-  
-        // flex
         & .flex {
-          width: 100%;
-          display: flex;
-          align-items: center;
-          gap: 24px;
-        }
-  
-        & .table {
-          border-radius: 4px;
-  
-          & table {
-            & thead {
-              border-radius: 4px;
-            }
-  
-            & th {
-              font-weight: 500;
-            }
-  
-            & td {
-              font-weight: 400;
-              max-width: 141px;
-            }
-  
-            & th,
-            & td {
-              padding: 12px 20px;
-              font-size: 14px;
-              white-space: wrap;
-            }
-  
-            & .actionBtns {
-              display: flex;
-              align-items: center;
-              gap: 20px;
-            }
-          }
+          flex-direction: column;
         }
       }
     }
   }
-
-  // media queries
-
-  @media screen and (max-width: 1280px) {
-    .addEmployeeDetails {
-      & .addEmployeeAccordionContainer {
-        & .accordionContainerBody {
-          & .grid {
-            grid-template-columns: repeat(3, 1fr);
-          }
-        }
-      }
-    }
-  }
-
-  @media screen and (max-width: 992px) {
-    .addEmployeeDetails {
-      & .addEmployeeAccordionContainer {
-        & .accordionContainerBody {
-          & .grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-        }
-      }
-    }
-  }
-
-  @media screen and (max-width: 660px) {
-    .addEmployeeDetails {
-      & .addEmployeeAccordionContainer {
-        & .accordionContainerBody {
-          & .grid {
-            grid-template-columns: repeat(1, 1fr);
-          }
-
-          & .flex {
-            flex-direction: column;
-          }
-        }
-      }
-    }
-  }
+}

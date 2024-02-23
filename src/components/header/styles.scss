@@ -82,16 +82,13 @@
                 width: 100%;
                 display: flex;
                 align-items: center;
-                // gap: 15px;
                 white-space: nowrap;
                 font-size: 14px;
                 cursor: pointer;
-                // padding: 6px;
                 border-radius: 4px;
                 user-select: none;
   
                 &:hover {
-                  // color: #ff3e5b;
   
                   & .iconsColor svg path:first-child {
                     fill: #ff3e5b !important;
@@ -110,10 +107,6 @@
                   text-transform: capitalize;
                   border-radius: 4px;
                   padding: 5px 10px;
-  
-                  // &:hover {
-                  //   color: #ff3e5b !important;
-                  // }
                 }
   
                 &:not(:last-child) {
@@ -151,7 +144,6 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        // gap: 0.7rem;
   
         & .helpDeskText {
           display: flex;
@@ -380,13 +372,6 @@
   }
   }
   
-  // @media screen and (max-width: 1280px) {
-  //   .header {
-  //     padding-left: 32px;
-  //     padding-right: 32px;
-  //   }
-  // }
-  
   @media screen and (max-width: 1038px) {
     .header {
       padding-left: 26px;
@@ -398,7 +383,6 @@
     .header {
       padding-top:10px;
       & .headerLeft {
-        //   display: none;
         & .mobileViewBtn {
           display: flex;
           align-items: center;

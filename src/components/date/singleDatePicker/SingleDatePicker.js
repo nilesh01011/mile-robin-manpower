@@ -2,7 +2,6 @@ import { DatePicker } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import "../styles.scss";
 import { useSelector } from "react-redux";
-import moment from "moment";
 
 let useClickOutSide = (handler) => {
   let domNode = useRef();
@@ -47,17 +46,9 @@ function SingleDatePicker({
     setIsClicked(false);
   });
 
-  // useEffect(() => {
-  //   if (!isValues) {
-  //     document.querySelector(".cal1 .ant-picker-input input").placeholder =
-  //       "DD/MM/YYYY";
-  //   }
-  // }, [isValues]);
-
   const handleChangedCalendar = (date, dateString) => {
     handleChange(dateString);
     setIsValues(dateString);
-    // console.log(dateString);
   };
 
   return (

@@ -5,13 +5,9 @@ import { employeeExists } from "../../../../../../../formikSchema/addEmployee";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import Dropdown from "../../../../../../../components/dropdown/Dropdown";
-import CalendarInput from "../../../../../../../components/calendarInput";
 import InputField from "../../../../../../../components/inputField/InputField";
-import LoadingCircle from "../../../../../../../components/loadingCircle/LoadingCircle";
 import SingleDatePicker from "../../../../../../../components/date/singleDatePicker/SingleDatePicker";
 import { ConfigProvider } from "antd";
-import MuiltiDatePicker from "../../../../../../../components/date/muiltiDatePicker/MuiltiDatePicker";
-import moment from "moment";
 
 function UserValidate({
   // userValidate drawer show
@@ -286,21 +282,6 @@ function UserValidate({
                 <p className="errors">{errors.date_birth}</p>
               ) : null}
             </ConfigProvider>
-            {/* antd date picker */}
-            {/* <SingleDatePicker
-                text={values.date_birth}
-                name="dateBirth"
-                errors={errors.date_birth}
-                handleChange={(value) => handleChange("date_birth")(value)}
-                touched={touched.date_birth}
-              /> */}
-            {/* <CalendarInput
-              text={values.date_birth}
-              name="dateBirth"
-              errors={errors.date_birth}
-              handleChange={(value) => handleChange("date_birth")(value)}
-              touched={touched.date_birth}
-            /> */}
           </div>
 
           {/* dropdown */}

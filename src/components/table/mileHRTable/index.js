@@ -29,18 +29,17 @@ function TableData({
   tableHead,
   tableBody,
   emptyTableData,
-  selectDropdownFilterText,
-  inputFields,
   // View Drawer open
   viewTableDataDrawer,
   setViewTableDataDrawer,
   // Emplo data state
   setEmployeeDrawerData,
-  // drawer select data
-  setSelectTableView,
-  // view drawer open
-  tableViewDrawer,
-  setTableViewDrawer,
+  // Filter Approval and Active/Inactive
+  handleSelectApprovalText,
+  handleSelectEmployeeApprovalText,
+
+  approvalText,
+  setApprovalText,
 }) {
   const theme = useSelector((state) => state.theme);
 
@@ -48,8 +47,6 @@ function TableData({
 
   // approval status box
   const [approvalStatus, setApprovalStatus] = useState(false);
-  // approval box text
-  const [approvalStatusText, setApprovalStatusText] = useState("");
 
   const filterApprovalStatus = [
     {
@@ -63,7 +60,7 @@ function TableData({
   // employee status box
   const [employeeStatus, setEmployeeStatus] = useState(false);
   // approval box text
-  const [employeeStatusText, setEmployeeStatusText] = useState("");
+  const [employeeText, setEmployeeText] = useState("");
 
   const filterEmployeeStatus = [
     {
@@ -79,40 +76,27 @@ function TableData({
     setEmployeeStatus(false);
   });
 
-  const handleSelectApprovalText = (text) => {
-    if (text === approvalStatusText) {
-      setApprovalStatusText("");
+  // Approval status
+  const handleChangeApprovalText = (text) => {
+    if (text === approvalText) {
+      setApprovalText("");
+      handleSelectApprovalText("");
     } else {
-      setApprovalStatusText(text);
+      setApprovalText(text);
+      handleSelectApprovalText(text);
     }
   };
 
-  const handleSelectEmployeeApprovalText = (text) => {
-    if (text === employeeStatusText) {
-      setEmployeeStatusText("");
+  // Employee Approval Status
+  const handleChangeEmployeeApprovalText = (text) => {
+    if (text === employeeText) {
+      setEmployeeText("");
+      handleSelectEmployeeApprovalText("");
     } else {
-      setEmployeeStatusText(text);
+      setEmployeeText(text);
+      handleSelectEmployeeApprovalText(text);
     }
   };
-
-  // filters
-  const filterData = tableBody.filter((item) => {
-    const approvalFilter =
-      approvalStatusText === ""
-        ? item
-        : item.approvalStatus
-        ? "Pending for ASM Approval" === approvalStatusText
-        : "Pending for RSM Approval" === approvalStatusText;
-
-    const employeeFilter =
-      employeeStatusText === ""
-        ? item
-        : item.employeeStatus
-        ? "Active" === employeeStatusText
-        : "Inactive" === employeeStatusText;
-
-    return approvalFilter && employeeFilter;
-  });
 
   return (
     <table>
@@ -153,160 +137,169 @@ function TableData({
                   {ele.label}
                   {/* filter icons */}
                   {index === 5 && (
-                    <span
-                      style={{ cursor: "pointer" }}
-                      onClick={() => setApprovalStatus(!approvalStatus)}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="14"
-                        height="15"
-                        viewBox="0 0 14 15"
-                        fill="none"
+                    <>
+                      <span
+                        style={{ cursor: "pointer" }}
+                        onClick={() => setApprovalStatus(!approvalStatus)}
                       >
-                        <path
-                          d="M8.66055 3.5943L8.66143 3.59522L10.5345 5.55531C10.583 5.60608 10.5953 5.67494 10.5681 5.74367C10.5548 5.77734 10.5352 5.8006 10.5172 5.81386C10.5019 5.82512 10.4828 5.83341 10.4525 5.83341L6.81719 5.83341L3.54362 5.83341C3.5031 5.83341 3.45771 5.81265 3.42973 5.74239C3.4018 5.67225 3.41461 5.60451 3.46162 5.55531L6.48428 2.3923C6.77154 2.0917 7.22991 2.09156 7.51733 2.39189C7.51746 2.39203 7.51759 2.39217 7.51772 2.3923L8.66055 3.5943Z"
-                          stroke="#B5B5B6"
-                        />
-                        <path
-                          d="M6.48646 12.6101L6.48647 12.6101L6.48438 12.6079L3.46285 9.44491L3.10131 9.79029L3.46285 9.44491C3.41436 9.39415 3.40213 9.32523 3.42929 9.25644C3.44259 9.22274 3.46225 9.19949 3.48018 9.18625C3.49542 9.17501 3.51443 9.16675 3.54462 9.16675L6.81697 9.16675L10.451 9.16675C10.4811 9.16675 10.5002 9.17499 10.5157 9.18639C10.5338 9.19979 10.5539 9.2234 10.5675 9.25772C10.5955 9.32802 10.5828 9.39717 10.5369 9.44668L8.66615 11.405L7.51704 12.6079C7.22864 12.9098 6.76625 12.9066 6.48646 12.6101Z"
-                          fill="white"
-                          stroke="#B5B5B6"
-                        />
-                      </svg>
-                    </span>
-                  )}
-                  {/* filter of approval status */}
-                  {index === 5 && approvalStatus && (
-                    <div
-                      className="filterApprovalStatus"
-                      style={{
-                        borderColor: theme === "light" ? "#0B0B0C" : "white",
-                        backgroundColor: theme === "light" ? "#fff" : "#0B0B0C",
-                      }}
-                      ref={domNode}
-                    >
-                      {filterApprovalStatus.map((e, i) => (
-                        <div
-                          className={`selectApprovalText ${
-                            theme === "light" ? "lightTheme" : "darkTheme"
-                          }`}
-                          key={i}
-                          onClick={() => handleSelectApprovalText(e.name)}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="14"
+                          height="15"
+                          viewBox="0 0 14 15"
+                          fill="none"
                         >
-                          <p
-                            style={{
-                              borderColor:
-                                theme === "light" ? "#0B0B0C" : "white",
-                            }}
-                          >
-                            {approvalStatusText === e.name && (
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="9"
-                                height="7"
-                                viewBox="0 0 9 7"
-                                fill="none"
+                          <path
+                            d="M8.66055 3.5943L8.66143 3.59522L10.5345 5.55531C10.583 5.60608 10.5953 5.67494 10.5681 5.74367C10.5548 5.77734 10.5352 5.8006 10.5172 5.81386C10.5019 5.82512 10.4828 5.83341 10.4525 5.83341L6.81719 5.83341L3.54362 5.83341C3.5031 5.83341 3.45771 5.81265 3.42973 5.74239C3.4018 5.67225 3.41461 5.60451 3.46162 5.55531L6.48428 2.3923C6.77154 2.0917 7.22991 2.09156 7.51733 2.39189C7.51746 2.39203 7.51759 2.39217 7.51772 2.3923L8.66055 3.5943Z"
+                            stroke="#B5B5B6"
+                          />
+                          <path
+                            d="M6.48646 12.6101L6.48647 12.6101L6.48438 12.6079L3.46285 9.44491L3.10131 9.79029L3.46285 9.44491C3.41436 9.39415 3.40213 9.32523 3.42929 9.25644C3.44259 9.22274 3.46225 9.19949 3.48018 9.18625C3.49542 9.17501 3.51443 9.16675 3.54462 9.16675L6.81697 9.16675L10.451 9.16675C10.4811 9.16675 10.5002 9.17499 10.5157 9.18639C10.5338 9.19979 10.5539 9.2234 10.5675 9.25772C10.5955 9.32802 10.5828 9.39717 10.5369 9.44668L8.66615 11.405L7.51704 12.6079C7.22864 12.9098 6.76625 12.9066 6.48646 12.6101Z"
+                            fill="white"
+                            stroke="#B5B5B6"
+                          />
+                        </svg>
+                      </span>
+                      {/* dropdown */}
+                      {approvalStatus && (
+                        <div
+                          className="filterApprovalStatus"
+                          style={{
+                            borderColor:
+                              theme === "light" ? "#0B0B0C" : "white",
+                            backgroundColor:
+                              theme === "light" ? "#fff" : "#0B0B0C",
+                          }}
+                          ref={domNode}
+                        >
+                          {filterApprovalStatus.map((e, i) => (
+                            <div
+                              className={`selectApprovalText ${
+                                theme === "light" ? "lightTheme" : "darkTheme"
+                              }`}
+                              key={i}
+                              onClick={() => handleChangeApprovalText(e.name)}
+                            >
+                              <p
+                                style={{
+                                  borderColor:
+                                    theme === "light" ? "#0B0B0C" : "white",
+                                }}
                               >
-                                <path
-                                  d="M3.23158 6.1272C3.09084 6.12783 2.95552 6.07293 2.85499 5.97443L1.09804 4.21748C1.04207 4.16955 0.996603 4.11056 0.964507 4.04422C0.932411 3.97788 0.914376 3.90562 0.911531 3.83198C0.908687 3.75833 0.921095 3.6849 0.947978 3.61628C0.974861 3.54766 1.01564 3.48534 1.06775 3.43323C1.11986 3.38112 1.18218 3.34034 1.2508 3.31346C1.31942 3.28658 1.39285 3.27417 1.46649 3.27701C1.54013 3.27986 1.61239 3.29789 1.67873 3.32999C1.74507 3.36209 1.80406 3.40755 1.852 3.46352L3.22242 4.83394L7.32526 0.78533C7.37457 0.735466 7.43327 0.695878 7.49798 0.66886C7.56269 0.641842 7.63212 0.62793 7.70224 0.62793C7.77237 0.62793 7.84179 0.641842 7.9065 0.66886C7.97121 0.695878 8.02992 0.735466 8.07922 0.78533C8.17881 0.885517 8.23471 1.02104 8.23471 1.16231C8.23471 1.30357 8.17881 1.4391 8.07922 1.53929L3.59978 5.96526C3.55272 6.01597 3.49577 6.0565 3.43245 6.08435C3.36912 6.1122 3.30076 6.12679 3.23158 6.1272Z"
-                                  fill="#FF3E5B"
-                                />
-                              </svg>
-                            )}
-                          </p>
-                          <span
-                            style={{
-                              color: approvalStatusText === e.name && "#FF3E5B",
-                            }}
-                          >
-                            {e.name}
-                          </span>
+                                {approvalText === e.name && (
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="9"
+                                    height="7"
+                                    viewBox="0 0 9 7"
+                                    fill="none"
+                                  >
+                                    <path
+                                      d="M3.23158 6.1272C3.09084 6.12783 2.95552 6.07293 2.85499 5.97443L1.09804 4.21748C1.04207 4.16955 0.996603 4.11056 0.964507 4.04422C0.932411 3.97788 0.914376 3.90562 0.911531 3.83198C0.908687 3.75833 0.921095 3.6849 0.947978 3.61628C0.974861 3.54766 1.01564 3.48534 1.06775 3.43323C1.11986 3.38112 1.18218 3.34034 1.2508 3.31346C1.31942 3.28658 1.39285 3.27417 1.46649 3.27701C1.54013 3.27986 1.61239 3.29789 1.67873 3.32999C1.74507 3.36209 1.80406 3.40755 1.852 3.46352L3.22242 4.83394L7.32526 0.78533C7.37457 0.735466 7.43327 0.695878 7.49798 0.66886C7.56269 0.641842 7.63212 0.62793 7.70224 0.62793C7.77237 0.62793 7.84179 0.641842 7.9065 0.66886C7.97121 0.695878 8.02992 0.735466 8.07922 0.78533C8.17881 0.885517 8.23471 1.02104 8.23471 1.16231C8.23471 1.30357 8.17881 1.4391 8.07922 1.53929L3.59978 5.96526C3.55272 6.01597 3.49577 6.0565 3.43245 6.08435C3.36912 6.1122 3.30076 6.12679 3.23158 6.1272Z"
+                                      fill="#FF3E5B"
+                                    />
+                                  </svg>
+                                )}
+                              </p>
+                              <span
+                                style={{
+                                  color: approvalText === e.name && "#FF3E5B",
+                                }}
+                              >
+                                {e.name}
+                              </span>
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
+                      )}
+                    </>
                   )}
+
                   {/* employee status filter */}
                   {index === 7 && (
-                    <span
-                      style={{ cursor: "pointer" }}
-                      onClick={() => setEmployeeStatus(!employeeStatus)}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="14"
-                        height="15"
-                        viewBox="0 0 14 15"
-                        fill="none"
+                    <>
+                      <span
+                        style={{ cursor: "pointer" }}
+                        onClick={() => setEmployeeStatus(!employeeStatus)}
                       >
-                        <path
-                          d="M8.66055 3.5943L8.66143 3.59522L10.5345 5.55531C10.583 5.60608 10.5953 5.67494 10.5681 5.74367C10.5548 5.77734 10.5352 5.8006 10.5172 5.81386C10.5019 5.82512 10.4828 5.83341 10.4525 5.83341L6.81719 5.83341L3.54362 5.83341C3.5031 5.83341 3.45771 5.81265 3.42973 5.74239C3.4018 5.67225 3.41461 5.60451 3.46162 5.55531L6.48428 2.3923C6.77154 2.0917 7.22991 2.09156 7.51733 2.39189C7.51746 2.39203 7.51759 2.39217 7.51772 2.3923L8.66055 3.5943Z"
-                          stroke="#B5B5B6"
-                        />
-                        <path
-                          d="M6.48646 12.6101L6.48647 12.6101L6.48438 12.6079L3.46285 9.44491L3.10131 9.79029L3.46285 9.44491C3.41436 9.39415 3.40213 9.32523 3.42929 9.25644C3.44259 9.22274 3.46225 9.19949 3.48018 9.18625C3.49542 9.17501 3.51443 9.16675 3.54462 9.16675L6.81697 9.16675L10.451 9.16675C10.4811 9.16675 10.5002 9.17499 10.5157 9.18639C10.5338 9.19979 10.5539 9.2234 10.5675 9.25772C10.5955 9.32802 10.5828 9.39717 10.5369 9.44668L8.66615 11.405L7.51704 12.6079C7.22864 12.9098 6.76625 12.9066 6.48646 12.6101Z"
-                          fill="white"
-                          stroke="#B5B5B6"
-                        />
-                      </svg>
-                    </span>
-                  )}
-                  {/* filter of employee status */}
-                  {index === 7 && employeeStatus && (
-                    <div
-                      className="filterApprovalStatus"
-                      style={{
-                        borderColor: theme === "light" ? "#0B0B0C" : "white",
-                        backgroundColor: theme === "light" ? "#fff" : "#0B0B0C",
-                      }}
-                      ref={domNode}
-                    >
-                      {filterEmployeeStatus.map((e, i) => (
-                        <div
-                          className={`selectApprovalText ${
-                            theme === "light" ? "lightTheme" : "darkTheme"
-                          }`}
-                          key={i}
-                          onClick={() =>
-                            handleSelectEmployeeApprovalText(e.name)
-                          }
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="14"
+                          height="15"
+                          viewBox="0 0 14 15"
+                          fill="none"
                         >
-                          <p
-                            style={{
-                              borderColor:
-                                theme === "light" ? "#0B0B0C" : "white",
-                            }}
-                          >
-                            {employeeStatusText === e.name && (
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="9"
-                                height="7"
-                                viewBox="0 0 9 7"
-                                fill="none"
+                          <path
+                            d="M8.66055 3.5943L8.66143 3.59522L10.5345 5.55531C10.583 5.60608 10.5953 5.67494 10.5681 5.74367C10.5548 5.77734 10.5352 5.8006 10.5172 5.81386C10.5019 5.82512 10.4828 5.83341 10.4525 5.83341L6.81719 5.83341L3.54362 5.83341C3.5031 5.83341 3.45771 5.81265 3.42973 5.74239C3.4018 5.67225 3.41461 5.60451 3.46162 5.55531L6.48428 2.3923C6.77154 2.0917 7.22991 2.09156 7.51733 2.39189C7.51746 2.39203 7.51759 2.39217 7.51772 2.3923L8.66055 3.5943Z"
+                            stroke="#B5B5B6"
+                          />
+                          <path
+                            d="M6.48646 12.6101L6.48647 12.6101L6.48438 12.6079L3.46285 9.44491L3.10131 9.79029L3.46285 9.44491C3.41436 9.39415 3.40213 9.32523 3.42929 9.25644C3.44259 9.22274 3.46225 9.19949 3.48018 9.18625C3.49542 9.17501 3.51443 9.16675 3.54462 9.16675L6.81697 9.16675L10.451 9.16675C10.4811 9.16675 10.5002 9.17499 10.5157 9.18639C10.5338 9.19979 10.5539 9.2234 10.5675 9.25772C10.5955 9.32802 10.5828 9.39717 10.5369 9.44668L8.66615 11.405L7.51704 12.6079C7.22864 12.9098 6.76625 12.9066 6.48646 12.6101Z"
+                            fill="white"
+                            stroke="#B5B5B6"
+                          />
+                        </svg>
+                      </span>
+                      {/* dropdown */}
+                      {employeeStatus && (
+                        <div
+                          className="filterApprovalStatus"
+                          style={{
+                            borderColor:
+                              theme === "light" ? "#0B0B0C" : "white",
+                            backgroundColor:
+                              theme === "light" ? "#fff" : "#0B0B0C",
+                          }}
+                          ref={domNode}
+                        >
+                          {filterEmployeeStatus.map((e, i) => (
+                            <div
+                              className={`selectApprovalText ${
+                                theme === "light" ? "lightTheme" : "darkTheme"
+                              }`}
+                              key={i}
+                              onClick={() =>
+                                handleChangeEmployeeApprovalText(e.name)
+                              }
+                            >
+                              <p
+                                style={{
+                                  borderColor:
+                                    theme === "light" ? "#0B0B0C" : "white",
+                                }}
                               >
-                                <path
-                                  d="M3.23158 6.1272C3.09084 6.12783 2.95552 6.07293 2.85499 5.97443L1.09804 4.21748C1.04207 4.16955 0.996603 4.11056 0.964507 4.04422C0.932411 3.97788 0.914376 3.90562 0.911531 3.83198C0.908687 3.75833 0.921095 3.6849 0.947978 3.61628C0.974861 3.54766 1.01564 3.48534 1.06775 3.43323C1.11986 3.38112 1.18218 3.34034 1.2508 3.31346C1.31942 3.28658 1.39285 3.27417 1.46649 3.27701C1.54013 3.27986 1.61239 3.29789 1.67873 3.32999C1.74507 3.36209 1.80406 3.40755 1.852 3.46352L3.22242 4.83394L7.32526 0.78533C7.37457 0.735466 7.43327 0.695878 7.49798 0.66886C7.56269 0.641842 7.63212 0.62793 7.70224 0.62793C7.77237 0.62793 7.84179 0.641842 7.9065 0.66886C7.97121 0.695878 8.02992 0.735466 8.07922 0.78533C8.17881 0.885517 8.23471 1.02104 8.23471 1.16231C8.23471 1.30357 8.17881 1.4391 8.07922 1.53929L3.59978 5.96526C3.55272 6.01597 3.49577 6.0565 3.43245 6.08435C3.36912 6.1122 3.30076 6.12679 3.23158 6.1272Z"
-                                  fill="#FF3E5B"
-                                />
-                              </svg>
-                            )}
-                          </p>
-                          <span
-                            style={{
-                              color:
-                                employeeStatusText === e.name
-                                  ? "#FF3E5B"
-                                  : theme === "light"
-                                  ? "#858585"
-                                  : "#a3a3a3",
-                            }}
-                          >
-                            {e.name}
-                          </span>
+                                {employeeText === e.name && (
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="9"
+                                    height="7"
+                                    viewBox="0 0 9 7"
+                                    fill="none"
+                                  >
+                                    <path
+                                      d="M3.23158 6.1272C3.09084 6.12783 2.95552 6.07293 2.85499 5.97443L1.09804 4.21748C1.04207 4.16955 0.996603 4.11056 0.964507 4.04422C0.932411 3.97788 0.914376 3.90562 0.911531 3.83198C0.908687 3.75833 0.921095 3.6849 0.947978 3.61628C0.974861 3.54766 1.01564 3.48534 1.06775 3.43323C1.11986 3.38112 1.18218 3.34034 1.2508 3.31346C1.31942 3.28658 1.39285 3.27417 1.46649 3.27701C1.54013 3.27986 1.61239 3.29789 1.67873 3.32999C1.74507 3.36209 1.80406 3.40755 1.852 3.46352L3.22242 4.83394L7.32526 0.78533C7.37457 0.735466 7.43327 0.695878 7.49798 0.66886C7.56269 0.641842 7.63212 0.62793 7.70224 0.62793C7.77237 0.62793 7.84179 0.641842 7.9065 0.66886C7.97121 0.695878 8.02992 0.735466 8.07922 0.78533C8.17881 0.885517 8.23471 1.02104 8.23471 1.16231C8.23471 1.30357 8.17881 1.4391 8.07922 1.53929L3.59978 5.96526C3.55272 6.01597 3.49577 6.0565 3.43245 6.08435C3.36912 6.1122 3.30076 6.12679 3.23158 6.1272Z"
+                                      fill="#FF3E5B"
+                                    />
+                                  </svg>
+                                )}
+                              </p>
+                              <span
+                                style={{
+                                  color:
+                                    employeeText === e.name
+                                      ? "#FF3E5B"
+                                      : theme === "light"
+                                      ? "#858585"
+                                      : "#a3a3a3",
+                                }}
+                              >
+                                {e.name}
+                              </span>
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
+                      )}
+                    </>
                   )}
                 </th>
               );
@@ -315,11 +308,11 @@ function TableData({
         </tr>
       </thead>
       {/* table body */}
-      {filterData.length === 0 ? (
+      {tableBody.length === 0 ? (
         emptyTableData()
       ) : (
         <tbody>
-          {filterData.map((ele, index) => (
+          {tableBody.map((ele, index) => (
             <tr
               key={index}
               className={theme === "light" ? "lightHover" : "darkHover"}
@@ -372,7 +365,9 @@ function TableData({
                   color: theme === "light" ? "#545454" : "#a3a3a3",
                 }}
               >
-                {ele.approvalStatus === true
+                {ele.approvalStatus === "null" || ele.approvalStatus === null
+                  ? "--"
+                  : ele.approvalStatus === true
                   ? "Pending for ASM Approval"
                   : "Pending for RSM Approval"}
               </td>
@@ -395,7 +390,7 @@ function TableData({
               >
                 <span
                   className={`${
-                    ele.employeeStatus
+                    ele.employeeStatus === "Active"
                       ? theme === "light"
                         ? "activeLight"
                         : "activeDark"
@@ -404,7 +399,7 @@ function TableData({
                       : "disactiveDark"
                   } status`}
                 >
-                  {ele.employeeStatus ? "Active" : "Inctive"}
+                  {ele.employeeStatus}
                 </span>
               </td>
 
@@ -426,13 +421,6 @@ function TableData({
                   <span
                     title="View Details"
                     style={{ cursor: "pointer" }}
-                    //   onClick={() => {
-                    //     setDrawerData(ele);
-                    //     setDrawerType("view");
-                    //     setIsDrawerOpen(true);
-                    //   }}
-                    // onClick={()=>{setViewTableDataDrawer(!viewTableDataDrawer);setEmployeeDrawerData(ele) }}
-                    // onClick={()=>{setSelectTableView(ele);setTableViewDrawer(!tableViewDrawer)}}
                     onClick={() => {
                       setViewTableDataDrawer(!viewTableDataDrawer);
                       setEmployeeDrawerData(ele);

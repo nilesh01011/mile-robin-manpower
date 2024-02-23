@@ -5,7 +5,6 @@ import Title from "../../../components/title";
 import AdvanceFilterDrawer from "./drawer/advanceFilterDrawer/AdvanceFilterDrawer";
 import ViewBusinessPlan from "./drawer/viewBusinessPlan/ViewBusinessPlan";
 import AddEmployeeDrawer from "./drawer/addEmployeeDrawer/AddEmployeeDrawer";
-// import TableData from "../../../components/table";
 import { mileTableHead } from "../../../data";
 import axios from "axios";
 import PaginationDropdown from "../../../components/paginationDropdown/PaginationDropdown";
@@ -104,7 +103,6 @@ function EmployeeManagementPage() {
   const [page, setPage] = useState(0);
   const [limits, setLimits] = useState(10);
 
-
   const [totalDataLength, setTotalDataLength] = useState(0);
 
   const [totalPages, setTotalPages] = useState(0);
@@ -178,14 +176,12 @@ function EmployeeManagementPage() {
   let array = returnPaginationRange(totalPages, page, limits, siblings);
 
   const accessToken =
-    "eyJraWQiOiJMVndUWU1OOTg4eUZwbDkyMGxoVzIxQ2NYYWF6ckk0aE1ZYndpSDV5d1Q4PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI0MDAzOGU0My05NzhjLTQ2YWUtYmRiNy0wNTBlMDcxMDVlOTAiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuYXAtc291dGgtMS5hbWF6b25hd3MuY29tXC9hcC1zb3V0aC0xX0VKbWNiS1pyaiIsImNsaWVudF9pZCI6IjU4bTZxOGtucDE5Y2M5NGplZ2x1bnA0bXQ4Iiwib3JpZ2luX2p0aSI6Ijk2ZWJiNGY0LTQwZTctNGM2YS1hNmFiLWUyMGZjZjlmNTUwZiIsImV2ZW50X2lkIjoiODdiNzdjYTktYjU3OS00ZDk2LWJhNzktMjhmMmE4NGY4YzZlIiwidG9rZW5fdXNlIjoiYWNjZXNzIiwic2NvcGUiOiJhd3MuY29nbml0by5zaWduaW4udXNlci5hZG1pbiIsImF1dGhfdGltZSI6MTcwODUyNTE0NSwiZXhwIjoxNzA4NTI4NzQ1LCJpYXQiOjE3MDg1MjUxNDUsImp0aSI6Ijk1YTAxMzA2LTZjMDYtNDU2ZC05M2ZkLTEyZWNmZTY0YWIwOCIsInVzZXJuYW1lIjoicmVlbmEifQ.YpZVgzP3vY913GYgGIJLFJNngZ4jMPYhRoDZbOa1fieDWeQ8Flx8XdhUAqzre4thfv9zIVgWIfevxKMPCcFuw35RYwoP87PwqzVGZiUB2xzv9bTNNsSIDm6vA5DMsAVjLXZSBB0n7dwYECzp7QgOlGOTHhISiGX2soEIR9zm0squ__ELC-vxo0cS5BmzQU4RqWPKSs56pyoyOUHECktD6jIJ6KukWrUKpaiX3FUqlwQA5ScdJ3NR0g8LM7m_JSggyJ6sleK_GI5876xjqpbXfsbJ2JCI2UqMeYt4B4ii3KRHqM5TnA7GZ8sUJHN2O8Ycqbajk66qmgDtV9uJlZ6ICg";
+    "eyJraWQiOiJMVndUWU1OOTg4eUZwbDkyMGxoVzIxQ2NYYWF6ckk0aE1ZYndpSDV5d1Q4PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI0MDAzOGU0My05NzhjLTQ2YWUtYmRiNy0wNTBlMDcxMDVlOTAiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuYXAtc291dGgtMS5hbWF6b25hd3MuY29tXC9hcC1zb3V0aC0xX0VKbWNiS1pyaiIsImNsaWVudF9pZCI6IjU4bTZxOGtucDE5Y2M5NGplZ2x1bnA0bXQ4Iiwib3JpZ2luX2p0aSI6IjJiNTllNGViLWFhNGEtNDAzMi04NjZjLTJmNjliNmU5MGM5MyIsImV2ZW50X2lkIjoiNGFmNDdiOGItM2NhYi00NThhLThiMmUtMDE3MmU1OWMzYjVjIiwidG9rZW5fdXNlIjoiYWNjZXNzIiwic2NvcGUiOiJhd3MuY29nbml0by5zaWduaW4udXNlci5hZG1pbiIsImF1dGhfdGltZSI6MTcwODY2Nzc5OCwiZXhwIjoxNzA4NjcxMzk3LCJpYXQiOjE3MDg2Njc3OTgsImp0aSI6IjQ0Y2E3MjczLWI5ZjEtNGI0OC05MmZkLTkzZDkxMDY4NzU1ZSIsInVzZXJuYW1lIjoicmVlbmEifQ.TteNVA-NipTbSpELK-YN1IavVBpikez6ceyOrgkV-D1TfaCCmq7jsO7CElQGrORCGIJziwwUk4kNtBDGbCB6N-mCrn_pnfK_HAhf6r9q4AHdENYs4kWJfw4Iv3Duwuxy7ww3aaeOq-EsGfTWvcXgr5G3e25HaquBYca814KrSk3_ZPBqM_Wp5rVrZYEjQLQGeiovoG_dqfabrG3_tQLGBAlYpSqMOTTIBz57OCVQYA3Z4WcT2ReAzDGGVzbQuabchgybXC8Eup--8bFbYneRXPZK4itxoE0sB5zGtth1gWfw3fw3eLjE_SgmU_uh3ATXR2aOMFZ6Bdj_oT_7XxHdJw";
   const authorization =
-    "eyJraWQiOiJkR1lMQWhzS1JNK092SlwvMlRKRkdTYVJxcFVuN3RsZ0R2SkpTVkhhT3REND0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI0MDAzOGU0My05NzhjLTQ2YWUtYmRiNy0wNTBlMDcxMDVlOTAiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLmFwLXNvdXRoLTEuYW1hem9uYXdzLmNvbVwvYXAtc291dGgtMV9FSm1jYktacmoiLCJjb2duaXRvOnVzZXJuYW1lIjoicmVlbmEiLCJvcmlnaW5fanRpIjoiOTZlYmI0ZjQtNDBlNy00YzZhLWE2YWItZTIwZmNmOWY1NTBmIiwiYXVkIjoiNThtNnE4a25wMTljYzk0amVnbHVucDRtdDgiLCJldmVudF9pZCI6Ijg3Yjc3Y2E5LWI1NzktNGQ5Ni1iYTc5LTI4ZjJhODRmOGM2ZSIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNzA4NTI1MTQ1LCJleHAiOjE3MDg1Mjg3NDUsImlhdCI6MTcwODUyNTE0NSwianRpIjoiZWFiMGZhNmMtNWRlOC00ZGU5LTk5YmMtODkwMjMxZjlkN2M2IiwiZW1haWwiOiJhbmtpdGF5OTEyODhAZ21haWwuY29tIn0.bz2ulWD9GJ8WzfL2BMtq21OUkcJ5unenwLTXLpv0sLGz5WmPyG1otCNOZk7MughWFP0VA9VlVbYfXvicfpGrNX67_pwxyXGEdZZRKi5633dhZwHY6M9sF-rbXJFzQUPoFKenlQABXs-jGTiPZ764nKhcArzlZS6TR7HuU67uCUQfLwCt_WU2GRmh3TC4QZcG6d3KpcMpRyFUP5kUhrB5kPVcvalEoAQ2dnv_spCCn75yIN6VUew-aiGz_UZWXBwIN3tlDk8vweLgeeCqZe_O1EUPy9zZsU5Q0wDDDEukGqMlJAmbv4leWo7Ak1IQxSgr0Tj4h2zYq7Fyl-fHuzINVQ";
+    "eyJraWQiOiJkR1lMQWhzS1JNK092SlwvMlRKRkdTYVJxcFVuN3RsZ0R2SkpTVkhhT3REND0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI0MDAzOGU0My05NzhjLTQ2YWUtYmRiNy0wNTBlMDcxMDVlOTAiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLmFwLXNvdXRoLTEuYW1hem9uYXdzLmNvbVwvYXAtc291dGgtMV9FSm1jYktacmoiLCJjb2duaXRvOnVzZXJuYW1lIjoicmVlbmEiLCJvcmlnaW5fanRpIjoiMmI1OWU0ZWItYWE0YS00MDMyLTg2NmMtMmY2OWI2ZTkwYzkzIiwiYXVkIjoiNThtNnE4a25wMTljYzk0amVnbHVucDRtdDgiLCJldmVudF9pZCI6IjRhZjQ3YjhiLTNjYWItNDU4YS04YjJlLTAxNzJlNTljM2I1YyIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNzA4NjY3Nzk4LCJleHAiOjE3MDg2NzEzOTcsImlhdCI6MTcwODY2Nzc5OCwianRpIjoiZTE4ZDIxOGUtZmZhMi00MDIyLWI5NmQtOWY1YzVkNGJkNWQxIiwiZW1haWwiOiJhbmtpdGF5OTEyODhAZ21haWwuY29tIn0.aW6OBPE5wnuXZV0lM_M2rELpxSetLLIRfvRWAdfAYqI5_lhTJsvjlpBLWbVokQpAMJQXZ0YB041-ecpcMy6Yi2a5oWYbHkyCRt_N5K1U0GXJo0P8yVXUrH1a3TUawbrPw-ff36UtC2AKcBHkKYmL8jii6R1qPfbjiJmSH51Knpp3fb8LmKQbiAs3NVzmY61o-gStiJ8R85-BXdLu9g3OKbtzpgv20NZZCgdU5s0dLMORRZ67ZCRZqHNK_1gIr-hQ183nkk6B8OT-vRj4IAlI1hEwjEntatE4rXoS9CeOB20G1aBtDkO3peyZ1a9El0cHj-JR47nGJh957WAAutLREQ";
 
   // table data fetch
   const fetchDataForPage = async (newPage) => {
-    // console.log(newPage);
-
     // const baseURL = `/data.json`;
     const baseURL = `/mile/employee?devisionCode=${isActiveTabs}&page=${newPage}&size=${limits}`;
 
@@ -206,6 +202,8 @@ function EmployeeManagementPage() {
 
       setTotalPages(data.totalPages);
 
+      setPage(data.currentPage);
+
       return data.data;
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -213,19 +211,51 @@ function EmployeeManagementPage() {
     }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const newData = await fetchDataForPage(page);
-      // console.log("Data Getting", newData);
-      if (!inputFields) {
-        setTableData(newData);
-      }
-    };
+  // approval box text
+  const [approvalText, setApprovalText] = useState("");
 
-    fetchData();
-  }, [page, limits, isActiveTabs, inputFields]);
+  const handleSelectEmployeeApprovalText = (text) => {
+    console.log(text);
+    const status = text === "Active" ? "Y" : "N";
 
-  // // debounced
+    if (text === approvalText) {
+      return setApprovalText("");
+    }
+
+    setApprovalText(status);
+
+    // fetchApprovalStatus(status);
+  };
+
+  // const fetchApprovalStatus = async () => {
+  //   const baseURL = `/mile/employee?devisionCode=${isActiveTabs}&page=${page}&size=${limits}&employeeStatus=${approvalText}`;
+  //   try {
+  //     const config = {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${authorization}`,
+  //         Accesstoken: accessToken,
+  //       },
+  //     };
+
+  //     const response = await axios.get(baseURL, config);
+  //     const { data } = response.data;
+  //     console.log("APIs Data:", data);
+
+  //     setTotalDataLength(data.totalRecords);
+
+  //     setTotalPages(data.totalPages);
+
+  //     setTableData(data.data);
+
+  //     setPage(data.currentPage);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //     return [];
+  //   }
+  // };
+
+  // debounced
   const myDebounce = (cb, d) => {
     let timer;
     return function (...args) {
@@ -243,9 +273,21 @@ function EmployeeManagementPage() {
     if (inputFields === "") {
       setError(true);
       setPage(0);
+      fetchDataForPage(page);
       return;
     } else {
-      setSearchResultsItems([...searchResultsItems, { name: inputFields }]);
+
+      const filterSearchPrevious = searchResultsItems.filter((ele)=>{
+        if(ele.name === inputFields) {
+          return;
+        } else {
+          return inputFields;
+        }
+      })
+
+      console.log(filterSearchPrevious)
+
+      // setSearchResultsItems([...searchResultsItems, { name: inputFields }]);
 
       const filterRename = selectDropdownFilterText.toLowerCase();
       let filterOption = "";
@@ -283,7 +325,7 @@ function EmployeeManagementPage() {
 
           setPage(data.currentPage);
 
-          setTableData(data.data);
+          return setTableData(data.data);
 
           // return data.data;
         } catch (error) {
@@ -293,6 +335,29 @@ function EmployeeManagementPage() {
       }
     }
   }, 500);
+
+  // render if search input text is empty
+  useEffect(() => {
+    const fetchData = async () => {
+      const newData = await fetchDataForPage(page);
+      // console.log("Data Getting", newData);
+
+      // if (approvalText !== "") {
+      //   return fetchApprovalStatus(approvalText);
+      // } else {
+      //   return setTableData(newData);
+      // }
+
+      // else {
+      if (inputFields === "") {
+        setTableData(newData);
+      }
+
+      // }
+    };
+
+    fetchData();
+  }, [page, limits, isActiveTabs, inputFields, approvalText]);
 
   // pagination items
   const paginationItems = [
@@ -394,6 +459,11 @@ function EmployeeManagementPage() {
     // console.log(data);
     setInputFields(data);
     // filteredEmployees(data);
+  };
+
+  // Active and Approval Status
+  const handleSelectApprovalText = (text) => {
+    console.log(text);
   };
 
   return (
@@ -915,6 +985,17 @@ function EmployeeManagementPage() {
               inputFields={inputFields}
               tableHead={mileTableHead}
               emptyTableData={emptyTableData}
+              // ============Filter============
+              // Active Text
+              approvalText={approvalText}
+              setApprovalText={setApprovalText}
+              handleSelectApprovalText={handleSelectApprovalText}
+              // Approval Text
+              // employeeStatusText={employeeStatusText}
+              handleSelectEmployeeApprovalText={
+                handleSelectEmployeeApprovalText
+              }
+              // ============End Filter=============
               // Drawer Open state
               viewTableDataDrawer={viewTableDataDrawer}
               setViewTableDataDrawer={setViewTableDataDrawer}
@@ -981,24 +1062,10 @@ function EmployeeManagementPage() {
             </div>
             {/* right side */}
             <div className="rightSide">
-              {/* double clicks start */}
-              {/* <button
-              type="button"
-              className={`btn`}
-              style={{
-                border: `1px solid ${
-                  theme === "light" ? "#b5b5b6" : "#232324"
-                }`,
-              }}
-              onClick={() => onPageChanged("&laquo;")}
-            >
-              &laquo;
-            </button> */}
               {/* left pagination btn */}
               <button
                 type="button"
                 className={`btn`}
-                // ${currentPage === 1 && "disabledBtn"}
                 style={{
                   border: `1px solid ${
                     theme === "light" ? "#b5b5b6" : "#858585"
@@ -1006,7 +1073,6 @@ function EmployeeManagementPage() {
                   cursor: page === 0 ? "not-allowed" : "pointer",
                 }}
                 onClick={() => onPageChanged("&lsaquo;")}
-                // onClick={prevPageHandler}
                 disabled={page === 0}
               >
                 <span>
@@ -1026,30 +1092,8 @@ function EmployeeManagementPage() {
                   </svg>
                 </span>
               </button>
-              {/* Middel table data end */}
-              {/* {pages.map((ele, index) => (
-              <button
-                key={index}
-                className="btn paginationBtn"
-                onClick={() => setCurrentPage(ele)}
-                style={{
-                  borderColor:
-                    currentPage === ele
-                      ? "#FF3E5B"
-                      : theme === "light"
-                      ? "#b5b5b6"
-                      : "#232324",
-                  color: currentPage === ele && "#FF3E5B",
-                  // backgroundColor:
-                  // 	currentPage === ele && '#d7d7d7'
-                }}
-              >
-                {ele}
-              </button>
-            ))} */}
               {/* start */}
               {array.map((value, index) => {
-                // const getPage = page;
                 const getPage = page;
 
                 // active btns
@@ -1101,8 +1145,7 @@ function EmployeeManagementPage() {
               {/* right btn */}
               <button
                 type="button"
-                className={`btn `}
-                // ${numOfTotalPages === currentPage && "disabledBtn"}
+                className={`btn`}
                 style={{
                   border: `1px solid ${
                     theme === "light" ? "#b5b5b6" : "#858585"
@@ -1110,7 +1153,6 @@ function EmployeeManagementPage() {
                   cursor: totalDataLength === page ? "not-allowed" : "pointer",
                 }}
                 onClick={() => onPageChanged("&rsaquo;")}
-                // onClick={nextPageHandler}
                 disabled={totalDataLength === page}
               >
                 <span>
@@ -1130,19 +1172,6 @@ function EmployeeManagementPage() {
                   </svg>
                 </span>
               </button>
-              {/* double clicks end */}
-              {/* <button
-              type="button"
-              className={`btn`}
-              style={{
-                border: `1px solid ${
-                  theme === "light" ? "#b5b5b6" : "#232324"
-                }`,
-              }}
-              onClick={() => onPageChanged("&raquo;")}
-            >
-              &raquo;
-            </button> */}
             </div>
           </div>
         )}
