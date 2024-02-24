@@ -390,6 +390,7 @@ function TableData({
               >
                 <span
                   className={`${
+                    ele.employeeStatus === "N/A" ? "" :
                     ele.employeeStatus === "Active"
                       ? theme === "light"
                         ? "activeLight"
@@ -398,8 +399,9 @@ function TableData({
                       ? "disactiveLight"
                       : "disactiveDark"
                   } status`}
+                  style={{border:ele.employeeStatus === "N/A" && "none"}}
                 >
-                  {ele.employeeStatus}
+                  {ele.employeeStatus === "N/A" ? "--" : ele.employeeStatus}
                 </span>
               </td>
 

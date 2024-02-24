@@ -2,16 +2,13 @@ import React from "react";
 import "./styles.scss";
 import { useSelector } from "react-redux";
 
-function EditWorkExperience({
-  editWorkExperienceDrawer,
-  setEditWorkExperienceDrawer,
-}) {
+function TransferModel({ transferModel, setTransferModel }) {
   const theme = useSelector((state) => state.theme);
   const handleClosed = () => {
-    setEditWorkExperienceDrawer(!editWorkExperienceDrawer);
+    setTransferModel(!transferModel);
   };
   return (
-    <div className="editWorkModelBox">
+    <div className="transferModelBox">
       {/* overlay 2 */}
       <div
         className="overlay_2"
@@ -22,7 +19,7 @@ function EditWorkExperience({
         onClick={() => handleClosed()}
       />
       {/* container */}
-      <div className="editWorkExperienceContainer">
+      <div className="transferModelBoxContainer">
         {/* box model */}
         <div
           className="boxModel"
@@ -67,8 +64,16 @@ function EditWorkExperience({
           {/* text */}
           <p>Are you sure you want to transfer this employee?</p>
           <div className="footerBtn">
-            <button type="button" className="btns outlineBtn" onClick={() => handleClosed()}>No</button>
-            <button type="button" className="btns primaryBtn">Yes</button>
+            <button
+              type="button"
+              className="btns outlineBtn"
+              onClick={() => handleClosed()}
+            >
+              No
+            </button>
+            <button type="button" className="btns primaryBtn">
+              Yes
+            </button>
           </div>
         </div>
       </div>
@@ -76,4 +81,4 @@ function EditWorkExperience({
   );
 }
 
-export default EditWorkExperience;
+export default TransferModel;

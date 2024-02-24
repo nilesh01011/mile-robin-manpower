@@ -2,6 +2,7 @@ import { DatePicker } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import "../styles.scss";
 import { useSelector } from "react-redux";
+import moment from "moment";
 
 let useClickOutSide = (handler) => {
   let domNode = useRef();
@@ -77,7 +78,7 @@ function SingleDatePicker({
               type="text"
               readOnly
               className="inputDefault"
-              value={isValues}
+              value={moment(isValues).format("DD/MM/YYYY")}
               style={{ color: theme === "light" ? "#0B0B0C" : "#ffffff" }}
               // onClick={()=>setIsDateVisible(true)}
             />

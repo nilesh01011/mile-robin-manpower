@@ -1570,7 +1570,7 @@ export const tableHead = [
   },
   {
     key: "2",
-    label: "Emp. Code",
+    label: "Mile Id",
   },
   {
     key: "3",
@@ -1930,7 +1930,7 @@ export const mileTableHead = [
     label: "#",
   },
   {
-    label: "Emp. Code",
+    label: "Mile Id",
   },
   {
     label: "Emp. Name",

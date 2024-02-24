@@ -18,39 +18,287 @@
     "employeeStatus": false
   },
   {
-    "first_name": "Aylmer",
-    "last_name": "Wasiela",
-    "mother_name": "Benedetta",
-    "date_birth": "4/13/2023",
-    "gender": "Male",
-    "businessName": "LMM",
-    "employeeStatus": false
+    "firstName": "Aylmer",
+    "lastName": "Wasiela",
+    "dateOfBirth": "2023-04-13",
+    "gender": "M",
+    "mobileNumber": "1234123412",
+    "employeeEmail": "abc@gmail.com",
+    "aadhar": "465372323123",
+    "pan": "anbvd1234j",
+    "employeeType": "PER",
+    "designationCode": "5",
+    "personalDetail": {
+      "motherName": "Benedetta"
+    },
+    "addressDetail": [
+      {
+        "addressLine1": "123,abc",
+        "addressLine2": "123,abc",
+        "addressType": "P",
+        "pinCode": "110044",
+        "state": "ND",
+        "city": "D",
+        "district": "NW"
+      },
+      {
+        "addressLine1": "123,abc",
+        "addressLine2": "123,abc",
+        "addressType": "R",
+        "pinCode": "110044",
+        "state": "ND",
+        "city": "D",
+        "district": "NW"
+      }
+    ],
+    "employmentDetail": {
+      "dateOfJoining": "2023-10-01",
+      "monthlySalary": "42000",
+      "reportingManager": "akash",
+      "qualification": "12345",
+      "isCommonEmployee": "Y",
+      "locationCodes": [
+        {
+          "dealerLocationCode": "ABCD5"
+        },
+        {
+          "dealerLocationCode": "ABCD9"
+        }
+      ]
+    },
+    "bankDetail": {
+      "bankName": "ABC",
+      "bankAddress": "123,abc",
+      "bankAccountNumber": "16152265262526",
+      "ifscCode": "ahajsh123",
+      "micrNumber": "ajshhdg2344"
+    },
+    "experienceDetail": [
+      {
+        "experienceRole": "Expert",
+        "organisationName": "Maruti",
+        "fromDate": "2003-10-12",
+        "toDate": "2005-10-12"
+      },
+      {
+        "experienceRole": "Expert Technician",
+        "organisationName": "TATA",
+        "fromDate": "2003-10-12",
+        "toDate": "2005-12-10"
+      }
+    ]
   },
   {
-    "first_name": "Bron",
-    "last_name": "Powys",
-    "mother_name": "Jemimah",
-    "date_birth": "3/15/2023",
-    "gender": "Male",
-    "businessName": "Agivu",
-    "employeeStatus": false
+    "firstName": "Bron",
+    "lastName": "Powys",
+    "dateOfBirth": "2023-03-15",
+    "gender": "M",
+    "mobileNumber": "1234123412",
+    "employeeEmail": "abc@gmail.com",
+    "aadhar": "465372323123",
+    "pan": "anbvd1234j",
+    "employeeType": "PER",
+    "designationCode": "5",
+    "personalDetail": {
+      "motherName": "Rubie"
+    },
+    "addressDetail": [
+      {
+        "addressLine1": "123,abc",
+        "addressLine2": "123,abc",
+        "addressType": "P",
+        "pinCode": "110044",
+        "state": "ND",
+        "city": "D",
+        "district": "NW"
+      },
+      {
+        "addressLine1": "123,abc",
+        "addressLine2": "123,abc",
+        "addressType": "R",
+        "pinCode": "110044",
+        "state": "ND",
+        "city": "D",
+        "district": "NW"
+      }
+    ],
+    "employmentDetail": {
+      "dateOfJoining": "2023-10-01",
+      "monthlySalary": "42000",
+      "reportingManager": "akash",
+      "qualification": "12345",
+      "isCommonEmployee": "Y",
+      "locationCodes": [
+        {
+          "dealerLocationCode": "ABCD5"
+        },
+        {
+          "dealerLocationCode": "ABCD9"
+        }
+      ]
+    },
+    "bankDetail": {
+      "bankName": "ABC",
+      "bankAddress": "123,abc",
+      "bankAccountNumber": "16152265262526",
+      "ifscCode": "ahajsh123",
+      "micrNumber": "ajshhdg2344"
+    },
+    "experienceDetail": [
+      {
+        "experienceRole": "Expert",
+        "organisationName": "Maruti",
+        "fromDate": "2003-10-12",
+        "toDate": "2005-10-12"
+      },
+      {
+        "experienceRole": "Expert Technician",
+        "organisationName": "TATA",
+        "fromDate": "2003-10-12",
+        "toDate": "2005-12-10"
+      }
+    ]
   },
   {
-    "first_name": "Harli",
-    "last_name": "Sandeson",
-    "mother_name": "Rubie",
-    "date_birth": "2/26/2023",
-    "gender": "Agender",
-    "businessName": "Feednation",
-    "employeeStatus": true
+    "firstName": "Harli",
+    "lastName": "Sandeson",
+    "dateOfBirth": "2003-03-01",
+    "gender": "M",
+    "mobileNumber": "1234123412",
+    "employeeEmail": "abc@gmail.com",
+    "aadhar": "465372323123",
+    "pan": "anbvd1234j",
+    "employeeType": "PER",
+    "designationCode": "5",
+    "personalDetail": {
+      "motherName": "Rubie"
+    },
+    "addressDetail": [
+      {
+        "addressLine1": "123,abc",
+        "addressLine2": "123,abc",
+        "addressType": "P",
+        "pinCode": "110044",
+        "state": "ND",
+        "city": "D",
+        "district": "NW"
+      },
+      {
+        "addressLine1": "123,abc",
+        "addressLine2": "123,abc",
+        "addressType": "R",
+        "pinCode": "110044",
+        "state": "ND",
+        "city": "D",
+        "district": "NW"
+      }
+    ],
+    "employmentDetail": {
+      "dateOfJoining": "2023-10-01",
+      "monthlySalary": "42000",
+      "reportingManager": "akash",
+      "qualification": "12345",
+      "isCommonEmployee": "Y",
+      "locationCodes": [
+        {
+          "dealerLocationCode": "ABCD5"
+        },
+        {
+          "dealerLocationCode": "ABCD9"
+        }
+      ]
+    },
+    "bankDetail": {
+      "bankName": "ABC",
+      "bankAddress": "123,abc",
+      "bankAccountNumber": "16152265262526",
+      "ifscCode": "ahajsh123",
+      "micrNumber": "ajshhdg2344"
+    },
+    "experienceDetail": [
+      {
+        "experienceRole": "Expert",
+        "organisationName": "Maruti",
+        "fromDate": "2003-10-12",
+        "toDate": "2005-10-12"
+      },
+      {
+        "experienceRole": "Expert Technician",
+        "organisationName": "TATA",
+        "fromDate": "2003-10-12",
+        "toDate": "2005-12-10"
+      }
+    ]
   },
   {
-    "first_name": "Jacques",
-    "last_name": "McCurlye",
-    "mother_name": "Madelene",
-    "date_birth": "8/30/2023",
-    "gender": "Male",
-    "businessName": "Dabfeed",
-    "employeeStatus": false
+    "firstName": "Akash",
+    "lastName": "Poria",
+    "dateOfBirth": "2003-03-01",
+    "gender": "M",
+    "mobileNumber": "1234123412",
+    "employeeEmail": "abc@gmail.com",
+    "aadhar": "465372323123",
+    "pan": "anbvd1234j",
+    "employeeType": "PER",
+    "designationCode": "5",
+    "personalDetail": {
+      "motherName": "XYZ"
+    },
+    "addressDetail": [
+      {
+        "addressLine1": "123,abc",
+        "addressLine2": "123,abc",
+        "addressType": "P",
+        "pinCode": "110044",
+        "state": "ND",
+        "city": "D",
+        "district": "NW"
+      },
+      {
+        "addressLine1": "123,abc",
+        "addressLine2": "123,abc",
+        "addressType": "R",
+        "pinCode": "110044",
+        "state": "ND",
+        "city": "D",
+        "district": "NW"
+      }
+    ],
+    "employmentDetail": {
+      "dateOfJoining": "2023-10-01",
+      "monthlySalary": "42000",
+      "reportingManager": "akash",
+      "qualification": "12345",
+      "isCommonEmployee": "Y",
+      "locationCodes": [
+        {
+          "dealerLocationCode": "ABCD5"
+        },
+        {
+          "dealerLocationCode": "ABCD9"
+        }
+      ]
+    },
+    "bankDetail": {
+      "bankName": "ABC",
+      "bankAddress": "123,abc",
+      "bankAccountNumber": "16152265262526",
+      "ifscCode": "ahajsh123",
+      "micrNumber": "ajshhdg2344"
+    },
+    "experienceDetail": [
+      {
+        "experienceRole": "Expert",
+        "organisationName": "Maruti",
+        "fromDate": "2003-10-12",
+        "toDate": "2005-10-12"
+      },
+      {
+        "experienceRole": "Expert Technician",
+        "organisationName": "TATA",
+        "fromDate": "2003-10-12",
+        "toDate": "2005-12-10"
+      }
+    ]
   }
 ]

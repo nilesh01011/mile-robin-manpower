@@ -11,7 +11,7 @@ import PaginationDropdown from "../../../components/paginationDropdown/Paginatio
 import SearchDropdownWithInput from "../../../components/searchDropdownWithInput/SearchDropdownWithInput";
 import ToastNotifications from "../../../components/toastNotifications/ToastNotifications";
 import ViewTableData from "./drawer/viewTableData/ViewTableData";
-import ViewDrawer from "./drawer/ViewDrawer";
+// import ViewDrawer from "./drawer/ViewDrawer";
 import TableData from "../../../components/table/mileHRTable";
 import MileHRMobileViewTable from "../../../components/table/mileHRTable/mobileViewTable.js/MileHRMobileViewtable";
 import _ from "lodash";
@@ -117,8 +117,6 @@ function EmployeeManagementPage() {
   }
 
   const onPageChanged = async (value) => {
-    // console.log("onChange:", value);
-
     let newPage;
 
     if (value === "&laquo;" || value === "... ") {
@@ -134,11 +132,18 @@ function EmployeeManagementPage() {
     }
 
     // Fetch data for the new page
-    const newData = await fetchDataForPage(newPage);
 
-    // Set the new page and table data
-    setPage(newPage);
-    setTableData(newData);
+    if (inputFields === "") {
+      const newData = await fetchDataForPage(newPage);
+      // Set the new page and table data
+      setPage(newPage);
+      setTableData(newData);
+    } else {
+      const newData = await handleSearchAPIs(newPage);
+      // Set the new page and table data
+      setPage(newPage);
+      setTableData(newData);
+    }
   };
 
   // return pagination range
@@ -175,15 +180,15 @@ function EmployeeManagementPage() {
 
   let array = returnPaginationRange(totalPages, page, limits, siblings);
 
-  const accessToken =
-    "eyJraWQiOiJMVndUWU1OOTg4eUZwbDkyMGxoVzIxQ2NYYWF6ckk0aE1ZYndpSDV5d1Q4PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI0MDAzOGU0My05NzhjLTQ2YWUtYmRiNy0wNTBlMDcxMDVlOTAiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuYXAtc291dGgtMS5hbWF6b25hd3MuY29tXC9hcC1zb3V0aC0xX0VKbWNiS1pyaiIsImNsaWVudF9pZCI6IjU4bTZxOGtucDE5Y2M5NGplZ2x1bnA0bXQ4Iiwib3JpZ2luX2p0aSI6IjJiNTllNGViLWFhNGEtNDAzMi04NjZjLTJmNjliNmU5MGM5MyIsImV2ZW50X2lkIjoiNGFmNDdiOGItM2NhYi00NThhLThiMmUtMDE3MmU1OWMzYjVjIiwidG9rZW5fdXNlIjoiYWNjZXNzIiwic2NvcGUiOiJhd3MuY29nbml0by5zaWduaW4udXNlci5hZG1pbiIsImF1dGhfdGltZSI6MTcwODY2Nzc5OCwiZXhwIjoxNzA4NjcxMzk3LCJpYXQiOjE3MDg2Njc3OTgsImp0aSI6IjQ0Y2E3MjczLWI5ZjEtNGI0OC05MmZkLTkzZDkxMDY4NzU1ZSIsInVzZXJuYW1lIjoicmVlbmEifQ.TteNVA-NipTbSpELK-YN1IavVBpikez6ceyOrgkV-D1TfaCCmq7jsO7CElQGrORCGIJziwwUk4kNtBDGbCB6N-mCrn_pnfK_HAhf6r9q4AHdENYs4kWJfw4Iv3Duwuxy7ww3aaeOq-EsGfTWvcXgr5G3e25HaquBYca814KrSk3_ZPBqM_Wp5rVrZYEjQLQGeiovoG_dqfabrG3_tQLGBAlYpSqMOTTIBz57OCVQYA3Z4WcT2ReAzDGGVzbQuabchgybXC8Eup--8bFbYneRXPZK4itxoE0sB5zGtth1gWfw3fw3eLjE_SgmU_uh3ATXR2aOMFZ6Bdj_oT_7XxHdJw";
   const authorization =
-    "eyJraWQiOiJkR1lMQWhzS1JNK092SlwvMlRKRkdTYVJxcFVuN3RsZ0R2SkpTVkhhT3REND0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI0MDAzOGU0My05NzhjLTQ2YWUtYmRiNy0wNTBlMDcxMDVlOTAiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLmFwLXNvdXRoLTEuYW1hem9uYXdzLmNvbVwvYXAtc291dGgtMV9FSm1jYktacmoiLCJjb2duaXRvOnVzZXJuYW1lIjoicmVlbmEiLCJvcmlnaW5fanRpIjoiMmI1OWU0ZWItYWE0YS00MDMyLTg2NmMtMmY2OWI2ZTkwYzkzIiwiYXVkIjoiNThtNnE4a25wMTljYzk0amVnbHVucDRtdDgiLCJldmVudF9pZCI6IjRhZjQ3YjhiLTNjYWItNDU4YS04YjJlLTAxNzJlNTljM2I1YyIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNzA4NjY3Nzk4LCJleHAiOjE3MDg2NzEzOTcsImlhdCI6MTcwODY2Nzc5OCwianRpIjoiZTE4ZDIxOGUtZmZhMi00MDIyLWI5NmQtOWY1YzVkNGJkNWQxIiwiZW1haWwiOiJhbmtpdGF5OTEyODhAZ21haWwuY29tIn0.aW6OBPE5wnuXZV0lM_M2rELpxSetLLIRfvRWAdfAYqI5_lhTJsvjlpBLWbVokQpAMJQXZ0YB041-ecpcMy6Yi2a5oWYbHkyCRt_N5K1U0GXJo0P8yVXUrH1a3TUawbrPw-ff36UtC2AKcBHkKYmL8jii6R1qPfbjiJmSH51Knpp3fb8LmKQbiAs3NVzmY61o-gStiJ8R85-BXdLu9g3OKbtzpgv20NZZCgdU5s0dLMORRZ67ZCRZqHNK_1gIr-hQ183nkk6B8OT-vRj4IAlI1hEwjEntatE4rXoS9CeOB20G1aBtDkO3peyZ1a9El0cHj-JR47nGJh957WAAutLREQ";
+    "eyJraWQiOiJkR1lMQWhzS1JNK092SlwvMlRKRkdTYVJxcFVuN3RsZ0R2SkpTVkhhT3REND0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI0MDAzOGU0My05NzhjLTQ2YWUtYmRiNy0wNTBlMDcxMDVlOTAiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLmFwLXNvdXRoLTEuYW1hem9uYXdzLmNvbVwvYXAtc291dGgtMV9FSm1jYktacmoiLCJjb2duaXRvOnVzZXJuYW1lIjoicmVlbmEiLCJvcmlnaW5fanRpIjoiNGMzYzc2OTgtMDk1OS00Y2VjLWEyMzUtZTgyZGFiYzc1YzY2IiwiYXVkIjoiNThtNnE4a25wMTljYzk0amVnbHVucDRtdDgiLCJldmVudF9pZCI6Ijg3ZTVhMWQ4LTRjOTAtNDVkZC1hZjQzLWIyNGUwMDBiYzU2NCIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNzA4NzY3NDU3LCJleHAiOjE3MDg3NzEwNTcsImlhdCI6MTcwODc2NzQ1NywianRpIjoiMTNkZDk5ZWItYzMxMS00MWY3LTkxYTAtNWU0ZWZkZDY2NjIyIiwiZW1haWwiOiJhbmtpdGF5OTEyODhAZ21haWwuY29tIn0.xAo-zaEBHHkHROk2JrnlPGkJiINO2seSFNWmLagwP35_-E5eGSDRnq2EyimBc7iJxqzm5_PGxTEckyR84BznOBGGI2FjGjIlHXv79KQWEozkowDW9uT6zbc6c8uy7CdM_hHjfewCO20Mvx6UrIMaaN82R6Yfn8WbK7flNyGqCTgyWS9J42ZfIZXaEnlwJMJYT6lFMGtA7Lc8L4cKHrayaWzhZhsNHdv6yzhV5JMMAlk2HlqfpymEHwjchR7pb61sx9fWy1xRG8cGvt3-3Ofa6rsEH6-17Si9J6VO19Pw5iMkAdE3Kc3Mtt83dRYOuHn1hPnBvm3lDh3Ihpj0ycfG0g";
+  const accessToken =
+    "eyJraWQiOiJMVndUWU1OOTg4eUZwbDkyMGxoVzIxQ2NYYWF6ckk0aE1ZYndpSDV5d1Q4PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI0MDAzOGU0My05NzhjLTQ2YWUtYmRiNy0wNTBlMDcxMDVlOTAiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuYXAtc291dGgtMS5hbWF6b25hd3MuY29tXC9hcC1zb3V0aC0xX0VKbWNiS1pyaiIsImNsaWVudF9pZCI6IjU4bTZxOGtucDE5Y2M5NGplZ2x1bnA0bXQ4Iiwib3JpZ2luX2p0aSI6IjRjM2M3Njk4LTA5NTktNGNlYy1hMjM1LWU4MmRhYmM3NWM2NiIsImV2ZW50X2lkIjoiODdlNWExZDgtNGM5MC00NWRkLWFmNDMtYjI0ZTAwMGJjNTY0IiwidG9rZW5fdXNlIjoiYWNjZXNzIiwic2NvcGUiOiJhd3MuY29nbml0by5zaWduaW4udXNlci5hZG1pbiIsImF1dGhfdGltZSI6MTcwODc2NzQ1NywiZXhwIjoxNzA4NzcxMDU3LCJpYXQiOjE3MDg3Njc0NTcsImp0aSI6ImJjZmUzOGNmLTc1YmYtNDkxOC05MzAxLWRmMjQyNTdiMGQ0NyIsInVzZXJuYW1lIjoicmVlbmEifQ.RA1KhwSjI7gYCwhimY9_ErDSywR2UGSwatl6L7cafdTrZsQs-CQbMDicdkZ453JRJ263lzaSGOdQtTLBh8MJ9w2ZulwFrEQSCP9XKBPMOyU22Q4qhSFJG70GxZia2um9bp1g2-iFPYKPqCZTRnlXdiuKHOZFmbdQ-lGx0bYj7qZyo-94LYHPYuvcMT4-EIvzRKE7CNZqub20aqNSTdZ0n6i50nx9Ft-Dya5QwQ1R1WZ2_256SwbepPb_A8dQxDRMVcHgCNBN_EDiDTqH_ooexeQNAoFTTapK3r536Tx6DZfV1bcsVdFO9x_cYVnwl8C51CqOKd5uAkH9-LSKYOh6TA";
 
   // table data fetch
   const fetchDataForPage = async (newPage) => {
     // const baseURL = `/data.json`;
-    const baseURL = `/mile/employee?devisionCode=${isActiveTabs}&page=${newPage}&size=${limits}`;
+    const baseURL = `/mile/employee?divisionCode=${isActiveTabs}&page=${newPage}&size=${limits}`;
 
     try {
       const config = {
@@ -195,6 +200,8 @@ function EmployeeManagementPage() {
       };
 
       const response = await axios.get(baseURL, config);
+
+      console.log(response);
       const { data } = response.data;
       // console.log("APIs Data:", data);
 
@@ -228,7 +235,7 @@ function EmployeeManagementPage() {
   };
 
   // const fetchApprovalStatus = async () => {
-  //   const baseURL = `/mile/employee?devisionCode=${isActiveTabs}&page=${page}&size=${limits}&employeeStatus=${approvalText}`;
+  //   const baseURL = `/mile/employee?divisionCode=${isActiveTabs}&page=${page}&size=${limits}&employeeStatus=${approvalText}`;
   //   try {
   //     const config = {
   //       headers: {
@@ -256,6 +263,7 @@ function EmployeeManagementPage() {
   // };
 
   // debounced
+
   const myDebounce = (cb, d) => {
     let timer;
     return function (...args) {
@@ -264,6 +272,62 @@ function EmployeeManagementPage() {
         cb(...args);
       }, d);
     };
+  };
+
+  // search APIs call
+  const handleSearchAPIs = async (newPage) => {
+    const filterRename = selectDropdownFilterText.toLowerCase();
+    let filterOption = "";
+
+    const filterOptionsMap = {
+      "mile id": "mileId",
+      "employee name": "employeeName",
+      "location name": "location",
+      "mobile number": "mobileNumber",
+    };
+
+    filterOption = filterOptionsMap[filterRename];
+
+    if (filterOption && inputFields !== "") {
+      console.log(filterOption);
+      // const baseURL = `/data.json`;
+      const baseURL = `/mile/employee?divisionCode=${isActiveTabs}&page=${newPage}&size=${limits}&${filterOption}=${inputFields}`;
+
+      try {
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authorization}`,
+            Accesstoken: accessToken,
+          },
+        };
+
+        const response = await axios.get(baseURL, config);
+        const { data } = response.data;
+        console.log("APIs Data:", data);
+
+        // setTotalDataLength(data.totalRecords);
+
+        // setTotalPages(data.totalPages);
+
+        // setPage(data.currentPage);
+
+        setTableData(data.data);
+
+        // return data.data;
+
+        setTotalDataLength(data.totalRecords);
+
+        setTotalPages(data.totalPages);
+
+        // setPage(data.currentPage);
+
+        return data.data;
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setTableData([]); // Clear table data on error
+      }
+    }
   };
 
   // searching
@@ -276,63 +340,9 @@ function EmployeeManagementPage() {
       fetchDataForPage(page);
       return;
     } else {
+      setSearchResultsItems([...searchResultsItems, { name: inputFields }]);
 
-      const filterSearchPrevious = searchResultsItems.filter((ele)=>{
-        if(ele.name === inputFields) {
-          return;
-        } else {
-          return inputFields;
-        }
-      })
-
-      console.log(filterSearchPrevious)
-
-      // setSearchResultsItems([...searchResultsItems, { name: inputFields }]);
-
-      const filterRename = selectDropdownFilterText.toLowerCase();
-      let filterOption = "";
-
-      const filterOptionsMap = {
-        "mile id": "mileId",
-        "employee name": "employeeName",
-        "location name": "location",
-        "mobile number": "mobileNumber",
-      };
-
-      filterOption = filterOptionsMap[filterRename];
-
-      if (filterOption && inputFields !== "") {
-        console.log(filterOption);
-        // const baseURL = `/data.json`;
-        const baseURL = `/mile/employee?devisionCode=${isActiveTabs}&page=${page}&size=${limits}&${filterOption}=${inputFields}`;
-
-        try {
-          const config = {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${authorization}`,
-              Accesstoken: accessToken,
-            },
-          };
-
-          const response = await axios.get(baseURL, config);
-          const { data } = response.data;
-          console.log("APIs Data:", data);
-
-          setTotalDataLength(data.totalRecords);
-
-          setTotalPages(data.totalPages);
-
-          setPage(data.currentPage);
-
-          return setTableData(data.data);
-
-          // return data.data;
-        } catch (error) {
-          console.error("Error fetching data:", error);
-          return [];
-        }
-      }
+      handleSearchAPIs(page);
     }
   }, 500);
 
@@ -349,14 +359,14 @@ function EmployeeManagementPage() {
       // }
 
       // else {
-      if (inputFields === "") {
-        setTableData(newData);
-      }
+      setTableData(newData);
 
       // }
     };
 
-    fetchData();
+    if (inputFields === "") {
+      fetchData();
+    }
   }, [page, limits, isActiveTabs, inputFields, approvalText]);
 
   // pagination items
@@ -917,11 +927,14 @@ function EmployeeManagementPage() {
                             borderColor:
                               theme === "light" ? "#B5B5B6" : "#545454",
                             color: theme === "light" ? "#545454" : "#a3a3a3",
-                            cursor: "pointer",
                           }}
-                          onClick={() => handlePreviousDataFetching(ele.name)}
                         >
-                          {ele.name}
+                          <span
+                          style={{cursor: "pointer",}}
+                            onClick={() => handlePreviousDataFetching(ele.name)}
+                          >
+                            {ele.name}
+                          </span>
                           {/* icons */}
                           <span
                             style={{ cursor: "pointer" }}
@@ -1025,7 +1038,8 @@ function EmployeeManagementPage() {
           />
         </div>
         {/* pagination */}
-        {totalDataLength > 9 && (
+        {/* tableData.length */}
+        {totalDataLength > 9 ? (
           <div
             className={`paginationContainer ${
               theme === "light" ? "light" : "dark"
@@ -1135,6 +1149,21 @@ function EmployeeManagementPage() {
                             : "#858585",
                       }}
                       onClick={() => onPageChanged(value)}
+                      // style={{
+                      //   borderColor:
+                      //     value === page + 1
+                      //       ? "#FF3E5B"
+                      //       : theme === "light"
+                      //       ? "#b5b5b6"
+                      //       : "#858585",
+                      //   color:
+                      //     value === page + 1
+                      //       ? "#FF3E5B"
+                      //       : theme === "light"
+                      //       ? "#b5b5b6"
+                      //       : "#858585",
+                      // }}
+                      // onClick={() => onPageChanged(value)}
                     >
                       {value}
                     </button>
@@ -1174,7 +1203,7 @@ function EmployeeManagementPage() {
               </button>
             </div>
           </div>
-        )}
+        ) : null}
       </div>
       {/* footers */}
       {!paginationItems && (
@@ -1212,12 +1241,12 @@ function EmployeeManagementPage() {
         employeeDrawerData={employeeDrawerData}
       />
       {/* Table View Drawer */}
-      <ViewDrawer
+      {/* <ViewDrawer
         tableViewDrawer={tableViewDrawer}
         setTableViewDrawer={setTableViewDrawer}
         // data
         selectTableView={selectTableView}
-      />
+      /> */}
     </>
   );
 }
